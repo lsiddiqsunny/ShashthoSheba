@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import './homePage.dart';
 import './loginPage.dart';
 import './registerPage.dart';
+import './tabbedPages.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       initialRoute: LoginPage.routeName,
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
-        HomePage.routeName: (context) => HomePage(),
+        TabbedPages.routeName: (context) => TabbedPages(),
         RegisterPage.routeName: (context) => RegisterPage(),
       },
     );

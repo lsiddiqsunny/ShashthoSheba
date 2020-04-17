@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './homePage.dart';
+import './tabbedPages.dart';
 import './registerPage.dart';
 
 class LoginPage extends StatelessWidget {
@@ -8,7 +8,7 @@ class LoginPage extends StatelessWidget {
 
   void loginAction(BuildContext context) {
     print('Login Button Pressed');
-    Navigator.pushNamed(context, HomePage.routeName);
+    Navigator.pushNamed(context, TabbedPages.routeName);
   }
 
   @override
