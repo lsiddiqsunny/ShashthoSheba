@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 
-import './homePage.dart';
-import './registerPage.dart';
+class RegisterPage extends StatelessWidget {
+  static const routeName = '/register';
 
-class LoginPage extends StatelessWidget {
-  static const routeName = '/';
-
-  void loginAction(BuildContext context) {
-    print('Login Button Pressed');
-    Navigator.pushNamed(context, HomePage.routeName);
+  void registerAction(BuildContext context) {
+    print('Register button pressed');
   }
 
   @override
@@ -28,7 +24,7 @@ class LoginPage extends StatelessWidget {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Login',
+                        'Register',
                         style: TextStyle(
                           fontSize: 28,
                         ),
@@ -39,7 +35,16 @@ class LoginPage extends StatelessWidget {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'User ID',
+                        labelText: 'Name',
+                        hasFloatingPlaceholder: true,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Mobile No.',
                         hasFloatingPlaceholder: true,
                       ),
                     ),
@@ -53,26 +58,23 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Confirm Password',
+                        hasFloatingPlaceholder: true,
+                      ),
+                    ),
+                    SizedBox(
                       height: 15,
                     ),
                     Align(
                       alignment: Alignment.centerRight,
                       child: RaisedButton(
-                        onPressed: () => loginAction(context),
-                        child: Text('Login'),
+                        onPressed: () => registerAction(context),
+                        child: Text('Register'),
                       ),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text('Don\'t have an account?'),
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, RegisterPage.routeName);
-                          },
-                          child: Text('Register'),
-                        ),
-                      ],
                     ),
                   ],
                 ),
