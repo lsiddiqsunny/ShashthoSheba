@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatelessWidget {
+enum Sex { male, female }
+
+class RegisterPage extends StatefulWidget {
   static const routeName = '/register';
+
+  @override
+  _RegisterPageState createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  Sex _sex = Sex.male;
 
   void registerAction(BuildContext context) {
     print('Register button pressed');
@@ -42,10 +51,56 @@ class RegisterPage extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Gender:',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Radio(
+                          value: Sex.male,
+                          groupValue: _sex,
+                          onChanged: (Sex value) {
+                            setState(() {
+                              _sex = value;
+                            });
+                          },
+                        ),
+                        Text('Male'),
+                        Radio(
+                          value: Sex.female,
+                          groupValue: _sex,
+                          onChanged: (Sex value) {
+                            setState(() {
+                              _sex = value;
+                            });
+                          },
+                        ),
+                        Text('Female'),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: 'Mobile No.',
                         hasFloatingPlaceholder: true,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Date of Birth',
+                        hasFloatingPlaceholder: true,
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.date_range),
+                          onPressed: () {
+                            print("icon pressed");
+                          },
+                        ),
                       ),
                     ),
                     SizedBox(
