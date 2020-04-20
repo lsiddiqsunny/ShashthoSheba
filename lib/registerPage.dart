@@ -12,9 +12,10 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   Sex _sex = Sex.male;
-  TextEditingController _dob = TextEditingController();
   DateTime _selectedDate;
   final _formKey = GlobalKey<FormState>();
+  final _dob = TextEditingController();
+  final _pass = TextEditingController();
 
   void registerAction(BuildContext context) {
     print('Register button pressed');
@@ -148,19 +149,34 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 20,
                       ),
                       TextFormField(
+                        controller: _pass,
+                        obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Password',
                           hasFloatingPlaceholder: true,
                         ),
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return "Please provide a password";
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       TextFormField(
+                        obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Confirm Password',
                           hasFloatingPlaceholder: true,
                         ),
+                        validator: (value) {
+                          if(value != _pass.text) {
+                            return 'Password does not match';
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(
                         height: 15,
