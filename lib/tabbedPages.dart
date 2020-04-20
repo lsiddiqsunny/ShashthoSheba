@@ -81,6 +81,7 @@ class _TabbedPagesState extends State<TabbedPages>
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Log Out'),
+              onTap: () => Navigator.popUntil(context, ModalRoute.withName('/')),
             ),
           ],
         ),
