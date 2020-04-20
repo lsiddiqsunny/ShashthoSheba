@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 enum Sex { male, female }
 
@@ -11,6 +12,8 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   Sex _sex = Sex.male;
+  TextEditingController dob = TextEditingController();
+  DateTime _selectedDate;
 
   void registerAction(BuildContext context) {
     print('Register button pressed');
@@ -92,16 +95,32 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 20,
                     ),
                     TextFormField(
+                      readOnly: true,
+                      controller: dob,
                       decoration: InputDecoration(
                         labelText: 'Date of Birth',
                         hasFloatingPlaceholder: true,
-                        suffixIcon: IconButton(
-                          icon: Icon(Icons.date_range),
-                          onPressed: () {
-                            print("icon pressed");
-                          },
-                        ),
+                        suffixIcon: Icon(Icons.date_range),
                       ),
+                      onTap: () async {
+                        DateTime selectedDate = await showDatePicker(
+                            context: context,
+                            firstDate: DateTime.now().subtract(
+                              Duration(
+                                days: 36500,
+                              ),
+                            ),
+                            initialDate: _selectedDate == null
+                                ? DateTime.now()
+                                : _selectedDate,
+                            initialDatePickerMode: DatePickerMode.year,
+                            lastDate: DateTime.now());
+                        if (selectedDate != null) {
+                          _selectedDate = selectedDate;
+                          setState(() => dob.text =
+                              DateFormat.yMMMMd('en_US').format(_selectedDate));
+                        }
+                      },
                     ),
                     SizedBox(
                       height: 20,
