@@ -5,18 +5,21 @@ class HomeTab extends StatelessWidget {
   final entries = [
     {
       'dateTime': DateTime.now(),
-      'doctor': 'Dr.Shahidul',
+      'pname': 'Ahsanul Kabir',
       'payment': true,
+      'serial': 2,
     },
     {
       'dateTime': DateTime.now(),
-      'doctor': 'Dr.Rafiqul',
+      'pname': 'Waqar Hassan Khan',
       'payment': false,
+      'serial': 1,
     },
     {
       'dateTime': DateTime.now(),
-      'doctor': 'Dr.Shirajul',
+      'pname': 'Afsara Benazir',
       'payment': true,
+      'serial': 4
     }
   ];
 
@@ -26,7 +29,7 @@ class HomeTab extends StatelessWidget {
       padding: EdgeInsets.only(top: 10),
       children: <Widget>[
         Text(
-          'Upcoming',
+          'Today Appointments',
           style: TextStyle(fontSize: 28),
           textAlign: TextAlign.center,
         ),
@@ -34,10 +37,10 @@ class HomeTab extends StatelessWidget {
           return Card(
             child: ListTile(
               contentPadding: EdgeInsets.only(left: 8, right: 8),
-              title: Text(DateFormat.yMMMMd('en_US').format(entry['dateTime'])),
-              subtitle: Text(DateFormat.jm().format(entry['dateTime']) +
+              title: Text('Serial No:' + entry['serial'].toString()),
+              subtitle: Text(  'Patient Name: ' + entry['pname'] +
                   '\n' +
-                  entry['doctor']),
+                  DateFormat.jm().format(entry['dateTime'])),
               isThreeLine: true,
               trailing: Text(
                 'Payment:\n' + (entry['payment'] ? 'Done' : 'Pending'),
