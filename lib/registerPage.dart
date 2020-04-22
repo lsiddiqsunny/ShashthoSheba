@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-enum Sex { male, female }
+import './models/patient.dart';
 
 class RegisterPage extends StatefulWidget {
   static const routeName = '/register';
@@ -11,14 +13,39 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  Sex _sex = Sex.male;
+  String _sex = 'male';
   DateTime _selectedDate;
   final _formKey = GlobalKey<FormState>();
   final _dob = TextEditingController();
   final _pass = TextEditingController();
+  final _name = TextEditingController();
+  final _mobileNo = TextEditingController();
 
-  void registerAction(BuildContext context) {
-    print('Register button pressed');
+  void registerAction(BuildContext context) async {
+    Patient patient = Patient(
+      name: _name.text,
+      mobileNo: _mobileNo.text,
+      dob: _selectedDate,
+      sex: _sex,
+      password: _pass.text,
+    );
+    // print(DateFormat.yMMMMd().format(patient.dob));
+    final http.Response response = await http.post(
+      'http://931d77e9.ngrok.io/patient/post/register',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(patient),
+    );
+    if (response.statusCode == 200) {
+      print('success');
+      Navigator.pop(context);
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      // throw Exception('Failed to register patient');
+      print(response.statusCode);
+    }
   }
 
   @override
@@ -57,12 +84,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 25,
                       ),
                       TextFormField(
+                        controller: _name,
                         decoration: InputDecoration(
                           labelText: 'Name',
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
-                          if(value.isEmpty) {
+                          if (value.isEmpty) {
                             return 'Please enter your name';
                           }
                           return null;
@@ -78,9 +106,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             style: TextStyle(fontSize: 16),
                           ),
                           Radio(
-                            value: Sex.male,
+                            value: 'male',
                             groupValue: _sex,
-                            onChanged: (Sex value) {
+                            onChanged: (String value) {
                               setState(() {
                                 _sex = value;
                               });
@@ -88,9 +116,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           Text('Male'),
                           Radio(
-                            value: Sex.female,
+                            value: 'female',
                             groupValue: _sex,
-                            onChanged: (Sex value) {
+                            onChanged: (String value) {
                               setState(() {
                                 _sex = value;
                               });
@@ -103,12 +131,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 20,
                       ),
                       TextFormField(
+                        controller: _mobileNo,
                         decoration: InputDecoration(
                           labelText: 'Mobile No.',
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
-                          if(value.isEmpty) {
+                          if (value.isEmpty) {
                             return "Please enter your Mobile Number";
                           }
                           return null;
@@ -126,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           suffixIcon: Icon(Icons.date_range),
                         ),
                         validator: (value) {
-                          if(value.isEmpty) {
+                          if (value.isEmpty) {
                             return "Please enter your Date of Birth";
                           }
                           return null;
@@ -163,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
-                          if(value.isEmpty) {
+                          if (value.isEmpty) {
                             return "Please provide a password";
                           }
                           return null;
@@ -179,7 +208,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
-                          if(value != _pass.text) {
+                          if (value != _pass.text) {
                             return 'Password does not match';
                           }
                           return null;
@@ -192,7 +221,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         alignment: Alignment.centerRight,
                         child: RaisedButton(
                           onPressed: () {
-                            if(_formKey.currentState.validate()) {
+                            if (_formKey.currentState.validate()) {
                               registerAction(context);
                             }
                           },

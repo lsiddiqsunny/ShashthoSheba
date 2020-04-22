@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './homeTab.dart';
 import './appointmentsTab.dart';
@@ -81,7 +82,11 @@ class _TabbedPagesState extends State<TabbedPages>
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Log Out'),
-              onTap: () => Navigator.popUntil(context, ModalRoute.withName('/')),
+              onTap: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.remove('jwt');
+                Navigator.popUntil(context, ModalRoute.withName('/'));
+              },
             ),
           ],
         ),
