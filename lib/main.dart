@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import './loginPage.dart';
+import './registerPage.dart';
 import './tabbedPages.dart';
 
 void main() {
@@ -12,9 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: TabbedPages.routeName,
       routes: {
-      
+        LoginPage.routeName: (context) => LoginPage(),
         TabbedPages.routeName: (context) => TabbedPages(),
-      
+        RegisterPage.routeName: (context) => RegisterPage(),
       },
     );
   }

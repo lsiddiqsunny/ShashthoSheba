@@ -1,5 +1,5 @@
-import 'package:first_app/patient.dart';
-import 'package:first_app/patientDetails.dart';
+import './patient.dart';
+import './patientDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

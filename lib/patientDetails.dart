@@ -1,5 +1,5 @@
-import 'package:first_app/patient.dart';
-import 'package:first_app/src/pages/index.dart';
+import './patient.dart';
+import './src/pages/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
