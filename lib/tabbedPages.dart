@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import './homeTab.dart';
 
-
 class TabbedPages extends StatefulWidget {
   static const routeName = '/tabbedpages';
 

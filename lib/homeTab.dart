@@ -1,3 +1,5 @@
+import 'package:first_app/patient.dart';
+import 'package:first_app/patientDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -37,8 +39,22 @@ class HomeTab extends StatelessWidget {
           return Card(
             child: ListTile(
               contentPadding: EdgeInsets.only(left: 8, right: 8),
+              onTap: () {
+                final p =Patient(
+                      pname: entry['pname'],
+                      payment : entry['payment'],
+                      serial : entry['serial'],
+                        dateTime: DateFormat("dd/MM/yyyy — HH:mm").format(entry['dateTime']),);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PatientDetails(patient:p),
+                  ),
+                );
+              },
               title: Text('Serial No:' + entry['serial'].toString()),
-              subtitle: Text(  'Patient Name: ' + entry['pname'] +
+              subtitle: Text('Patient Name: ' +
+                  entry['pname'] +
                   '\n' +
                   DateFormat.jm().format(entry['dateTime'])),
               isThreeLine: true,
