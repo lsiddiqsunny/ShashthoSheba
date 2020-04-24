@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: TabbedPages.routeName,
+      initialRoute: LoginPage.routeName,
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
         TabbedPages.routeName: (context) => TabbedPages(),

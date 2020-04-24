@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import './patient.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
   static const routeName = '/register';
@@ -13,14 +11,15 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String _sex = 'male';
-  DateTime _selectedDate;
   final _formKey = GlobalKey<FormState>();
-  final _dob = TextEditingController();
   final _pass = TextEditingController();
   final _name = TextEditingController();
   final _mobileNo = TextEditingController();
-
+  final _email = TextEditingController();
+  final _institution = TextEditingController();
+  final _designation = TextEditingController();
+  final _reg_number = TextEditingController();
+  static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   void registerAction(BuildContext context) async {
     // Patient patient = Patient(
     //   name: _name.text,
@@ -31,26 +30,25 @@ class _RegisterPageState extends State<RegisterPage> {
     // );
     // print(DateFormat.yMMMMd().format(patient.dob));
     final http.Response response = await http.post(
-      'http://931d77e9.ngrok.io/patient/post/register',
+      'https://50b80655.ngrok.io/doctor/post/register',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      //body: jsonEncode(patient),
+      body: jsonEncode({'name': _name.text, 'password': _pass.text, "email": _email.text, "institution": _institution.text,"designation": _designation.text,"mobile_no": _mobileNo.text, "reg_number" : _reg_number.text}),
     );
     if (response.statusCode == 200) {
-      print('success');
+      //_scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Registration successful!"),));
       Navigator.pop(context);
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
       // throw Exception('Failed to register patient');
-      print(response.statusCode);
+      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Registration unsuccessful!"),));
     }
   }
 
   @override
   void dispose() {
-    _dob.dispose();
     _pass.dispose();
     super.dispose();
   }
@@ -58,6 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(),
       body: Center(
         child: Form(
@@ -97,38 +96,23 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            'Gender:',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          Radio(
-                            value: 'male',
-                            groupValue: _sex,
-                            onChanged: (String value) {
-                              setState(() {
-                                _sex = value;
-                              });
-                            },
-                          ),
-                          Text('Male'),
-                          Radio(
-                            value: 'female',
-                            groupValue: _sex,
-                            onChanged: (String value) {
-                              setState(() {
-                                _sex = value;
-                              });
-                            },
-                          ),
-                          Text('Female'),
-                        ],
+                      TextFormField(
+                        controller: _email,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          hasFloatingPlaceholder: true,
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       TextFormField(
                         controller: _mobileNo,
@@ -144,46 +128,57 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       TextFormField(
-                        readOnly: true,
-                        controller: _dob,
+                        controller: _institution,
                         decoration: InputDecoration(
-                          labelText: 'Date of Birth',
+                          labelText: 'Institution',
                           hasFloatingPlaceholder: true,
-                          suffixIcon: Icon(Icons.date_range),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return "Please enter your Date of Birth";
+                            return 'Please enter your institution';
                           }
                           return null;
                         },
-                        onTap: () async {
-                          DateTime selectedDate = await showDatePicker(
-                              context: context,
-                              firstDate: DateTime.now().subtract(
-                                Duration(
-                                  days: 36500,
-                                ),
-                              ),
-                              initialDate: _selectedDate == null
-                                  ? DateTime.now()
-                                  : _selectedDate,
-                              initialDatePickerMode: DatePickerMode.year,
-                              lastDate: DateTime.now());
-                          if (selectedDate != null) {
-                            _selectedDate = selectedDate;
-                            setState(() => _dob.text =
-                                DateFormat.yMMMMd('en_US')
-                                    .format(_selectedDate));
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        controller: _designation,
+                        decoration: InputDecoration(
+                          labelText: 'Designation',
+                          hasFloatingPlaceholder: true,
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your Designation';
                           }
+                          return null;
                         },
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
+                      TextFormField(
+                        controller: _reg_number,
+                        decoration: InputDecoration(
+                          labelText: 'Registration Number',
+                          hasFloatingPlaceholder: true,
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your reg. No.';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      
                       TextFormField(
                         controller: _pass,
                         obscureText: true,
@@ -199,7 +194,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       TextFormField(
                         obscureText: true,

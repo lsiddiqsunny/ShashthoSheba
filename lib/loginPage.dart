@@ -16,7 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _mobileNo = TextEditingController();
   final _pass = TextEditingController();
-
+  static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -25,14 +25,14 @@ class _LoginPageState extends State<LoginPage> {
 
   void _checkLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(prefs.getString('jwt') != null) {
-        await Navigator.pushNamed(context, TabbedPages.routeName);
+    if (prefs.getString('jwt') != null) {
+      await Navigator.pushNamed(context, TabbedPages.routeName);
     }
   }
 
   void loginAction(BuildContext context) async {
     final http.Response response = await http.post(
-      'http://931d77e9.ngrok.io/patient/post/login',
+      'https://50b80655.ngrok.io/doctor/post/login',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -43,13 +43,14 @@ class _LoginPageState extends State<LoginPage> {
       await prefs.setString('jwt', response.body);
       await Navigator.pushNamed(context, TabbedPages.routeName);
     } else {
-      print(response.statusCode);
+      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Invalid cardinals!"),));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(),
       body: Center(
         child: ListView(
@@ -79,16 +80,28 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: 'Mobile No.',
                         hasFloatingPlaceholder: true,
                       ),
+                      validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your mobile No.';
+                          }
+                          return null;
+                        },
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     TextFormField(
+                      obscureText: true,
                       controller: _pass,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Password',
-                        hasFloatingPlaceholder: true,
                       ),
+                      validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        },
                     ),
                     SizedBox(
                       height: 15,
