@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import './models/patient.dart';
+import './host.dart' as host;
 
 class RegisterPage extends StatefulWidget {
   static const routeName = '/register';
@@ -31,7 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
     // print(DateFormat.yMMMMd().format(patient.dob));
     final http.Response response = await http.post(
-      'http://931d77e9.ngrok.io/patient/post/register',
+      host.loc + '/patient/post/register',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

@@ -9,10 +9,17 @@ class Patient {
 
   Patient({this.name, this.mobileNo, this.dob, this.sex, this.password});
 
+  Patient.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        mobileNo = json['mobile_no'],
+        dob = json['date_of_birth'],
+        sex = json['sex'],
+        password = json['password'];
+
   Map<String, dynamic> toJson() => {
         'name': name,
         'mobile_no': mobileNo,
-        'date_of_birth': DateFormat.yMd().format(dob),
+        'date_of_birth': DateFormat("yyyy-MM-dd").format(dob),
         'sex': sex,
         'password': password
       };
