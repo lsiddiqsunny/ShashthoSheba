@@ -5,8 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import 'host.dart' as host;
-import './models/appointment.dart';
+import '../../host.dart' as host;
+import '../../models/appointment.dart';
+import '../../models/transaction.dart';
 
 class HomeTab extends StatelessWidget {
   @override
@@ -78,36 +79,42 @@ class _AppointmentListState extends State<_AppointmentList> {
             children: <Widget>[
               ListTile(
                 title: Text('Payment Status'),
-                subtitle:
-                    Text(item.appointment.status ? 'Done' : 'Not Provided'),
+                subtitle: Text(item.appointment.status
+                    ? 'Done'
+                    : item.transactions.isEmpty
+                        ? 'Not Provided'
+                        : 'Awaiting Approval'),
                 trailing: RaisedButton(
                   child: Text('Add Payment'),
                   onPressed: item.appointment.status
                       ? null
                       : () async {
-                          _Transaction transaction =
-                              await showDialog<_Transaction>(
+                          Transaction transaction =
+                              await showDialog<Transaction>(
                             context: context,
                             barrierDismissible: true,
                             builder: (context) {
                               return AlertDialog(
                                 title: Text('New Transaction'),
-                                content: _TransactionForm(),
+                                content: TransactionForm(),
                               );
                             },
                           );
-                          setState(() {
-                            if (transaction != null) {
-                              item.transactions.add(transaction);
+                          if (transaction != null) {
+                            transaction.appointmentId = item.appointment.id;
+                            if (await _addTransaction(transaction)) {
+                              setState(() {
+                                item.transactions.add(transaction);
+                              });
                             }
-                          });
+                          }
                         },
                 ),
               ),
               ...item.transactions.map<ListTile>((transaction) {
                 return ListTile(
                   title: Text('Transaction ID:'),
-                  subtitle: Text(transaction.trxId),
+                  subtitle: Text(transaction.transactionId),
                   trailing: Text(transaction.amount.toString() + '/='),
                 );
               }).toList(),
@@ -120,15 +127,22 @@ class _AppointmentListState extends State<_AppointmentList> {
   }
 }
 
-class _TransactionForm extends StatefulWidget {
+class TransactionForm extends StatefulWidget {
   @override
-  _TransactionFormState createState() => _TransactionFormState();
+  TransactionFormState createState() => TransactionFormState();
 }
 
-class _TransactionFormState extends State<_TransactionForm> {
+class TransactionFormState extends State<TransactionForm> {
   final _formKey = GlobalKey<FormState>();
-  final _trxIdController = TextEditingController();
-  final _trxAmountController = TextEditingController();
+  final _transactionIdController = TextEditingController();
+  final _transactionAmountController = TextEditingController();
+
+  @override
+  void dispose() {
+    _transactionAmountController.dispose();
+    _transactionIdController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,14 +152,14 @@ class _TransactionFormState extends State<_TransactionForm> {
         child: Column(
           children: <Widget>[
             TextFormField(
-              controller: _trxIdController,
+              controller: _transactionIdController,
               decoration: InputDecoration(
                 labelText: 'Transaction ID',
                 hasFloatingPlaceholder: true,
               ),
             ),
             TextFormField(
-              controller: _trxAmountController,
+              controller: _transactionAmountController,
               decoration: InputDecoration(
                 labelText: 'Amount',
                 hasFloatingPlaceholder: true,
@@ -162,10 +176,11 @@ class _TransactionFormState extends State<_TransactionForm> {
                     child: Text('Submit'),
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        _Transaction transaction = _Transaction(
-                            _trxIdController.text,
-                            int.parse(_trxAmountController.text));
-                        Navigator.pop<_Transaction>(context, transaction);
+                        Transaction transaction = Transaction(
+                            transactionId: _transactionIdController.text,
+                            amount:
+                                int.parse(_transactionAmountController.text));
+                        Navigator.pop<Transaction>(context, transaction);
                       }
                     },
                   ),
@@ -179,18 +194,10 @@ class _TransactionFormState extends State<_TransactionForm> {
   }
 }
 
-
-class _Transaction {
-  String trxId;
-  int amount;
-
-  _Transaction(this.trxId, this.amount);
-}
-
 class _Item {
   Appointment appointment;
   bool isExpanded;
-  List<_Transaction> transactions = [];
+  List<Transaction> transactions = [];
 
   _Item({
     this.appointment,
@@ -221,12 +228,32 @@ Future<List<Appointment>> _getList() async {
     return compute(_parseData, response.body);
   } else {
     print(response.statusCode);
+    return [];
   }
 }
 
 List<Appointment> _parseData(String responseBody) {
-    final data = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return data.map<Appointment>((json) {
-      return Appointment.fromJson(json);
-    }).toList();
+  final data = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+  return data.map<Appointment>((json) {
+    return Appointment.fromJson(json);
+  }).toList();
+}
+
+Future<bool> _addTransaction(Transaction transaction) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final http.Response response = await http.post(
+    host.loc + '/patient/add/transaction',
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer ' + prefs.getString('jwt'),
+    },
+    body: jsonEncode(transaction),
+  );
+  if (response.statusCode == 200) {
+    print('success');
+    return true;
+  } else {
+    print(response.statusCode);
+    return false;
+  }
 }

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import './homeTab.dart';
-import './appointmentsTab.dart';
-import './searchDoctorTab.dart';
+import './home/homeTab.dart';
+import './appointments/appointmentsTab.dart';
+import './search/searchDoctorTab.dart';
 
-class TabbedPages extends StatefulWidget {
+class MainPage extends StatefulWidget {
   static const routeName = '/tabbedpages';
 
   @override
   _TabbedPagesState createState() => _TabbedPagesState();
 }
 
-class _TabbedPagesState extends State<TabbedPages>
+class _TabbedPagesState extends State<MainPage>
     with SingleTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
     Tab(

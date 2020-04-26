@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import './tabbedPages.dart';
+import './mainPage.dart';
 import './registerPage.dart';
-import './host.dart' as host;
+import '../host.dart' as host;
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/';
@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if(prefs.getString('jwt') != null) {
         print(prefs.getString('jwt'));
-        Navigator.pushNamed(context, TabbedPages.routeName);
+        Navigator.pushNamed(context, MainPage.routeName);
     }
   }
 
@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     if (response.statusCode == 200) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('jwt', response.body);
-      Navigator.pushNamed(context, TabbedPages.routeName);
+      Navigator.pushNamed(context, MainPage.routeName);
     } else {
       print(response.statusCode);
     }

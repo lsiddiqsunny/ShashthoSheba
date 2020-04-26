@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import './models/patient.dart';
-import './host.dart' as host;
+import '../models/patient.dart';
+import '../host.dart' as host;
 
 class RegisterPage extends StatefulWidget {
   static const routeName = '/register';
@@ -42,9 +42,6 @@ class _RegisterPageState extends State<RegisterPage> {
       print('success');
       Navigator.pop(context);
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      // throw Exception('Failed to register patient');
       print(response.statusCode);
     }
   }
