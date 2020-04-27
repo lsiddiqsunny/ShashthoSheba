@@ -1,4 +1,3 @@
-import 'package:Doctor/src/pages/call.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import './patient.dart';
@@ -6,6 +5,9 @@ import './patient.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'VideoChat.dart';
+import 'package:random_string/random_string.dart';
+import 'dart:math' show Random;
 class PatientDetails extends StatelessWidget {
   final Patient patient;
 
@@ -42,8 +44,8 @@ class PatientDetails extends StatelessWidget {
                 await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CallPage(
-                      channelName: patient.serial,
+                    builder: (context) => VideoChat(
+                      path: randomAlphaNumeric(10),
                     ),
                   ),
                 );
@@ -57,7 +59,7 @@ class PatientDetails extends StatelessWidget {
 
   Future<void> _handleCameraAndMic() async {
     await PermissionHandler().requestPermissions(
-      [PermissionGroup.camera, PermissionGroup.microphone],
+      [PermissionGroup.camera, PermissionGroup.microphone,PermissionGroup.mediaLibrary],
     );
   }
 }
