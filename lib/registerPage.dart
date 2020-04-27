@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
     // );
     // print(DateFormat.yMMMMd().format(patient.dob));
     final http.Response response = await http.post(
-      'https://50b80655.ngrok.io/doctor/post/register',
+      'http://192.168.0.101:3000/doctor/post/register',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

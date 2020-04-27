@@ -1,20 +1,28 @@
+import 'package:Doctor/doctor.dart';
+import 'package:Doctor/referPage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './homeTab.dart';
 
 class TabbedPages extends StatefulWidget {
   static const routeName = '/tabbedpages';
-
+  final Doctor doctor;
+  final  entries;
+  TabbedPages({this.doctor,this.entries});
   @override
-  _TabbedPagesState createState() => _TabbedPagesState();
+  _TabbedPagesState createState() => _TabbedPagesState(doctor: this.doctor,entries:this.entries);
 }
 
 class _TabbedPagesState extends State<TabbedPages>
     with SingleTickerProviderStateMixin {
+  final Doctor doctor;
+  final  entries;
+  _TabbedPagesState({this.doctor,this.entries});
   final List<Tab> myTabs = <Tab>[
     Tab(
-      text: 'Home',
-      icon: Icon(Icons.home),
+      text: 'Today\'s Appointment',
+      icon: Icon(Icons.work),
     ),
   ];
 
@@ -23,6 +31,7 @@ class _TabbedPagesState extends State<TabbedPages>
   @override
   void initState() {
     super.initState();
+    //print(entries);
     _tabController = TabController(
       vsync: this,
       length: myTabs.length,
@@ -62,7 +71,7 @@ class _TabbedPagesState extends State<TabbedPages>
                     height: 10,
                   ),
                   Text(
-                    'Guest',
+                    doctor.name,
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -71,13 +80,23 @@ class _TabbedPagesState extends State<TabbedPages>
               ),
             ),
             ListTile(
+                leading: Icon(Icons.add),
+                title: Text('Refer'),
+                onTap: () {
+                  Navigator.pushNamed(context, ReferPage.routeName);
+                }),
+            ListTile(
               leading: Icon(Icons.settings),
               title: Text('Settings'),
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Log Out'),
-              onTap: () => Navigator.popUntil(context, ModalRoute.withName('/')),
+              onTap: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.setString('jwt', "");
+                Navigator.popUntil(context, ModalRoute.withName('/'));
+              },
             ),
           ],
         ),
@@ -85,8 +104,7 @@ class _TabbedPagesState extends State<TabbedPages>
       body: TabBarView(
         controller: _tabController,
         children: [
-          HomeTab(),
-          
+          HomeTab(doctor: doctor,data:entries),
         ],
       ),
     );

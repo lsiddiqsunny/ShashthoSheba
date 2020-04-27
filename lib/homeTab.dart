@@ -1,3 +1,5 @@
+import 'package:Doctor/doctor.dart';
+
 import './patient.dart';
 import './patientDetails.dart';
 import 'package:flutter/material.dart';
@@ -24,48 +26,53 @@ class HomeTab extends StatelessWidget {
       'serial': 4
     }
   ];
+  final Doctor doctor;
+  final data;
+  HomeTab({this.doctor, this.data});
+  
+  _buildListItem(var entry, BuildContext context) {
+    return Card(
+      child: ListTile(
+        contentPadding: EdgeInsets.only(left: 8, right: 8),
+        onTap: () {
+          //print(data[0]["appointment_detail"][]);
+          final p = Patient(
+            pname: entry["patient_detail"]['name'],
+            payment: entry["appointment_detail"]['status'],
+            serial: entry["appointment_detail"]['_id'],
+            dateTime: DateFormat("dd/MM/yyyy — HH:mm")
+                .format(DateTime.now()),
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PatientDetails(patient: p),
+            ),
+          );
+        },
+        //title: Text('Serial No:' + entry['serial'].toString()),
+        subtitle: Text('Patient Name: ' +
+            entry["patient_detail"]['name'] +
+            '\n' +
+            DateFormat.jm()
+                .format(DateTime.now())),
+        isThreeLine: true,
+        trailing: Text(
+          'Payment:\n' +
+              (entry["appointment_detail"]['status'] ? 'Done' : 'Pending'),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.only(top: 10),
-      children: <Widget>[
-        Text(
-          'Today Appointments',
-          style: TextStyle(fontSize: 28),
-          textAlign: TextAlign.center,
-        ),
-        ...entries.map((entry) {
-          return Card(
-            child: ListTile(
-              contentPadding: EdgeInsets.only(left: 8, right: 8),
-              onTap: () {
-                final p =Patient(
-                      pname: entry['pname'],
-                      payment : entry['payment'],
-                      serial : entry['serial'],
-                        dateTime: DateFormat("dd/MM/yyyy — HH:mm").format(entry['dateTime']),);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PatientDetails(patient:p),
-                  ),
-                );
-              },
-              title: Text('Serial No:' + entry['serial'].toString()),
-              subtitle: Text('Patient Name: ' +
-                  entry['pname'] +
-                  '\n' +
-                  DateFormat.jm().format(entry['dateTime'])),
-              isThreeLine: true,
-              trailing: Text(
-                'Payment:\n' + (entry['payment'] ? 'Done' : 'Pending'),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
-        }).toList()
-      ],
+    return ListView.builder(
+      itemBuilder: (BuildContext ctxt, int index) {
+        return _buildListItem(data[index], ctxt);
+      },
+      itemCount: data.length,
     );
   }
 }

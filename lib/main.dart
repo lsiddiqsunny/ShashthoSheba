@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import './loginPage.dart';
 import './registerPage.dart';
 import './tabbedPages.dart';
-
+import './referPage.dart';
 void main() {
   runApp(MyApp());
 }
@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
         LoginPage.routeName: (context) => LoginPage(),
         TabbedPages.routeName: (context) => TabbedPages(),
         RegisterPage.routeName: (context) => RegisterPage(),
+        ReferPage.routeName: (context) => ReferPage(),
       },
     );
   }
