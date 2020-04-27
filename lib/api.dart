@@ -14,8 +14,7 @@ Future<int> patientRegister(Patient patient) async {
 }
 
 Future<http.Response> patientLogin(Map<String, String> body) async {
-  http.Response response =
-      await _post('/patient/post/login', false, body);
+  http.Response response = await _post('/patient/post/login', false, body);
   return response;
 }
 
@@ -32,6 +31,54 @@ Future<int> addTransaction(Transaction transaction) async {
 
 Future<http.Response> fetchTransactions(Map<String, String> body) async {
   http.Response response = await _post('/patient/get/transaction/', true, body);
+  return response;
+}
+
+Future<http.Response> fetchDoctors(int limit, int page) async {
+  http.Response response = await _get(
+      '/doctor/list/all/' + limit.toString() + '/' + page.toString(), false);
+  return response;
+}
+
+Future<http.Response> fetchDoctorsByName(
+    int limit, int page, String name) async {
+  http.Response response = await _get(
+    '/doctor/search/name/' +
+        name +
+        '/' +
+        limit.toString() +
+        '/' +
+        page.toString(),
+    false,
+  );
+  return response;
+}
+
+Future<http.Response> fetchDoctorsByHospital(
+    int limit, int page, String hospital) async {
+  http.Response response = await _get(
+    '/doctor/search/hospital_name/' +
+        hospital +
+        '/' +
+        limit.toString() +
+        '/' +
+        page.toString(),
+    false,
+  );
+  return response;
+}
+
+Future<http.Response> fetchDoctorsBySpeciality(
+    int limit, int page, String speciality) async {
+  http.Response response = await _get(
+    '/doctor/search/specialization/' +
+        speciality +
+        '/' +
+        limit.toString() +
+        '/' +
+        page.toString(),
+    false,
+  );
   return response;
 }
 

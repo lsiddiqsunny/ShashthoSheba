@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import './doctorModel.dart';
 
 class SearchDoctorTab extends StatelessWidget {
   @override
@@ -15,162 +18,164 @@ class MySearchPage extends StatefulWidget {
   _MySearchPageState createState() => new _MySearchPageState();
 }
 
-enum Filter { name, hospital, speciality }
-
 class _MySearchPageState extends State<MySearchPage> {
   TextEditingController editingController = TextEditingController();
   Filter filter = Filter.name;
 
-  final duplicateItems = List<String>.generate(10000, (i) => "Item $i");
-  var items = List<String>();
-
-  @override
-  void initState() {
-    super.initState();
-    items.addAll(duplicateItems);
-  }
-
-  void filterSearchResults(String query) {
-    List<String> dummySearchList = List<String>();
-    dummySearchList.addAll(duplicateItems);
-    if (query.isNotEmpty) {
-      List<String> dummyListData = List<String>();
-      dummySearchList.forEach((item) {
-        if (item.contains(query)) {
-          dummyListData.add(item);
-        }
-      });
-      setState(() {
-        items.clear();
-        items.addAll(dummyListData);
-      });
-      return;
-    } else {
-      setState(() {
-        items.clear();
-        items.addAll(duplicateItems);
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Search By',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-            ),
-            ButtonBar(
-              alignment: MainAxisAlignment.center,
+    return Container(
+      child: ChangeNotifierProvider(
+        create: (context) => DoctorModel(10),
+        child: Builder(
+          builder: (context) {
+            DoctorModel doctorModel = Provider.of<DoctorModel>(context);
+            return Column(
               children: <Widget>[
-                AnimatedCrossFade(
-                  firstChild: OutlineButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        filter = Filter.name;
-                      });
-                    },
-                    icon: Icon(Icons.person_outline),
-                    label: Text('Doctor'),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Search By',
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.blue,
+                      ),
+                    ),
                   ),
-                  secondChild: RaisedButton.icon(
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    icon: Icon(Icons.person_outline),
-                    label: Text('Doctor'),
-                  ),
-                  crossFadeState: filter == Filter.name
-                      ? CrossFadeState.showSecond
-                      : CrossFadeState.showFirst,
-                  duration: Duration(milliseconds: 200),
                 ),
-                AnimatedCrossFade(
-                  firstChild: OutlineButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        filter = Filter.hospital;
-                      });
-                    },
-                    icon: Icon(Icons.local_hospital),
-                    label: Text('Hospital'),
-                  ),
-                  secondChild: RaisedButton.icon(
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    icon: Icon(Icons.local_hospital),
-                    label: Text('Hospital'),
-                  ),
-                  crossFadeState: filter == Filter.hospital
-                      ? CrossFadeState.showSecond
-                      : CrossFadeState.showFirst,
-                  duration: Duration(milliseconds: 200),
+                ButtonBar(
+                  alignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    AnimatedCrossFade(
+                      firstChild: OutlineButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            filter = Filter.name;
+                          });
+                        },
+                        icon: Icon(Icons.person_outline),
+                        label: Text('Doctor'),
+                      ),
+                      secondChild: RaisedButton.icon(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.person_outline),
+                        label: Text('Doctor'),
+                      ),
+                      crossFadeState: filter == Filter.name
+                          ? CrossFadeState.showSecond
+                          : CrossFadeState.showFirst,
+                      duration: Duration(milliseconds: 200),
+                    ),
+                    AnimatedCrossFade(
+                      firstChild: OutlineButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            filter = Filter.hospital;
+                          });
+                        },
+                        icon: Icon(Icons.local_hospital),
+                        label: Text('Hospital'),
+                      ),
+                      secondChild: RaisedButton.icon(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.local_hospital),
+                        label: Text('Hospital'),
+                      ),
+                      crossFadeState: filter == Filter.hospital
+                          ? CrossFadeState.showSecond
+                          : CrossFadeState.showFirst,
+                      duration: Duration(milliseconds: 200),
+                    ),
+                    // AnimatedCrossFade(
+                    //   firstChild: OutlineButton.icon(
+                    //     onPressed: () {
+                    //       setState(() {
+                    //         filter = Filter.speciality;
+                    //       });
+                    //     },
+                    //     icon: Icon(Icons.healing),
+                    //     label: Text('Speciality'),
+                    //   ),
+                    //   secondChild: RaisedButton.icon(
+                    //     onPressed: () {
+                    //       setState(() {});
+                    //     },
+                    //     icon: Icon(Icons.healing),
+                    //     label: Text('Speciality'),
+                    //   ),
+                    //   crossFadeState: filter == Filter.speciality
+                    //       ? CrossFadeState.showSecond
+                    //       : CrossFadeState.showFirst,
+                    //   duration: Duration(milliseconds: 200),
+                    // ),
+                  ],
                 ),
-                AnimatedCrossFade(
-                  firstChild: OutlineButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        filter = Filter.speciality;
-                      });
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onChanged: (value) {
+                      if(value == '') {
+                        doctorModel.fetchDoctors(1);
+                      } else {
+                        doctorModel.fetchDoctors(1, filter: filter, value: value);
+                      }
                     },
-                    icon: Icon(Icons.healing),
-                    label: Text('Speciality'),
+                    controller: editingController,
+                    decoration: InputDecoration(
+                      labelText: "Search",
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                    ),
                   ),
-                  secondChild: RaisedButton.icon(
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    icon: Icon(Icons.healing),
-                    label: Text('Speciality'),
-                  ),
-                  crossFadeState: filter == Filter.speciality
-                      ? CrossFadeState.showSecond
-                      : CrossFadeState.showFirst,
-                  duration: Duration(milliseconds: 200),
                 ),
+                doctorModel.status == Status.loading
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: doctorModel.doctors.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              leading: CircleAvatar(),
+                              title: Text('${doctorModel.doctors[index].name}'),
+                              subtitle: Text(
+                                '${doctorModel.doctors[index].designation}, ' +
+                                    '${doctorModel.doctors[index].institution}\n' +
+                                    '${doctorModel.doctors[index].speciality}',
+                              ),
+                              isThreeLine: true,
+                              trailing: OutlineButton.icon(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.playlist_add,
+                                  color: Colors.blue,
+                                ),
+                                label: Text(
+                                  'Take an\nAppointment',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.blue),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
               ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (value) {
-                  filterSearchResults(value);
-                },
-                controller: editingController,
-                decoration: InputDecoration(
-                  labelText: "Search",
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('${items[index]}'),
-                  );
-                },
-              ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
