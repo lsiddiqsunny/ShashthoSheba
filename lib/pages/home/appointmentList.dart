@@ -36,7 +36,8 @@ class _AppointmentListState extends State<AppointmentList> {
             return ListTile(
               title: Text(DateFormat.jm().format(item.appointment.dateTime)),
               subtitle: Text('with ${item.appointment.doctorName}'),
-              trailing: RaisedButton(
+              trailing: OutlineButton(
+                textColor: Colors.blue,
                 child: Text('Join'),
                 onPressed: null,
               ),
@@ -116,7 +117,8 @@ class _AddTransactionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return OutlineButton(
+      textColor: Colors.blue,
       child: Text('Add Payment'),
       onPressed: item.appointment.status
           ? null

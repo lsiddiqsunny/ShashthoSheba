@@ -36,9 +36,10 @@ class HomeTab extends StatelessWidget {
                   ? AppointmentList(data: snapshot.data)
                   : Center(
                       child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: CircularProgressIndicator(),
-                    ));
+                        padding: const EdgeInsets.all(15.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
             },
           ),
         ],

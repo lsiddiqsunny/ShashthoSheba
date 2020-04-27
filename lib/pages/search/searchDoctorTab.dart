@@ -4,9 +4,9 @@ class SearchDoctorTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MySearchPage(title: 'Doctor Search');
-    
   }
 }
+
 class MySearchPage extends StatefulWidget {
   MySearchPage({Key key, this.title}) : super(key: key);
   final String title;
@@ -15,25 +15,28 @@ class MySearchPage extends StatefulWidget {
   _MySearchPageState createState() => new _MySearchPageState();
 }
 
+enum Filter { name, hospital, speciality }
+
 class _MySearchPageState extends State<MySearchPage> {
   TextEditingController editingController = TextEditingController();
+  Filter filter = Filter.name;
 
   final duplicateItems = List<String>.generate(10000, (i) => "Item $i");
   var items = List<String>();
 
   @override
   void initState() {
-    items.addAll(duplicateItems);
     super.initState();
+    items.addAll(duplicateItems);
   }
 
   void filterSearchResults(String query) {
     List<String> dummySearchList = List<String>();
     dummySearchList.addAll(duplicateItems);
-    if(query.isNotEmpty) {
+    if (query.isNotEmpty) {
       List<String> dummyListData = List<String>();
       dummySearchList.forEach((item) {
-        if(item.contains(query)) {
+        if (item.contains(query)) {
           dummyListData.add(item);
         }
       });
@@ -48,7 +51,6 @@ class _MySearchPageState extends State<MySearchPage> {
         items.addAll(duplicateItems);
       });
     }
-
   }
 
   @override
@@ -58,6 +60,90 @@ class _MySearchPageState extends State<MySearchPage> {
         child: Column(
           children: <Widget>[
             Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Search By',
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.center,
+              children: <Widget>[
+                AnimatedCrossFade(
+                  firstChild: OutlineButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        filter = Filter.name;
+                      });
+                    },
+                    icon: Icon(Icons.person_outline),
+                    label: Text('Doctor'),
+                  ),
+                  secondChild: RaisedButton.icon(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    icon: Icon(Icons.person_outline),
+                    label: Text('Doctor'),
+                  ),
+                  crossFadeState: filter == Filter.name
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  duration: Duration(milliseconds: 200),
+                ),
+                AnimatedCrossFade(
+                  firstChild: OutlineButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        filter = Filter.hospital;
+                      });
+                    },
+                    icon: Icon(Icons.local_hospital),
+                    label: Text('Hospital'),
+                  ),
+                  secondChild: RaisedButton.icon(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    icon: Icon(Icons.local_hospital),
+                    label: Text('Hospital'),
+                  ),
+                  crossFadeState: filter == Filter.hospital
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  duration: Duration(milliseconds: 200),
+                ),
+                AnimatedCrossFade(
+                  firstChild: OutlineButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        filter = Filter.speciality;
+                      });
+                    },
+                    icon: Icon(Icons.healing),
+                    label: Text('Speciality'),
+                  ),
+                  secondChild: RaisedButton.icon(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    icon: Icon(Icons.healing),
+                    label: Text('Speciality'),
+                  ),
+                  crossFadeState: filter == Filter.speciality
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  duration: Duration(milliseconds: 200),
+                ),
+              ],
+            ),
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 onChanged: (value) {
@@ -65,11 +151,12 @@ class _MySearchPageState extends State<MySearchPage> {
                 },
                 controller: editingController,
                 decoration: InputDecoration(
-                    labelText: "Search",
-                    hintText: "Search",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+                  labelText: "Search",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                ),
               ),
             ),
             Expanded(
