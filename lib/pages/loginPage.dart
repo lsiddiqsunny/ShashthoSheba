@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import './mainPage.dart';
 import './registerPage.dart';
-import '../host.dart' as host;
+import '../api.dart' as api;
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/';
@@ -26,20 +25,15 @@ class _LoginPageState extends State<LoginPage> {
 
   void _checkLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(prefs.getString('jwt') != null) {
-        print(prefs.getString('jwt'));
-        Navigator.pushNamed(context, MainPage.routeName);
+    if (prefs.getString('jwt') != null) {
+      print(prefs.getString('jwt'));
+      Navigator.pushNamed(context, MainPage.routeName);
     }
   }
 
   void loginAction(BuildContext context) async {
-    final http.Response response = await http.post(
-      host.loc + '/patient/post/login',
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode({'mobile_no': _mobileNo.text, 'password': _pass.text}),
-    );
+    http.Response response = await api
+        .patientLogin({'mobile_no': _mobileNo.text, 'password': _pass.text});
     if (response.statusCode == 200) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('jwt', response.body);

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import '../../host.dart' as host;
+import '../../api.dart' as api;
 import '../../models/appointment.dart';
 import './item.dart';
 import './appointmentList.dart';
@@ -19,7 +17,7 @@ class HomeTab extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(
               top: 8.0,
-              bottom: 8,
+              bottom: 8.0,
             ),
             child: Text(
               'Appointments Today:',
@@ -36,7 +34,11 @@ class HomeTab extends StatelessWidget {
               }
               return snapshot.hasData
                   ? AppointmentList(data: snapshot.data)
-                  : Center(child: CircularProgressIndicator());
+                  : Center(
+                      child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: CircularProgressIndicator(),
+                    ));
             },
           ),
         ],
@@ -54,16 +56,7 @@ Future<List<Item>> _getData() async {
 }
 
 Future<List<Appointment>> _getList() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  final http.Response response = await http.get(
-    host.loc +
-        '/patient/get/appointment/' +
-        DateFormat("yyyy-MM-dd").format(DateTime.now()),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer ' + prefs.getString('jwt'),
-    },
-  );
+  final http.Response response = await api.fetchTodaysAppointments();
   if (response.statusCode == 200) {
     return compute(_parseData, response.body);
   } else {

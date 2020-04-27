@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import '../models/patient.dart';
-import '../host.dart' as host;
+import '../api.dart' as api;
 
 class RegisterPage extends StatefulWidget {
   static const routeName = '/register';
@@ -30,19 +28,12 @@ class _RegisterPageState extends State<RegisterPage> {
       sex: _sex,
       password: _pass.text,
     );
-    // print(DateFormat.yMMMMd().format(patient.dob));
-    final http.Response response = await http.post(
-      host.loc + '/patient/post/register',
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(patient),
-    );
-    if (response.statusCode == 200) {
+    int statusCode = await api.patientRegister(patient);
+    if (statusCode == 200) {
       print('success');
       Navigator.pop(context);
     } else {
-      print(response.statusCode);
+      print(statusCode);
     }
   }
 

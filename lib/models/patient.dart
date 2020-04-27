@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 
 class Patient {
   final String name;
@@ -19,7 +18,7 @@ class Patient {
   Map<String, dynamic> toJson() => {
         'name': name,
         'mobile_no': mobileNo,
-        'date_of_birth': DateFormat("yyyy-MM-dd").format(dob),
+        'date_of_birth': dob.toString(),
         'sex': sex,
         'password': password
       };

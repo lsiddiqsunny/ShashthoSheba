@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 
 class Appointment {
   String id;
@@ -16,5 +15,5 @@ class Appointment {
         patientMobileNo = json['patient_mobile_no'],
         doctorName = json['doc_name'],
         status = json['status'],
-        dateTime = DateTime.parse(json['appointment_date'] + ' ' + json['appointment_time']);
+        dateTime = DateTime.parse(json['appointment_date_time']);
 }

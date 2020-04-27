@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../models/transaction.dart';
 
-class TransactionForm extends StatefulWidget {
+class AddTransactionForm extends StatefulWidget {
   @override
-  _TransactionFormState createState() => _TransactionFormState();
+  _AddTransactionFormState createState() => _AddTransactionFormState();
 }
 
-class _TransactionFormState extends State<TransactionForm> {
+class _AddTransactionFormState extends State<AddTransactionForm> {
   final _formKey = GlobalKey<FormState>();
   final _transactionIdController = TextEditingController();
   final _transactionAmountController = TextEditingController();
