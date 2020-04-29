@@ -8,11 +8,12 @@ import './patientDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-class HomeTab extends StatelessWidget {
+class FutureTab extends StatelessWidget {
   
   final Doctor doctor;
   final data;
-  HomeTab({this.doctor, this.data});
+  FutureTab({this.doctor, this.data});
+  
   Future<List> getTransaction(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String bearer_token = "Bearer ";

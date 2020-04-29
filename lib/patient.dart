@@ -3,5 +3,6 @@ class Patient {
   bool payment;
   String serial;
   String dateTime;
-  Patient({this.pname, this.payment,this.serial, this.dateTime});
+  List transaction;
+  Patient({this.pname, this.payment,this.serial, this.dateTime,this.transaction});
 }

@@ -1,4 +1,5 @@
 import 'package:Doctor/doctor.dart';
+import 'package:Doctor/futureTab.dart';
 import 'package:Doctor/referPage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,20 +10,26 @@ class TabbedPages extends StatefulWidget {
   static const routeName = '/tabbedpages';
   final Doctor doctor;
   final  entries;
-  TabbedPages({this.doctor,this.entries});
+  final entriesf;
+  TabbedPages({this.doctor,this.entries,this.entriesf});
   @override
-  _TabbedPagesState createState() => _TabbedPagesState(doctor: this.doctor,entries:this.entries);
+  _TabbedPagesState createState() => _TabbedPagesState(doctor: this.doctor,entries:this.entries,entriesf:this.entriesf);
 }
 
 class _TabbedPagesState extends State<TabbedPages>
     with SingleTickerProviderStateMixin {
   final Doctor doctor;
   final  entries;
-  _TabbedPagesState({this.doctor,this.entries});
+  final entriesf;
+  _TabbedPagesState({this.doctor,this.entries,this.entriesf});
   final List<Tab> myTabs = <Tab>[
     Tab(
       text: 'Today\'s Appointment',
       icon: Icon(Icons.work),
+    ),
+    Tab(
+      text: 'Tomorrow\'s Appointment',
+      icon: Icon(Icons.access_alarm),
     ),
   ];
 
@@ -105,6 +112,7 @@ class _TabbedPagesState extends State<TabbedPages>
         controller: _tabController,
         children: [
           HomeTab(doctor: doctor,data:entries),
+          FutureTab(doctor: doctor,data:entriesf),
         ],
       ),
     );

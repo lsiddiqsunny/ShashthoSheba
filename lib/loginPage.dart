@@ -36,10 +36,11 @@ class _LoginPageState extends State<LoginPage> {
           reg_num: prefs.getString('reg_number'),
           referrer: prefs.getString('referrer'));
           final entries= await getAppointemnt();
+          final entriesf=await getFutureAppointemnt ();
       await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TabbedPages(doctor: d,entries: entries,),
+          builder: (context) => TabbedPages(doctor: d,entries: entries,entriesf:entriesf),
         ),
       );
     }
@@ -53,6 +54,26 @@ class _LoginPageState extends State<LoginPage> {
     //print(bearer_token);
     final http.Response response = await http.get(
       'http://192.168.0.104:3000/doctor/get/appointment',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : bearer_token,
+      },
+    );
+    print(response.statusCode );
+    if (response.statusCode == 200) {
+        var parsed = jsonDecode(response.body);
+        return parsed;
+    }
+    return null;
+  }
+Future<List> getFutureAppointemnt() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String bearer_token = "Bearer ";
+    bearer_token+= prefs.getString('jwt');
+
+    //print(bearer_token);
+    final http.Response response = await http.get(
+      'http://192.168.0.104:3000/doctor/get/futureAppointment',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization' : bearer_token,
@@ -98,12 +119,12 @@ class _LoginPageState extends State<LoginPage> {
       await prefs.setString('referrer', doctor['referrer']);
 
       final entries=await getAppointemnt ();
-
+      final entriesf=await getFutureAppointemnt ();
       //await Navigator.pushNamed(context, TabbedPages.routeName);
       await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TabbedPages(doctor: d,entries: entries)
+          builder: (context) => TabbedPages(doctor: d,entries: entries,entriesf: entriesf)
         ),
       );
     } else {
