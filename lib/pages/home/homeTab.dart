@@ -21,9 +21,7 @@ class HomeTab extends StatelessWidget {
             ),
             child: Text(
               'Appointments Today:',
-              style: TextStyle(
-                fontSize: 28,
-              ),
+              style: Theme.of(context).textTheme.headline,
             ),
           ),
           FutureBuilder<List<Item>>(

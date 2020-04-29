@@ -46,7 +46,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('ShasthoSheba'),
+      ),
       body: Center(
         child: ListView(
           shrinkWrap: true,
@@ -61,9 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.center,
                       child: Text(
                         'Login',
-                        style: TextStyle(
-                          fontSize: 28,
-                        ),
+                        style: Theme.of(context).textTheme.headline,
                       ),
                     ),
                     SizedBox(
@@ -81,6 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextFormField(
                       controller: _pass,
+                      obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         hasFloatingPlaceholder: true,
@@ -91,20 +93,30 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: RaisedButton(
+                      child: OutlineButton(
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor),
                         onPressed: () => loginAction(context),
-                        child: Text('Login'),
+                        child: Text(
+                          'Login',
+                          style: Theme.of(context).textTheme.button,
+                        ),
                       ),
                     ),
                     Row(
                       children: <Widget>[
-                        Text('Don\'t have an account?'),
+                        Text(
+                          'Don\'t have an account?',
+                        ),
                         FlatButton(
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, RegisterPage.routeName);
                           },
-                          child: Text('Register'),
+                          child: Text(
+                            'Register',
+                            style: Theme.of(context).textTheme.button,
+                          ),
                         ),
                       ],
                     ),

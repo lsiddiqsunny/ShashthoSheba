@@ -44,6 +44,8 @@ class _TabbedPagesState extends State<MainPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        title: Text('ShasthoSheba'),
         automaticallyImplyLeading: false,
         bottom: TabBar(
           controller: _tabController,

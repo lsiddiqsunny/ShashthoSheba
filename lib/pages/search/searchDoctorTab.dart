@@ -24,6 +24,7 @@ class _MySearchPageState extends State<MySearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Container(
       child: ChangeNotifierProvider(
         create: (context) => DoctorModel(10),
@@ -33,7 +34,10 @@ class _MySearchPageState extends State<MySearchPage> {
             return Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.only(
+                    top: 8.0,
+                    left: 8.0,
+                  ),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -64,6 +68,7 @@ class _MySearchPageState extends State<MySearchPage> {
                         },
                         icon: Icon(Icons.person_outline),
                         label: Text('Doctor'),
+                        color: theme.primaryColor,
                       ),
                       crossFadeState: filter == Filter.name
                           ? CrossFadeState.showSecond
@@ -86,44 +91,47 @@ class _MySearchPageState extends State<MySearchPage> {
                         },
                         icon: Icon(Icons.local_hospital),
                         label: Text('Hospital'),
+                        color: theme.primaryColor,
                       ),
                       crossFadeState: filter == Filter.hospital
                           ? CrossFadeState.showSecond
                           : CrossFadeState.showFirst,
                       duration: Duration(milliseconds: 200),
                     ),
-                    // AnimatedCrossFade(
-                    //   firstChild: OutlineButton.icon(
-                    //     onPressed: () {
-                    //       setState(() {
-                    //         filter = Filter.speciality;
-                    //       });
-                    //     },
-                    //     icon: Icon(Icons.healing),
-                    //     label: Text('Speciality'),
-                    //   ),
-                    //   secondChild: RaisedButton.icon(
-                    //     onPressed: () {
-                    //       setState(() {});
-                    //     },
-                    //     icon: Icon(Icons.healing),
-                    //     label: Text('Speciality'),
-                    //   ),
-                    //   crossFadeState: filter == Filter.speciality
-                    //       ? CrossFadeState.showSecond
-                    //       : CrossFadeState.showFirst,
-                    //   duration: Duration(milliseconds: 200),
-                    // ),
+                    AnimatedCrossFade(
+                      firstChild: OutlineButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            filter = Filter.speciality;
+                          });
+                        },
+                        icon: Icon(Icons.healing),
+                        label: Text('Speciality'),
+                      ),
+                      secondChild: RaisedButton.icon(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.healing),
+                        label: Text('Speciality'),
+                        color: theme.primaryColor,
+                      ),
+                      crossFadeState: filter == Filter.speciality
+                          ? CrossFadeState.showSecond
+                          : CrossFadeState.showFirst,
+                      duration: Duration(milliseconds: 200),
+                    ),
                   ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     onChanged: (value) {
-                      if(value == '') {
+                      if (value == '') {
                         doctorModel.fetchDoctors(1);
                       } else {
-                        doctorModel.fetchDoctors(1, filter: filter, value: value);
+                        doctorModel.fetchDoctors(1,
+                            filter: filter, value: value);
                       }
                     },
                     controller: editingController,
@@ -150,11 +158,14 @@ class _MySearchPageState extends State<MySearchPage> {
                           itemBuilder: (context, index) {
                             return ListTile(
                               leading: CircleAvatar(),
-                              title: Text('${doctorModel.doctors[index].name}'),
+                              title: Text(
+                                '${doctorModel.doctors[index].name}',
+                                style: TextStyle(fontSize: 20),
+                              ),
                               subtitle: Text(
                                 '${doctorModel.doctors[index].designation}, ' +
                                     '${doctorModel.doctors[index].institution}\n' +
-                                    '${doctorModel.doctors[index].speciality}',
+                                    '${doctorModel.doctors[index].specialization.join(',')}',
                               ),
                               isThreeLine: true,
                               trailing: OutlineButton.icon(
@@ -164,7 +175,7 @@ class _MySearchPageState extends State<MySearchPage> {
                                   color: Colors.blue,
                                 ),
                                 label: Text(
-                                  'Take an\nAppointment',
+                                  'Appointment',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(color: Colors.blue),
                                 ),

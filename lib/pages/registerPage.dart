@@ -47,7 +47,10 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('ShasthoSheba'),
+      ),
       body: Center(
         child: Form(
           key: _formKey,
@@ -64,9 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         alignment: Alignment.center,
                         child: Text(
                           'Register',
-                          style: TextStyle(
-                            fontSize: 28,
-                          ),
+                          style: Theme.of(context).textTheme.headline,
                         ),
                       ),
                       SizedBox(
@@ -90,10 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Row(
                         children: <Widget>[
-                          Text(
-                            'Gender:',
-                            style: TextStyle(fontSize: 16),
-                          ),
+                          Text('Gender:'),
                           Radio(
                             value: 'male',
                             groupValue: _sex,
@@ -208,13 +206,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: RaisedButton(
+                        child: OutlineButton(
+                          borderSide:
+                              BorderSide(color: Theme.of(context).primaryColor),
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
                               registerAction(context);
                             }
                           },
-                          child: Text('Register'),
+                          child: Text(
+                            'Register',
+                            style: Theme.of(context).textTheme.button,
+                          ),
                         ),
                       ),
                     ],

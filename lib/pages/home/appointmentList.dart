@@ -24,62 +24,116 @@ class _AppointmentListState extends State<AppointmentList> {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionPanelList(
-      expansionCallback: (index, isExpanded) {
-        setState(() {
-          data[index].isExpanded = !isExpanded;
-        });
-      },
-      children: data.map<ExpansionPanel>((item) {
-        return ExpansionPanel(
-          headerBuilder: (context, isExpanded) {
-            return ListTile(
-              title: Text(DateFormat.jm().format(item.appointment.dateTime)),
-              subtitle: Text('with ${item.appointment.doctorName}'),
-              trailing: OutlineButton(
-                textColor: Colors.blue,
-                child: Text('Join'),
-                onPressed: null,
-              ),
-            );
-          },
-          body: ChangeNotifierProvider(
-            create: (context) => TransactionModel(item.appointment.id),
-            child: Builder(
-              builder: (context) {
-                TransactionModel transactionModel =
-                    Provider.of<TransactionModel>(context);
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ListTile(
-                      title: Text('Payment Status'),
-                      subtitle: Text(item.appointment.status
-                          ? 'Done'
-                          : transactionModel.transactions.isEmpty
-                              ? 'Not Provided'
-                              : 'Awaiting Approval'),
-                      trailing: _AddTransactionButton(
-                        item: item,
-                        transactionModel: transactionModel,
-                      ),
+    final ThemeData theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: ExpansionPanelList(
+        expansionCallback: (index, isExpanded) {
+          setState(() {
+            data[index].isExpanded = !isExpanded;
+          });
+        },
+        children: data.map<ExpansionPanel>((item) {
+          return ExpansionPanel(
+            headerBuilder: (context, isExpanded) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: ListTile(
+                  title: Text(
+                    DateFormat.jm().format(item.appointment.dateTime),
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: theme.primaryColor,
                     ),
-                    transactionModel.status == Status.loading
-                        ? Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: CircularProgressIndicator(),
-                            ),
-                          )
-                        : _TransactionList(transactionModel)
-                  ],
-                );
-              },
+                  ),
+                  subtitle: Text(
+                    'with ${item.appointment.doctorName}',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: theme.primaryColor,
+                    ),
+                  ),
+                  trailing: OutlineButton(
+                    borderSide: BorderSide(color: theme.primaryColor),
+                    child: Text(
+                      'Join',
+                      style: theme.textTheme.button.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              );
+            },
+            body: ChangeNotifierProvider(
+              create: (context) => TransactionModel(item.appointment.id),
+              child: Builder(
+                builder: (context) {
+                  TransactionModel transactionModel =
+                      Provider.of<TransactionModel>(context);
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      ListTile(
+                        title: Text(
+                          'Payment Status',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: theme.primaryColor,
+                          ),
+                        ),
+                        subtitle: Text(
+                          item.appointment.status
+                              ? 'Done'
+                              : transactionModel.transactions.isEmpty
+                                  ? 'Not Provided'
+                                  : 'Awaiting Approval',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: theme.primaryColor,
+                          ),
+                        ),
+                        trailing: _AddTransactionButton(
+                          item: item,
+                          transactionModel: transactionModel,
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Transaction ID',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: theme.primaryColor,
+                          ),
+                        ),
+                        trailing: Text(
+                          'Amount',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: theme.primaryColor,
+                          ),
+                        ),
+                      ),
+                      transactionModel.status == Status.loading
+                          ? Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: CircularProgressIndicator(),
+                              ),
+                            )
+                          : _TransactionList(transactionModel)
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
-          isExpanded: item.isExpanded,
-        );
-      }).toList(),
+            isExpanded: item.isExpanded,
+          );
+        }).toList(),
+      ),
     );
   }
 }
@@ -91,18 +145,26 @@ class _TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Column(
       children: <Widget>[
-        ...transactionModel.transactions.map<ListTile>((transaction) {
-          return ListTile(
-            title: Text('Transaction ID:'),
-            subtitle: Text(transaction.transactionId),
-            trailing: Text(transaction.amount.toString() + '/='),
+        ...transactionModel.transactions.map<Padding>((transaction) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: ListTile(
+              leading: Text(transaction.transactionId),
+              trailing: Text(transaction.amount.toString() + '/-'),
+            ),
           );
         }).toList(),
         ListTile(
-          trailing:
-              Text('Total = ' + transactionModel.totalAmount.toString() + '/='),
+          trailing: Text(
+            'Total ' + transactionModel.totalAmount.toString() + '/-',
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: theme.primaryColor),
+          ),
         ),
       ],
     );
@@ -117,9 +179,13 @@ class _AddTransactionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return OutlineButton(
-      textColor: Colors.blue,
-      child: Text('Add Payment'),
+      borderSide: BorderSide(color: theme.primaryColor),
+      child: Text(
+        'Add Payment',
+        style: theme.textTheme.button.copyWith(fontWeight: FontWeight.bold),
+      ),
       onPressed: item.appointment.status
           ? null
           : () async {

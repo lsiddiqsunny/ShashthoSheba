@@ -4,6 +4,7 @@ class Doctor {
   String mobileNo;
   String institution;
   String speciality;
+  List<String> specialization;
   String designation;
   String registrationNo;
   String referrer;
@@ -26,5 +27,6 @@ class Doctor {
         designation = json['designation'],
         institution = json['institution'],
         speciality = json['speciality'],
+        specialization = json['specialization'].cast<String>(),
         registrationNo = json['reg_number'];
 }

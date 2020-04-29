@@ -21,6 +21,7 @@ class _AddTransactionFormState extends State<AddTransactionForm> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return SingleChildScrollView(
       child: Form(
         key: _formKey,
@@ -44,11 +45,20 @@ class _AddTransactionFormState extends State<AddTransactionForm> {
               padding: const EdgeInsets.only(top: 3),
               child: ButtonBar(
                 children: <Widget>[
-                  RaisedButton(
-                      child: Text('Cancel'),
-                      onPressed: () => Navigator.pop(context)),
-                  RaisedButton(
-                    child: Text('Submit'),
+                  OutlineButton(
+                    borderSide: BorderSide(color: theme.primaryColor),
+                    child: Text(
+                      'Cancel',
+                      style: theme.textTheme.button,
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  OutlineButton(
+                    borderSide: BorderSide(color: theme.primaryColor),
+                    child: Text(
+                      'Submit',
+                      style: theme.textTheme.button,
+                    ),
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         Transaction transaction = Transaction(

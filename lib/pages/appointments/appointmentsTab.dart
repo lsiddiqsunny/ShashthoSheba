@@ -19,14 +19,13 @@ class AppointmentsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return ListView(
-      padding: EdgeInsets.only(top: 10),
+      padding: EdgeInsets.only(top: 8.0),
       children: <Widget>[
         Text(
           'Recent Appointments',
-          style: TextStyle(
-            fontSize: 28,
-          ),
+          style: theme.textTheme.headline,
           textAlign: TextAlign.center,
         ),
         ...entries.map((entry) {
