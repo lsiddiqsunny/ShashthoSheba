@@ -1,27 +1,32 @@
+import 'dart:convert';
+
 import 'package:Doctor/doctor.dart';
 import 'package:Doctor/futureTab.dart';
 import 'package:Doctor/referPage.dart';
+import 'package:Doctor/schedulePage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import './homeTab.dart';
+import 'package:http/http.dart' as http;
 
 class TabbedPages extends StatefulWidget {
   static const routeName = '/tabbedpages';
   final Doctor doctor;
-  final  entries;
+  final entries;
   final entriesf;
-  TabbedPages({this.doctor,this.entries,this.entriesf});
+  TabbedPages({this.doctor, this.entries, this.entriesf});
   @override
-  _TabbedPagesState createState() => _TabbedPagesState(doctor: this.doctor,entries:this.entries,entriesf:this.entriesf);
+  _TabbedPagesState createState() => _TabbedPagesState(
+      doctor: this.doctor, entries: this.entries, entriesf: this.entriesf);
 }
 
 class _TabbedPagesState extends State<TabbedPages>
     with SingleTickerProviderStateMixin {
   final Doctor doctor;
-  final  entries;
+  final entries;
   final entriesf;
-  _TabbedPagesState({this.doctor,this.entries,this.entriesf});
+  _TabbedPagesState({this.doctor, this.entries, this.entriesf});
   final List<Tab> myTabs = <Tab>[
     Tab(
       text: 'Today\'s Appointment',
@@ -51,10 +56,33 @@ class _TabbedPagesState extends State<TabbedPages>
     super.dispose();
   }
 
+  Future<List> getSchedule() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String bearer_token = "Bearer ";
+    bearer_token += prefs.getString('jwt');
+
+    //print(bearer_token);
+    final http.Response response = await http.get(
+      'http://192.168.0.104:3000/doctor/get/schedule',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': bearer_token,
+      },
+    );
+    //print(response.statusCode );
+    if (response.statusCode == 200) {
+      var parsed = jsonDecode(response.body) as List;
+      //print(parsed[0]);
+      return parsed;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Shashtho Sheba"),
         automaticallyImplyLeading: false,
         bottom: TabBar(
           controller: _tabController,
@@ -93,9 +121,19 @@ class _TabbedPagesState extends State<TabbedPages>
                   Navigator.pushNamed(context, ReferPage.routeName);
                 }),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-            ),
+                leading: Icon(Icons.settings),
+                title: Text('Schedule'),
+                onTap: () async {
+                  var schedule = await getSchedule();
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SchedulePage(
+                        schedule: schedule,
+                      ),
+                    ),
+                  );
+                }),
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Log Out'),
@@ -111,8 +149,8 @@ class _TabbedPagesState extends State<TabbedPages>
       body: TabBarView(
         controller: _tabController,
         children: [
-          HomeTab(doctor: doctor,data:entries),
-          FutureTab(doctor: doctor,data:entriesf),
+          HomeTab(doctor: doctor, data: entries),
+          FutureTab(doctor: doctor, data: entriesf),
         ],
       ),
     );

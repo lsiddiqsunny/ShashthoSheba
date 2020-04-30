@@ -138,12 +138,14 @@ Future<List> getFutureAppointemnt() async {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("Shashtho Sheba")),
       body: Center(
+        
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
             Card(
+              
               child: Container(
                 padding: EdgeInsets.all(35),
                 child: Column(

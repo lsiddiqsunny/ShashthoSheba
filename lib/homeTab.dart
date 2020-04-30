@@ -45,13 +45,13 @@ class HomeTab extends StatelessWidget {
           var transaction = await getTransaction(entry["appointment_detail"]['_id']);
           
           //print(transaction[0]);
-          
+          DateTime dateTime = DateTime.parse(entry["appointment_detail"]["appointment_date_time"]);
           final p = Patient(
             pname: entry["patient_detail"]['name'],
             payment: entry["appointment_detail"]['status'],
             serial: entry["appointment_detail"]['_id'],
             dateTime: DateFormat("dd/MM/yyyy — HH:mm")
-                .format(DateTime.now()),
+                .format(dateTime),
                 transaction: transaction
           );
           await Navigator.push(
