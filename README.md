@@ -7,4 +7,4 @@ Patient app code can be found in Patient_app branch
 
 Doctor app code can be found in Doctor_app branch
 
-Bacnkend code can be found here : https://github.com/return-100/doktor
+Backend code can be found here : https://github.com/return-100/doktor
