@@ -1,0 +1,32 @@
+class Schedule {
+  int weekDay;
+  DateTime start;
+  DateTime end;
+  double fee;
+  static Map<int, String> _map = {
+    1:'Monday',
+    2:'Tuesday',
+    3:'Wednesday',
+    4:'Thursday',
+    5:'Friday',
+    6:'Saturday',
+    7:'Sunday'
+  };
+
+  Schedule({this.weekDay, this.start, this.end});
+
+  static double _parseDouble(dynamic value) {
+    if (value is int) {
+      return value + .0;
+    }
+    return value;
+  }
+
+  String get day => _map[weekDay];
+
+  Schedule.fromJson(Map<String, dynamic> json)
+      : weekDay = json['day'],
+        start = DateTime.parse(json['time_start']),
+        fee = _parseDouble(json['fee']),
+        end = DateTime.parse(json['time_end']);
+}

@@ -23,6 +23,11 @@ Future<http.Response> fetchTodaysAppointments() async {
   return response;
 }
 
+Future<int> createAppointment(Map<String, String> body) async {
+  http.Response response = await _post('/patient/post/appointment', true, body);
+  return response.statusCode;
+}
+
 Future<int> addTransaction(Transaction transaction) async {
   http.Response response =
       await _post('/patient/add/transaction', true, transaction);
@@ -37,6 +42,11 @@ Future<http.Response> fetchTransactions(Map<String, String> body) async {
 Future<http.Response> fetchDoctors(int limit, int page) async {
   http.Response response = await _get(
       '/doctor/list/all/' + limit.toString() + '/' + page.toString(), false);
+  return response;
+}
+
+Future<http.Response> fetchSchedules(Map<String, String> body) async {
+  http.Response response = await _post('/patient/get/schedule/', true, body);
   return response;
 }
 

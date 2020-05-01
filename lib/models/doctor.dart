@@ -1,3 +1,5 @@
+import './schedule.dart';
+
 class Doctor {
   String name;
   String email;
@@ -8,6 +10,7 @@ class Doctor {
   String designation;
   String registrationNo;
   String referrer;
+  List<Schedule> schedules;
 
   Doctor({
     this.name,
@@ -18,6 +21,7 @@ class Doctor {
     this.designation,
     this.registrationNo,
     this.referrer,
+    this.schedules,
   });
 
   Doctor.fromJson(Map<String, dynamic> json)

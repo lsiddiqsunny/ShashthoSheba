@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 
@@ -11,8 +11,18 @@ enum Filter { name, hospital, speciality }
 
 class DoctorModel extends ChangeNotifier {
   List<Doctor> _doctors = [];
+  List<bool> _expanded = [];
+
   Status status;
   final int limit;
+  TextEditingController searchController = TextEditingController();
+  Filter filter = Filter.name;
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
   DoctorModel(this.limit) {
     fetchDoctors(1);
@@ -20,19 +30,36 @@ class DoctorModel extends ChangeNotifier {
 
   List<Doctor> get doctors => _doctors;
 
+  List<bool> get expanded => _expanded;
+
+  void expand(int index) {
+    _expanded[index] = !_expanded[index];
+    notifyListeners();
+  }
+
   void fetchDoctors(int page, {Filter filter, String value}) async {
     status = Status.loading;
     notifyListeners();
-    List<Doctor> newList = await _getList(limit, page, filter: filter, value: value);
+    List<Doctor> newList =
+        await _getList(limit, page, filter: filter, value: value);
     status = Status.completed;
     if (newList != _doctors) {
       _doctors = newList;
+      _expanded = List.generate(_doctors.length, (index) => false);
       notifyListeners();
     }
   }
+
+  Future<int> createAppointment(int index, DateTime appointmentTime) async {
+    return await api.createAppointment({
+      'doc_mobile_no': _doctors[index].mobileNo,
+      'appointment_date_time': appointmentTime.toString(),
+    });
+  }
 }
 
-Future<List<Doctor>> _getList(int limit, int page, {Filter filter, String value}) async {
+Future<List<Doctor>> _getList(int limit, int page,
+    {Filter filter, String value}) async {
   http.Response response;
   if (filter == null) {
     response = await api.fetchDoctors(limit, page);
