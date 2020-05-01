@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,30 @@ class _SchedulePageState extends State<SchedulePage>{
   static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final schedule;
   _SchedulePageState({this.schedule});
-    
+    String getDay(int num){
+      if(num==1){
+        return "Monday";
+      }
+      else if(num==2){
+        return "Tuesday";
+      }
+      else if(num==3){
+        return "Wednesday";
+      }
+      else if(num==4){
+        return "Thursday";
+      }
+      else if(num==5){
+        return "Friday";
+      }
+      else if(num==6){
+        return "Saturday";
+      }
+      else if(num==7){
+        return "Sunday";
+      }
+
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +81,7 @@ class _SchedulePageState extends State<SchedulePage>{
                   color: Colors.lightGreen,
                   child: ListTile(
                     contentPadding: EdgeInsets.only(left: 8, right: 8),
-                    title: Text('Day: '+ entry["day"]),
+                    title: Text('Day: '+ getDay(entry["day"])),
                     subtitle: Text('Start Time: ' +DateFormat("HH:mm").format(DateTime.parse(entry["time_start"]))+'\n'+
                     'End Time: ' +DateFormat("HH:mm").format(DateTime.parse(entry["time_end"]))
                     ),
