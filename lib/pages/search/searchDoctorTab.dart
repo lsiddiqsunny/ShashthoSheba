@@ -34,12 +34,7 @@ class SearchDoctorTab extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   onChanged: (value) {
-                    if (value == '') {
-                      doctorModel.fetchDoctors(1);
-                    } else {
-                      doctorModel.fetchDoctors(1,
-                          filter: doctorModel.filter, value: value);
-                    }
+                    doctorModel.streamController.add(value);
                   },
                   controller: doctorModel.searchController,
                   decoration: InputDecoration(

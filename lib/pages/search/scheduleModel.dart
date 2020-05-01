@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
+import 'dart:collection';
 
 import '../../models/schedule.dart';
 import '../../api.dart' as api;
@@ -9,14 +10,15 @@ enum Status { loading, completed, error }
 
 class ScheduleModel extends ChangeNotifier {
   List<Schedule> _schedules = [];
-  Status status;
-  String mobileNo;
+  Status _status;
 
-  ScheduleModel(this.mobileNo) {
-    fetchSchedules();
+  ScheduleModel(String mobileNo) {
+    _fetchSchedules(mobileNo);
   }
 
-  List<Schedule> get schedules => _schedules;
+  List<Schedule> get schedules => UnmodifiableListView(_schedules);
+
+  Status get status => _status;
 
   bool toShow(int weekDay) {
     for (var index = 0; index < _schedules.length; index++) {
@@ -48,15 +50,13 @@ class ScheduleModel extends ChangeNotifier {
     return times;
   }
 
-  void fetchSchedules() async {
-    status = Status.loading;
+  void _fetchSchedules(String mobileNo) async {
+    _status = Status.loading;
     notifyListeners();
     List<Schedule> newList = await _getList(mobileNo);
-    status = Status.completed;
-    if (newList != _schedules) {
-      _schedules = newList;
-      notifyListeners();
-    }
+    _status = Status.completed;
+    _schedules = newList;
+    notifyListeners();
   }
 }
 

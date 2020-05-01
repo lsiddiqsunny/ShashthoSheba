@@ -15,11 +15,6 @@ class FilterBar extends StatelessWidget {
           firstChild: OutlineButton.icon(
             onPressed: () {
               doctorModel.filter = Filter.name;
-              if (doctorModel.searchController.text != '') {
-                doctorModel.fetchDoctors(1,
-                    filter: doctorModel.filter,
-                    value: doctorModel.searchController.text);
-              }
             },
             icon: Icon(Icons.person_outline),
             label: Text('Doctor'),
@@ -39,11 +34,6 @@ class FilterBar extends StatelessWidget {
           firstChild: OutlineButton.icon(
             onPressed: () {
               doctorModel.filter = Filter.hospital;
-              if (doctorModel.searchController.text != '') {
-                doctorModel.fetchDoctors(1,
-                    filter: doctorModel.filter,
-                    value: doctorModel.searchController.text);
-              }
             },
             icon: Icon(Icons.local_hospital),
             label: Text('Hospital'),
@@ -63,11 +53,6 @@ class FilterBar extends StatelessWidget {
           firstChild: OutlineButton.icon(
             onPressed: () {
               doctorModel.filter = Filter.speciality;
-              if (doctorModel.searchController.text != '') {
-                doctorModel.fetchDoctors(1,
-                    filter: doctorModel.filter,
-                    value: doctorModel.searchController.text);
-              }
             },
             icon: Icon(Icons.healing),
             label: Text('Speciality'),

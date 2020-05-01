@@ -1,7 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:stream_transform/stream_transform.dart';
 import 'dart:convert';
+import 'dart:collection';
+import 'dart:async';
 
 import '../../models/doctor.dart';
 import '../../api.dart' as api;
@@ -13,41 +16,65 @@ class DoctorModel extends ChangeNotifier {
   List<Doctor> _doctors = [];
   List<bool> _expanded = [];
 
-  Status status;
-  final int limit;
+  Status _status;
+  final int _limit;
+  Filter _filter = Filter.name;
+
   TextEditingController searchController = TextEditingController();
-  Filter filter = Filter.name;
+  StreamController<String> streamController = StreamController();
 
   @override
   void dispose() {
     searchController.dispose();
+    streamController.close();
     super.dispose();
   }
 
-  DoctorModel(this.limit) {
-    fetchDoctors(1);
+  DoctorModel(this._limit) {
+    //this ensures that fetchDoctors is called only when the user has stopped typing
+    streamController.stream
+        .debounce(Duration(milliseconds: 400))
+        .listen((value) {
+      if (value == '') {
+        _fetchDoctors(1);
+      } else {
+        _fetchDoctors(1, filter: _filter, value: value);
+      }
+    });
+    _fetchDoctors(1);
   }
 
-  List<Doctor> get doctors => _doctors;
+  List<Doctor> get doctors => UnmodifiableListView(_doctors);
 
-  List<bool> get expanded => _expanded;
+  List<bool> get expanded => UnmodifiableListView(_expanded);
+
+  Status get status => _status;
+
+  Filter get filter => _filter;
+
+  set filter(Filter filter) {
+    _filter = filter;
+    if (searchController.text == '') {
+      notifyListeners();
+    } else {
+      _fetchDoctors(1, filter: _filter, value: searchController.text);
+    }
+  }
 
   void expand(int index) {
     _expanded[index] = !_expanded[index];
     notifyListeners();
   }
 
-  void fetchDoctors(int page, {Filter filter, String value}) async {
-    status = Status.loading;
+  void _fetchDoctors(int page, {Filter filter, String value}) async {
+    _status = Status.loading;
     notifyListeners();
     List<Doctor> newList =
-        await _getList(limit, page, filter: filter, value: value);
-    status = Status.completed;
-    if (newList != _doctors) {
-      _doctors = newList;
-      _expanded = List.generate(_doctors.length, (index) => false);
-      notifyListeners();
-    }
+        await _getList(_limit, page, filter: filter, value: value);
+    _status = Status.completed;
+    _doctors = newList;
+    _expanded = List.generate(_doctors.length, (index) => false);
+    notifyListeners();
   }
 
   Future<int> createAppointment(int index, DateTime appointmentTime) async {

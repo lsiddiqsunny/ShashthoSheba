@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import '../../api.dart' as api;
 import '../../models/appointment.dart';
+import '../../widgets/loading.dart';
 import './item.dart';
 import './appointmentList.dart';
 
@@ -32,12 +33,7 @@ class HomeTab extends StatelessWidget {
               }
               return snapshot.hasData
                   ? AppointmentList(data: snapshot.data)
-                  : Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
+                  : Loading();
             },
           ),
         ],
