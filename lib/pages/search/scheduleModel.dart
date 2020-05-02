@@ -10,13 +10,13 @@ enum Status { loading, completed, error }
 
 class ScheduleModel extends ChangeNotifier {
   List<Schedule> _schedules = [];
-  Status _status;
+  Status _status = Status.loading;
 
   ScheduleModel(String mobileNo) {
     _fetchSchedules(mobileNo);
   }
 
-  List<Schedule> get schedules => UnmodifiableListView(_schedules);
+  UnmodifiableListView<Schedule> get schedules => UnmodifiableListView(_schedules);
 
   Status get status => _status;
 
@@ -51,8 +51,10 @@ class ScheduleModel extends ChangeNotifier {
   }
 
   void _fetchSchedules(String mobileNo) async {
-    _status = Status.loading;
-    notifyListeners();
+    if(_status != Status.loading) {
+      _status = Status.loading;
+      notifyListeners();
+    }
     List<Schedule> newList = await _getList(mobileNo);
     _status = Status.completed;
     _schedules = newList;

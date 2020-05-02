@@ -10,14 +10,13 @@ enum Status {loading, completed, error}
 
 class TransactionModel extends ChangeNotifier {
   List<Transaction> _transactions = [];
-  Status _status;
+  Status _status = Status.loading;
 
   TransactionModel(String appointmentId) {
-    _status = Status.loading;
     _fetchTransactions(appointmentId);
   }
 
-  List<Transaction> get transactions => UnmodifiableListView(_transactions);
+  UnmodifiableListView<Transaction> get transactions => UnmodifiableListView(_transactions);
 
   Status get status => _status;
 

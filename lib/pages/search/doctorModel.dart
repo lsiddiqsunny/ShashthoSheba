@@ -16,7 +16,7 @@ class DoctorModel extends ChangeNotifier {
   List<Doctor> _doctors = [];
   List<bool> _expanded = [];
 
-  Status _status;
+  Status _status = Status.loading;
   final int _limit;
   Filter _filter = Filter.name;
 
@@ -44,9 +44,9 @@ class DoctorModel extends ChangeNotifier {
     _fetchDoctors(1);
   }
 
-  List<Doctor> get doctors => UnmodifiableListView(_doctors);
+  UnmodifiableListView<Doctor> get doctors => UnmodifiableListView(_doctors);
 
-  List<bool> get expanded => UnmodifiableListView(_expanded);
+  UnmodifiableListView<bool> get expanded => UnmodifiableListView(_expanded);
 
   Status get status => _status;
 
@@ -67,8 +67,10 @@ class DoctorModel extends ChangeNotifier {
   }
 
   void _fetchDoctors(int page, {Filter filter, String value}) async {
-    _status = Status.loading;
-    notifyListeners();
+    if(_status != Status.loading) {
+      _status = Status.loading;
+      notifyListeners();
+    }
     List<Doctor> newList =
         await _getList(_limit, page, filter: filter, value: value);
     _status = Status.completed;
