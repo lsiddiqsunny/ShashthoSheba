@@ -36,6 +36,21 @@
 # # Exceptions to above rules.
 # !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 /*
+
+!/android/
+/android/*
+!/android/build.gradle
+!/android/app
+/android/app/*
+!/android/app/build.gradle
+!/android/app/google-services.json
+!/android/app/src
+
+/android/app/src/*
+!/android/app/src/main
+/android/app/src/main/*
+!/android/app/src/main/AndroidManifest.xml
+
 !/lib
 !/.gitignore
 !/pubspec.yaml

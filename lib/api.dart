@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import './models/patient.dart';
 import './models/transaction.dart';
 
-final _baseUrl = 'http://192.168.0.105';
+final _baseUrl = 'http://862e30ee.ngrok.io';
 
 Future<int> patientRegister(Patient patient) async {
   http.Response response =
@@ -18,8 +18,36 @@ Future<http.Response> patientLogin(Map<String, String> body) async {
   return response;
 }
 
+Future<http.Response> patientDetails() async {
+  http.Response response = await _get('/patient/get/details/', true);
+  return response;
+}
+
+Future<int> patientLogOut() async {
+  http.Response response = await _post('/patient/post/logout/', true, {});
+  return response.statusCode;
+}
+
+Future<int> sendToken(String patientId, String token) async {
+  http.Response response = await _post('/patient/set/token/', true, {
+    'id': patientId,
+    'registration_token': token,
+  });
+  return response.statusCode;
+}
+
 Future<http.Response> fetchTodaysAppointments() async {
   http.Response response = await _get('/patient/get/today/appointment/', true);
+  return response;
+}
+
+Future<http.Response> fetchPreviousAppointments() async {
+  http.Response response = await _get('/patient/get/past/appointment/', true);
+  return response;
+}
+
+Future<http.Response> fetchUpcomingAppointments() async {
+  http.Response response = await _get('/patient/get/future/appointment/', true);
   return response;
 }
 

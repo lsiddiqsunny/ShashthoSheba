@@ -28,6 +28,7 @@ dependencies:
   shared_preferences: ^0.5.7
   provider: ^4.0.5
   stream_transform: ^1.2.0
+  firebase_messaging: ^6.0.13
 
 dev_dependencies:
   flutter_test:

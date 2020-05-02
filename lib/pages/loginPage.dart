@@ -26,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
   void _checkLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('jwt') != null) {
-      print(prefs.getString('jwt'));
       Navigator.pushNamed(context, MainPage.routeName);
     }
   }

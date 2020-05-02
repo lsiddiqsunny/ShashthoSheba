@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "219765813072",
+    "firebase_url": "https://shasthosheba-6a65d.firebaseio.com",
+    "project_id": "shasthosheba-6a65d",
+    "storage_bucket": "shasthosheba-6a65d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219765813072:android:672254e05bb8f534f58655",
+        "android_client_info": {
+          "package_name": "com.example.first_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219765813072-m64ss4nnt2ncbmnjfln1u8pvkdc9uant.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-Fn9N4OSmCK76yWYKo9dhDyPdSwfQywA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219765813072-m64ss4nnt2ncbmnjfln1u8pvkdc9uant.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

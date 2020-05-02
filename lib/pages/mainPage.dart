@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import './home/homeTab.dart';
 import './appointments/appointmentsTab.dart';
 import './search/searchDoctorTab.dart';
+import '../api.dart' as api;
+import '../models/patient.dart';
 
 class MainPage extends StatefulWidget {
   static const routeName = '/tabbedpages';
@@ -24,6 +29,17 @@ class _TabbedPagesState extends State<MainPage>
   ];
 
   TabController _tabController;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+  void _sendToken() async {
+    http.Response response = await api.patientDetails();
+    final data = jsonDecode(response.body);
+    Patient patient = Patient.fromJson(data);
+    int statusCode = await api.sendToken(patient.id, await _firebaseMessaging.getToken());
+    if(statusCode != 200) {
+      print(statusCode);
+    }
+  }
 
   @override
   void initState() {
@@ -31,6 +47,21 @@ class _TabbedPagesState extends State<MainPage>
     _tabController = TabController(
       vsync: this,
       length: myTabs.length,
+    );
+    _sendToken();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('message');
+        print(message);
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('launch');
+        print(message);
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('resume');
+        print(message);
+      },
     );
   }
 
@@ -86,8 +117,13 @@ class _TabbedPagesState extends State<MainPage>
               title: Text('Log Out'),
               onTap: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.remove('jwt');
-                Navigator.popUntil(context, ModalRoute.withName('/'));
+                int statusCode = await api.patientLogOut();
+                if (statusCode == 200) {
+                  prefs.remove('jwt');
+                  Navigator.popUntil(context, ModalRoute.withName('/'));
+                } else {
+                  print(statusCode);
+                }
               },
             ),
           ],

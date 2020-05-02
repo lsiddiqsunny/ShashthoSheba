@@ -12,6 +12,7 @@ import './appointmentList.dart';
 class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -22,7 +23,7 @@ class HomeTab extends StatelessWidget {
             ),
             child: Text(
               'Appointments Today:',
-              style: Theme.of(context).textTheme.headline,
+              style: theme.textTheme.title,
             ),
           ),
           FutureBuilder<List<Item>>(
