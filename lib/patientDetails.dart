@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:Doctor/loginPage.dart';
+
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -64,17 +64,17 @@ class PatientDetails extends StatelessWidget {
                         await _handleCameraAndMic();
 
                         String token = await _getPatinetToken();
-
-                        await _pingFirebase(token);
+                        String value = randomAlphaNumeric(10);
+                        await _pingFirebase(token,value);
                         //push video page with given channel name
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => VideoChat(
-                              path: randomAlphaNumeric(10),
-                            ),
-                          ),
-                        );
+                        // await Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => VideoChat(
+                        //       path: value
+                        //     ),
+                        //   ),
+                        // );
                       },
                     )
                   ],
@@ -179,7 +179,7 @@ class PatientDetails extends StatelessWidget {
     }
   }
 
-  void _pingFirebase(String token) async {
+  void _pingFirebase(String token,String value) async {
     //print(bearer_token);
     var serverToken =
         'AAAAMysQL1A:APA91bE3hyrg1EXgypw03ZL_A42m9ofiJzFdrhWNBXNrVxZX1GjMLyu650Cs-Gf5ek7uGlgNlHDY3Pc3SHHB7ske96wnxKi0dzI6LOadhSUAtdZ15vW8sHXuuBMA6XUpU4RKHvr6DjHQ';
@@ -190,7 +190,7 @@ class PatientDetails extends StatelessWidget {
         'Authorization': 'key=$serverToken',
       },
       body: jsonEncode({
-        'notification': {'body': 'this is a body', 'title': 'this is a title'},
+        'notification': {'body': value, 'title': 'this is a title'},
         'priority': 'high',
         'data': {'click_action': 'FLUTTER_NOTIFICATION_CLICK'},
         'to': token,
