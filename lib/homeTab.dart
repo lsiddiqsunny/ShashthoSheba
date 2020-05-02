@@ -49,6 +49,7 @@ class HomeTab extends StatelessWidget {
           final p = Patient(
             pname: entry["patient_detail"]['name'],
             payment: entry["appointment_detail"]['status'],
+            phone_number: entry["appointment_detail"]['mobile_no'],
             serial: entry["appointment_detail"]['_id'],
             dateTime: DateFormat("dd/MM/yyyy — HH:mm")
                 .format(dateTime),

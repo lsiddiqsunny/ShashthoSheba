@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Doctor/loginPage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -61,7 +62,11 @@ class PatientDetails extends StatelessWidget {
                       child: Text('Call'),
                       onPressed: () async {
                         await _handleCameraAndMic();
-                        // push video page with given channel name
+
+                        String token = await _getPatinetToken();
+
+                        await _pingFirebase(token);
+                        //push video page with given channel name
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -99,7 +104,9 @@ class PatientDetails extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            if (patient.transaction != null && patient.transaction.isNotEmpty && !patient.payment)
+            if (patient.transaction != null &&
+                patient.transaction.isNotEmpty &&
+                !patient.payment)
               Card(
                 color: Colors.transparent,
                 child: Container(
@@ -111,7 +118,7 @@ class PatientDetails extends StatelessWidget {
                         padding: EdgeInsets.only(right: 5),
                         child: Text('Verify'),
                         onPressed: () async {
-                          await updateTransaction();
+                          await updateTransaction(context);
                         },
                       )
                     ],
@@ -125,7 +132,28 @@ class PatientDetails extends StatelessWidget {
     );
   }
 
-  void updateTransaction() async {
+  Future<String> _getPatinetToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String bearer_token = "Bearer ";
+    bearer_token += prefs.getString('jwt');
+
+    print(patient.phone_number);
+    final http.Response response = await http.post(
+      'http://192.168.0.104:3000/patient/get/token',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': bearer_token,
+      },
+      body: jsonEncode({'mobile_no': patient.phone_number}),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    }
+    return null;
+  }
+
+  void updateTransaction(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String bearer_token = "Bearer ";
     bearer_token += prefs.getString('jwt');
@@ -141,7 +169,7 @@ class PatientDetails extends StatelessWidget {
     );
 
     if (response.statusCode == 200) {
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
+      await _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text("Payment verified!"),
       ));
     } else {
@@ -149,6 +177,26 @@ class PatientDetails extends StatelessWidget {
         content: Text("Payment not verified!"),
       ));
     }
+  }
+
+  void _pingFirebase(String token) async {
+    //print(bearer_token);
+    var serverToken =
+        'AAAAMysQL1A:APA91bE3hyrg1EXgypw03ZL_A42m9ofiJzFdrhWNBXNrVxZX1GjMLyu650Cs-Gf5ek7uGlgNlHDY3Pc3SHHB7ske96wnxKi0dzI6LOadhSUAtdZ15vW8sHXuuBMA6XUpU4RKHvr6DjHQ';
+    final http.Response response = await http.post(
+      'https://fcm.googleapis.com/fcm/send',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$serverToken',
+      },
+      body: jsonEncode({
+        'notification': {'body': 'this is a body', 'title': 'this is a title'},
+        'priority': 'high',
+        'data': {'click_action': 'FLUTTER_NOTIFICATION_CLICK'},
+        'to': token,
+      }),
+    );
+    print(response.body);
   }
 
   Future<void> _handleCameraAndMic() async {
@@ -160,5 +208,4 @@ class PatientDetails extends StatelessWidget {
       ],
     );
   }
-
 }

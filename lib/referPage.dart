@@ -21,7 +21,7 @@ class _ReferPageState extends State<ReferPage>{
     String bearer_token = "Bearer ";
     bearer_token+= prefs.getString('jwt');
 
-    print(bearer_token);
+    //print(bearer_token);
     final http.Response response = await http.post(
       'http://192.168.0.104:3000/doctor/post/reference',
       headers: <String, String>{
@@ -32,7 +32,8 @@ class _ReferPageState extends State<ReferPage>{
     );
     //print(response.statusCode);
     if (response.statusCode == 200) {
-      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Refer successful!"),));
+      await _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Refer successful!"),));
+      //await Navigator.popUntil(context, ModalRoute.withName('/'));
     } else {
       _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Refer unsuccessful!"),));
     }
