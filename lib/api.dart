@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import './models/patient.dart';
 import './models/transaction.dart';
 
-final _baseUrl = 'http://862e30ee.ngrok.io';
+final _baseUrl = 'http://192.168.0.105';
 
 Future<int> patientRegister(Patient patient) async {
   http.Response response =

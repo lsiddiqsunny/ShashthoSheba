@@ -8,6 +8,7 @@ import 'dart:async';
 
 import '../../models/doctor.dart';
 import '../../api.dart' as api;
+import './scheduleModel.dart';
 
 enum Status { loading, completed, error }
 enum Filter { name, hospital, speciality }
@@ -15,6 +16,7 @@ enum Filter { name, hospital, speciality }
 class DoctorModel extends ChangeNotifier {
   List<Doctor> _doctors = [];
   List<bool> _expanded = [];
+  List<ScheduleModel> _scheduleModels = [];
 
   Status _status = Status.loading;
   final int _limit;
@@ -48,6 +50,8 @@ class DoctorModel extends ChangeNotifier {
 
   UnmodifiableListView<bool> get expanded => UnmodifiableListView(_expanded);
 
+  UnmodifiableListView<ScheduleModel> get scheduleModels => UnmodifiableListView(_scheduleModels);
+
   Status get status => _status;
 
   Filter get filter => _filter;
@@ -67,7 +71,7 @@ class DoctorModel extends ChangeNotifier {
   }
 
   void _fetchDoctors(int page, {Filter filter, String value}) async {
-    if(_status != Status.loading) {
+    if (_status != Status.loading) {
       _status = Status.loading;
       notifyListeners();
     }
@@ -76,6 +80,10 @@ class DoctorModel extends ChangeNotifier {
     _status = Status.completed;
     _doctors = newList;
     _expanded = List.generate(_doctors.length, (index) => false);
+    _scheduleModels = List.generate(
+      _doctors.length,
+      (index) => ScheduleModel(_doctors[index].mobileNo),
+    );
     notifyListeners();
   }
 

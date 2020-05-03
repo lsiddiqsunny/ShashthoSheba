@@ -25,6 +25,11 @@ class DoctorList extends StatelessWidget {
                   child: ExpansionPanelList(
                     expansionCallback: (index, isExpanded) {
                       doctorModel.expand(index);
+                      if (!isExpanded &&
+                          doctorModel.scheduleModels[index].status ==
+                              schedule.Status.loading) {
+                        doctorModel.scheduleModels[index].fetchSchedules();
+                      }
                     },
                     children: doctorModel.doctors
                         .asMap()
@@ -47,10 +52,8 @@ class DoctorList extends StatelessWidget {
                                   isThreeLine: true,
                                 );
                               },
-                              body: ChangeNotifierProvider(
-                                create: (context) => schedule.ScheduleModel(
-                                  doctorModel.doctors[index].mobileNo,
-                                ),
+                              body: ChangeNotifierProvider.value(
+                                value: doctorModel.scheduleModels[index],
                                 child: Builder(
                                   builder: (context) {
                                     schedule.ScheduleModel scheduleModel =
@@ -79,40 +82,47 @@ class DoctorList extends StatelessWidget {
                                                 color: theme.primaryColor),
                                           ),
                                         ),
-                                        scheduleModel.schedules.isEmpty
-                                            ? ListTile(
-                                                title: Text(
-                                                  'No Schedule Found',
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              )
-                                            : Column(
-                                                children: <Widget>[
-                                                  ...scheduleModel.schedules
-                                                      .map<ListTile>((value) {
-                                                    return ListTile(
-                                                      leading: Text(
-                                                        value.day,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                      title: Text(
-                                                        DateFormat.jm().format(
-                                                                value.start) +
-                                                            ' - ' +
+                                        scheduleModel.status ==
+                                                schedule.Status.loading
+                                            ? Loading()
+                                            : scheduleModel.schedules.isEmpty
+                                                ? ListTile(
+                                                    title: Text(
+                                                      'No Schedule Found',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  )
+                                                : Column(
+                                                    children: <Widget>[
+                                                      ...scheduleModel.schedules
+                                                          .map<ListTile>(
+                                                              (value) {
+                                                        return ListTile(
+                                                          leading: Text(
+                                                            value.day,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                          title: Text(
                                                             DateFormat.jm()
-                                                                .format(
-                                                                    value.end),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                      trailing: Text(
-                                                          value.fee.toString()),
-                                                    );
-                                                  }).toList(),
-                                                  _AddAppointment(index),
-                                                ],
-                                              ),
+                                                                    .format(value
+                                                                        .start) +
+                                                                ' - ' +
+                                                                DateFormat.jm()
+                                                                    .format(value
+                                                                        .end),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                          trailing: Text(value
+                                                              .fee
+                                                              .toString()),
+                                                        );
+                                                      }).toList(),
+                                                      _AddAppointment(index),
+                                                    ],
+                                                  ),
                                       ],
                                     );
                                   },

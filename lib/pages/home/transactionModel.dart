@@ -11,9 +11,10 @@ enum Status {loading, completed, error}
 class TransactionModel extends ChangeNotifier {
   List<Transaction> _transactions = [];
   Status _status = Status.loading;
+  String _appointmentId;
 
-  TransactionModel(String appointmentId) {
-    _fetchTransactions(appointmentId);
+  TransactionModel(this._appointmentId) {
+    // _fetchTransactions(appointmentId);
   }
 
   UnmodifiableListView<Transaction> get transactions => UnmodifiableListView(_transactions);
@@ -31,11 +32,22 @@ class TransactionModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _fetchTransactions(String appointmentId) async {
-    List<Transaction> newList = await _getList(appointmentId);
+  void fetchTransactions() async {
+    List<Transaction> newList = await _getList(_appointmentId);
     _status = Status.completed;
     _transactions = newList;
     notifyListeners();
+  }
+
+  Future<bool> postTransaction(Transaction transaction) async {
+    int statusCode = await api.addTransaction(transaction);
+    if (statusCode == 200) {
+      print('success');
+      return true;
+    } else {
+      print(statusCode);
+      return false;
+    }
   }
 }
 
