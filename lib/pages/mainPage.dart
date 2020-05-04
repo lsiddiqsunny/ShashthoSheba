@@ -9,9 +9,10 @@ import './appointments/appointmentsTab.dart';
 import './search/searchDoctorTab.dart';
 import '../api.dart' as api;
 import '../models/patient.dart';
+import './incomingCall.dart';
 
 class MainPage extends StatefulWidget {
-  static const routeName = '/tabbedpages';
+  static const routeName = '/mainpage';
 
   @override
   _TabbedPagesState createState() => _TabbedPagesState();
@@ -53,6 +54,7 @@ class _TabbedPagesState extends State<MainPage>
       onMessage: (Map<String, dynamic> message) async {
         print('message');
         print(message);
+        Navigator.pushNamed(context, IncomingCall.routeName);
       },
       onLaunch: (Map<String, dynamic> message) async {
         print('launch');
