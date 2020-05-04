@@ -67,14 +67,14 @@ class PatientDetails extends StatelessWidget {
                         String value = randomAlphaNumeric(10);
                         await _pingFirebase(token,value);
                         //push video page with given channel name
-                        // await Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => VideoChat(
-                        //       path: value
-                        //     ),
-                        //   ),
-                        // );
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoChat(
+                              path: value
+                            ),
+                          ),
+                        );
                       },
                     )
                   ],
