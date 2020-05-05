@@ -1,4 +1,5 @@
 import 'package:Doctor/addSchedule.dart';
+import 'package:Doctor/editSchedule.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -32,6 +33,9 @@ class _SchedulePageState extends State<SchedulePage> {
       return "Saturday";
     } else if (num == 7) {
       return "Sunday";
+    }
+    else {
+      return "";
     }
   }
 
@@ -81,13 +85,21 @@ class _SchedulePageState extends State<SchedulePage> {
                         '\n' +
                         'End Time: ' +
                         DateFormat("HH:mm")
-                            .format(DateTime.parse(entry["time_end"]))),
+                            .format(DateTime.parse(entry["time_end"]))+
+                        '\n' +
+                        'Fee: '+ entry['fee'].toString() ),
                     isThreeLine: true,
                     trailing: RaisedButton(
                       color: Colors.blue,
                       padding: EdgeInsets.only(right: 5),
                       child: Text('Edit'),
-                      onPressed: () async {},
+                      onPressed: ()  {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => editSchedulePage(schedule:entry)),
+                        );
+                      },
                     ),
                   ),
                   margin: EdgeInsets.only(left: 5, right: 5));
@@ -105,8 +117,8 @@ class _SchedulePageState extends State<SchedulePage> {
                       color: Colors.blue,
                       padding: EdgeInsets.only(right: 5),
                       child: Text('Add new schedule'),
-                      onPressed: () async {
-                        await Navigator.push(
+                      onPressed: ()  {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => addSchedulePage()),
