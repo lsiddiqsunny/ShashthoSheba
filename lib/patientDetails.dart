@@ -190,9 +190,9 @@ class PatientDetails extends StatelessWidget {
         'Authorization': 'key=$serverToken',
       },
       body: jsonEncode({
-        'notification': {'body': value, 'title': 'this is a title'},
+        'notification': {'body': 'You are have a call', 'title': 'Call from doctor'},
         'priority': 'high',
-        'data': {'click_action': 'FLUTTER_NOTIFICATION_CLICK'},
+        'data': {'click_action': 'FLUTTER_NOTIFICATION_CLICK','token': value},
         'to': token,
       }),
     );
