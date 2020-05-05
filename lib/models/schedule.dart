@@ -1,8 +1,8 @@
 class Schedule {
-  int weekDay;
-  DateTime start;
-  DateTime end;
-  double fee;
+  final int weekDay;
+  final DateTime start;
+  final DateTime end;
+  final double fee;
   static Map<int, String> _map = {
     1:'Monday',
     2:'Tuesday',
@@ -13,7 +13,7 @@ class Schedule {
     7:'Sunday'
   };
 
-  Schedule({this.weekDay, this.start, this.end});
+  Schedule({this.weekDay, this.start, this.end, this.fee});
 
   static double _parseDouble(dynamic value) {
     if (value is int) {

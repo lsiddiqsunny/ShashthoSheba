@@ -1,27 +1,24 @@
 import './schedule.dart';
 
 class Doctor {
-  String name;
-  String email;
-  String mobileNo;
-  String institution;
-  String speciality;
-  List<String> specialization;
-  String designation;
-  String registrationNo;
-  String referrer;
-  List<Schedule> schedules;
+  final String name;
+  final String email;
+  final String mobileNo;
+  final String institution;
+  final List<String> specialization;
+  final String designation;
+  final String registrationNo;
+  final String referrer;
 
   Doctor({
     this.name,
     this.email,
     this.mobileNo,
     this.institution,
-    this.speciality,
+    this.specialization,
     this.designation,
     this.registrationNo,
     this.referrer,
-    this.schedules,
   });
 
   Doctor.fromJson(Map<String, dynamic> json)
@@ -30,7 +27,7 @@ class Doctor {
         email = json['email'],
         designation = json['designation'],
         institution = json['institution'],
-        speciality = json['speciality'],
         specialization = json['specialization'].cast<String>(),
+        referrer = json['referrer'],
         registrationNo = json['reg_number'];
 }

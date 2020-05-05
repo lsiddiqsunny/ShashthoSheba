@@ -1,11 +1,11 @@
 
 class Appointment {
-  String id;
-  String doctorMobileNo;
-  String patientMobileNo;
-  String doctorName;
-  DateTime dateTime;
-  bool status;
+  final String id;
+  final String doctorMobileNo;
+  final String patientMobileNo;
+  final String doctorName;
+  final DateTime dateTime;
+  final bool status;
 
   Appointment({this.id, this.doctorMobileNo, this.patientMobileNo, this.doctorName, this.dateTime, this.status});
 

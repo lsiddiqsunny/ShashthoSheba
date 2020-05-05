@@ -1,7 +1,7 @@
 class Transaction {
-  String appointmentId;
-  String transactionId;
-  int amount;
+  final String appointmentId;
+  final String transactionId;
+  final int amount;
 
   Transaction({this.appointmentId,this.transactionId, this.amount});
 
