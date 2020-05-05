@@ -1,5 +1,3 @@
-import './schedule.dart';
-
 class Doctor {
   final String name;
   final String email;

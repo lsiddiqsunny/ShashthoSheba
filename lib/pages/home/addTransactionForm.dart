@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import '../../models/transaction.dart';
 
 class AddTransactionForm extends StatefulWidget {
+  final String appointmentId;
+
+  AddTransactionForm(this.appointmentId);
+
   @override
   _AddTransactionFormState createState() => _AddTransactionFormState();
 }
@@ -62,6 +66,7 @@ class _AddTransactionFormState extends State<AddTransactionForm> {
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         Transaction transaction = Transaction(
+                            appointmentId: widget.appointmentId,
                             transactionId: _transactionIdController.text,
                             amount:
                                 int.parse(_transactionAmountController.text));

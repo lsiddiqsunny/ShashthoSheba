@@ -211,12 +211,11 @@ class _AddTransactionButton extends StatelessWidget {
                 builder: (context) {
                   return AlertDialog(
                     title: Text('New Transaction'),
-                    content: AddTransactionForm(),
+                    content: AddTransactionForm(appointment.id),
                   );
                 },
               );
               if (transaction != null) {
-                transaction.appointmentId = appointment.id;
                 if (await transactionModel.postTransaction(transaction)) {
                   transactionModel.add(transaction);
                 }
