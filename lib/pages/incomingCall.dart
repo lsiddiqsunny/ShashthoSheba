@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../models/doctor.dart';
+// import './videoChat.dart';
 
 class IncomingCall extends StatelessWidget {
   static String routeName = '/incomingCall';
 
-  void _acceptCall() {
-
+  void _acceptCall(BuildContext context) async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.microphone,
+      Permission.mediaLibrary,
+    ].request();
+    print(statuses[Permission.camera]);
+    print(statuses[Permission.microphone]);
+    print(statuses[Permission.mediaLibrary]);
+    // await Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => VideoChat(path: "value from doctor notification"),
+    //   ),
+    // );
   }
 
   void _rejectCall() {
@@ -57,8 +72,11 @@ class IncomingCall extends StatelessWidget {
                   ),
                   child: FittedBox(
                     child: IconButton(
-                      icon: Icon(Icons.call, color: Colors.white,),
-                      onPressed: _acceptCall,
+                      icon: Icon(
+                        Icons.call,
+                        color: Colors.white,
+                      ),
+                      onPressed: () =>_acceptCall(context),
                     ),
                   ),
                 ),

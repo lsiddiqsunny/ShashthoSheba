@@ -34,7 +34,6 @@ class AppointmentList extends StatelessWidget {
                       appointmentModel.transactionModels[index]
                           .fetchTransactions();
                     }
-                    ;
                   },
                   children: appointmentModel.appointments
                       .asMap()
