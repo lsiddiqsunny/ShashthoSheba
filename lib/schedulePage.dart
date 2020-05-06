@@ -2,9 +2,7 @@ import 'package:Doctor/addSchedule.dart';
 import 'package:Doctor/editSchedule.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SchedulePage extends StatefulWidget {
   static const routeName = '/schedule';

@@ -43,7 +43,7 @@ class _InAppWebViewPageState extends State<InAppWebViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("InAppWebView")),
+        appBar: AppBar(title: Text("Chat room")),
         body: Container(
             child: Column(children: <Widget>[
           Expanded(
@@ -66,8 +66,8 @@ class _InAppWebViewPageState extends State<InAppWebViewPage> {
                       (InAppWebViewController controller, String url) {},
                   onPermissionRequest: (InAppWebViewController controller,
                       String origin, List<String> resources) async {
-                    print(origin);
-                    print(resources);
+                    //print(origin);
+                    //print(resources);
                     return PermissionRequestResponse(
                         resources: resources,
                         action: PermissionRequestResponseAction.GRANT);

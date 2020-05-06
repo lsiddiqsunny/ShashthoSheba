@@ -116,6 +116,7 @@ String getDayString(int num) {
   String endTime = '00';
   @override
   void initState() {
+    super.initState();
     selectedDay = getDayString(schedule["day"]);
     startHour = DateFormat("HH").format(DateTime.parse(schedule["time_start"]));
     startTime = DateFormat("mm").format(DateTime.parse(schedule["time_start"]));
