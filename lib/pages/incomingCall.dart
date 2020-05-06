@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../models/doctor.dart';
-import './videoChat.dart';
+import './ongoingCall.dart';
 
-class IncomingCall extends StatelessWidget {
+class IncomingCall extends StatefulWidget {
   static String routeName = '/incomingCall';
 
+  @override
+  _IncomingCallState createState() => _IncomingCallState();
+}
+
+class _IncomingCallState extends State<IncomingCall> {
+  String status = '';
+
   void _acceptCall(BuildContext context) async {
+    setState(() {
+      status = 'Connecting';
+    });
     Map<Permission, PermissionStatus> statuses = await [
       Permission.camera,
       Permission.microphone,
@@ -16,16 +26,12 @@ class IncomingCall extends StatelessWidget {
     print(statuses[Permission.camera]);
     print(statuses[Permission.microphone]);
     print(statuses[Permission.mediaLibrary]);
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => VideoChat(path: "tameem"),
-      ),
-    );
+    Navigator.pushNamed(context, OngoingCall.routeName,
+        arguments: ModalRoute.of(context).settings.arguments);
   }
 
-  void _rejectCall() {
-
+  void _rejectCall(BuildContext context) {
+    Navigator.pop(context);
   }
 
   @override
@@ -54,47 +60,61 @@ class IncomingCall extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: theme.primaryColor),
             ),
-            Text('is calling',
-                style: TextStyle(fontSize: 20, color: theme.primaryColor)),
+            Text(
+              'is calling',
+              style: TextStyle(fontSize: 20, color: theme.primaryColor),
+            ),
+            Text(
+              status,
+              style: TextStyle(fontSize: 20, color: theme.primaryColor),
+            ),
             Expanded(
               child: SizedBox(),
             ),
             ButtonBar(
-              buttonPadding: EdgeInsets.all(50),
               alignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  height: 75,
-                  width: 75,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: theme.primaryColor,
-                  ),
-                  child: FittedBox(
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.call,
-                        color: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 45.0),
+                  child: Container(
+                    height: 75,
+                    width: 75,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: theme.primaryColor,
+                    ),
+                    child: FittedBox(
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.call,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => _acceptCall(context),
                       ),
-                      onPressed: () =>_acceptCall(context),
                     ),
                   ),
                 ),
-                Container(
-                  height: 75,
-                  width: 75,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: theme.primaryColor,
-                  ),
-                  child: FittedBox(
-                    child: IconButton(
-                      icon: Icon(Icons.clear, color: Colors.white),
-                      onPressed: _rejectCall,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 45.0),
+                  child: Container(
+                    height: 75,
+                    width: 75,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                    ),
+                    child: FittedBox(
+                      child: IconButton(
+                        icon: Icon(Icons.clear, color: Colors.white),
+                        onPressed: () => _rejectCall(context),
+                      ),
                     ),
                   ),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 50,
             ),
           ],
         ),

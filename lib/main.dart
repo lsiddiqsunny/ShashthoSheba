@@ -4,6 +4,7 @@ import './pages/loginPage.dart';
 import './pages/registerPage.dart';
 import './pages/mainPage.dart';
 import './pages/incomingCall.dart';
+import './pages/ongoingCall.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         MainPage.routeName: (context) => MainPage(),
         RegisterPage.routeName: (context) => RegisterPage(),
         IncomingCall.routeName: (context) => IncomingCall(),
+        OngoingCall.routeName: (context) => OngoingCall(),
       },
     );
   }
