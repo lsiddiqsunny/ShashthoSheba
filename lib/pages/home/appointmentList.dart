@@ -202,7 +202,7 @@ class _AddTransactionButton extends StatelessWidget {
         'Add Payment',
         style: theme.textTheme.button.copyWith(fontWeight: FontWeight.bold),
       ),
-      onPressed: appointment.status
+      onPressed: appointment.status || DateTime.now().isAfter(appointment.dateTime)
           ? null
           : () async {
               Transaction transaction = await showDialog<Transaction>(

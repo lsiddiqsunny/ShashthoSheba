@@ -51,6 +51,7 @@
 /android/app/src/main/*
 !/android/app/src/main/AndroidManifest.xml
 
+!/fonts
 !/lib
 !/.gitignore
 !/pubspec.yaml

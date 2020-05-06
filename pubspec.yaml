@@ -48,6 +48,12 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
+  fonts:
+    - family: Solway
+      fonts:
+        - asset: fonts/Solway-Regular.ttf
+        - asset: fonts/Solway-Bold.ttf
+          weight: 700
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:

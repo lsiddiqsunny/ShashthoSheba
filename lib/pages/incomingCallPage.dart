@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../models/doctor.dart';
-import './ongoingCall.dart';
+import './ongoingCallPage.dart';
 
 class IncomingCall extends StatefulWidget {
   static String routeName = '/incomingCall';

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import './pages/loginPage.dart';
 import './pages/registerPage.dart';
 import './pages/mainPage.dart';
-import './pages/incomingCall.dart';
-import './pages/ongoingCall.dart';
+import './pages/incomingCallPage.dart';
+import './pages/ongoingCallPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,8 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: IncomingCall.routeName,
+      initialRoute: LoginPage.routeName,
       theme: ThemeData(
+        fontFamily: 'Solway',
         textTheme: TextTheme(
           headline: TextStyle(fontSize: 28, color: Colors.blue),
           title: TextStyle(fontSize: 24, color: Colors.blue),

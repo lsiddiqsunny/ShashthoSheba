@@ -7,7 +7,7 @@ import './appointments/appointmentsTab.dart';
 import './search/searchDoctorTab.dart';
 import '../networking/api.dart' as api;
 import '../models/patient.dart';
-import './incomingCall.dart';
+import './incomingCallPage.dart';
 
 class MainPage extends StatefulWidget {
   static const routeName = '/mainpage';

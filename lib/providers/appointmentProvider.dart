@@ -38,6 +38,18 @@ class AppointmentProvider extends ChangeNotifier {
     _appointments = newList;
     notifyListeners();
   }
+
+  Future<bool> cancelAppointment(Appointment appointment) async {
+    try {
+      await api.cancelAppointment(appointment.id);
+      _appointments.remove(appointment);
+      notifyListeners();
+      return true;
+    } catch(e) {
+      print(e.toString());
+      return false;
+    }
+  }
 }
 
 Future<List<Appointment>> _getList(int limit, int page, bool previous) async {
