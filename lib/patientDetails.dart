@@ -200,12 +200,10 @@ class PatientDetails extends StatelessWidget {
   }
 
   Future<void> _handleCameraAndMic() async {
-    await PermissionHandler().requestPermissions(
-      [
-        PermissionGroup.camera,
-        PermissionGroup.microphone,
-        PermissionGroup.mediaLibrary
-      ],
-    );
+    await Map<Permission, PermissionStatus> statuses = await [
+	        Permission.camera,
+	        Permission.microphone,
+	        Permission.mediaLibrary,
+    ].request();
   }
 }
