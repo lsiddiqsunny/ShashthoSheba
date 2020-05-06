@@ -1,22 +1,20 @@
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'dart:collection';
 
-import '../../models/appointment.dart';
-import '../../api.dart' as api;
+import '../models/appointment.dart';
+import '../networking/api.dart' as api;
 
 enum Status { loading, completed, error }
 enum Selected { previous, upcoming }
 
-class AppointmentModel extends ChangeNotifier {
+class AppointmentProvider extends ChangeNotifier {
   List<Appointment> _appointments;
 
   Status _status = Status.loading;
   final int _limit;
   Selected _selected = Selected.previous;
 
-  AppointmentModel(this._limit) {
+  AppointmentProvider(this._limit) {
     _fetchAppointments(1, true);
   }
 
@@ -43,23 +41,18 @@ class AppointmentModel extends ChangeNotifier {
 }
 
 Future<List<Appointment>> _getList(int limit, int page, bool previous) async {
-  http.Response response;
-  if (previous) {
-    response = await api.fetchPreviousAppointments();
-  } else {
-    response = await api.fetchUpcomingAppointments();
-  }
-  if (response.statusCode == 200) {
-    return compute(_parseData, response.body);
-  } else {
-    print(response.statusCode);
+  try {
+    dynamic data;
+    if (previous) {
+      data = await api.fetchPreviousAppointments();
+    } else {
+      data = await api.fetchUpcomingAppointments();
+    }
+    return data.map<Appointment>((json) {
+      return Appointment.fromJson(json);
+    }).toList();
+  } catch (e) {
+    print(e.toString());
     return [];
   }
-}
-
-List<Appointment> _parseData(String responseBody) {
-  final data = jsonDecode(responseBody);
-  return data.map<Appointment>((json) {
-    return Appointment.fromJson(json);
-  }).toList();
 }

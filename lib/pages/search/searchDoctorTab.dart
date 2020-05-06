@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './doctorModel.dart';
+import '../../providers/doctorProvider.dart';
 import './filterBar.dart';
 import './doctorList.dart';
 
@@ -10,10 +10,10 @@ class SearchDoctorTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return ChangeNotifierProvider(
-      create: (context) => DoctorModel(10),
+      create: (context) => DoctorProvider(10),
       child: Builder(
         builder: (context) {
-          DoctorModel doctorModel = Provider.of<DoctorModel>(context);
+          DoctorProvider doctorProvider = Provider.of<DoctorProvider>(context);
           return Column(
             children: <Widget>[
               Padding(
@@ -34,9 +34,9 @@ class SearchDoctorTab extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   onChanged: (value) {
-                    doctorModel.streamController.add(value);
+                    doctorProvider.streamController.add(value);
                   },
-                  controller: doctorModel.searchController,
+                  controller: doctorProvider.searchController,
                   decoration: InputDecoration(
                     labelText: "Search",
                     prefixIcon: Icon(Icons.search),

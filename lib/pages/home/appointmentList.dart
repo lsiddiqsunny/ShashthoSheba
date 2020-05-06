@@ -5,18 +5,18 @@ import 'package:provider/provider.dart';
 import '../../models/transaction.dart';
 import '../../models/appointment.dart';
 import '../../widgets/loading.dart';
+import '../../providers/transactionProvider.dart' as transaction;
+import '../../providers/todaysAppointmentProvider.dart';
 import './addTransactionForm.dart';
-import './transactionModel.dart' as transaction;
-import './appointmentModel.dart';
 
 class AppointmentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    AppointmentModel appointmentModel = Provider.of<AppointmentModel>(context);
-    return appointmentModel.status == Status.loading
+    AppointmentProvider appointmentProvider = Provider.of<AppointmentProvider>(context);
+    return appointmentProvider.status == Status.loading
         ? Loading()
-        : appointmentModel.appointments.isEmpty
+        : appointmentProvider.appointments.isEmpty
             ? ListTile(
                 title: Text(
                   'No Appointments Today',
@@ -27,15 +27,15 @@ class AppointmentList extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: ExpansionPanelList(
                   expansionCallback: (index, isExpanded) {
-                    appointmentModel.expand(index);
+                    appointmentProvider.expand(index);
                     if (!isExpanded &&
-                        appointmentModel.transactionModels[index].status ==
+                        appointmentProvider.transactionProviders[index].status ==
                             transaction.Status.loading) {
-                      appointmentModel.transactionModels[index]
+                      appointmentProvider.transactionProviders[index]
                           .fetchTransactions();
                     }
                   },
-                  children: appointmentModel.appointments
+                  children: appointmentProvider.appointments
                       .asMap()
                       .map<int, ExpansionPanel>((index, appointment) {
                         return MapEntry(
@@ -77,13 +77,13 @@ class AppointmentList extends StatelessWidget {
                               },
                               body: ChangeNotifierProvider.value(
                                 value:
-                                    appointmentModel.transactionModels[index],
+                                    appointmentProvider.transactionProviders[index],
                                 child: Builder(
                                   builder: (context) {
-                                    transaction.TransactionModel
-                                        transactionModel = Provider.of<
+                                    transaction.TransactionProvider
+                                        transactionProvider = Provider.of<
                                             transaction
-                                                .TransactionModel>(context);
+                                                .TransactionProvider>(context);
                                     return Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
@@ -99,7 +99,7 @@ class AppointmentList extends StatelessWidget {
                                           subtitle: Text(
                                             appointment.status
                                                 ? 'Done'
-                                                : transactionModel
+                                                : transactionProvider
                                                         .transactions.isEmpty
                                                     ? 'Not Provided'
                                                     : 'Awaiting Approval',
@@ -129,7 +129,7 @@ class AppointmentList extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        transactionModel.status ==
+                                        transactionProvider.status ==
                                                 transaction.Status.loading
                                             ? Loading()
                                             : _TransactionList()
@@ -138,7 +138,7 @@ class AppointmentList extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              isExpanded: appointmentModel.expanded[index],
+                              isExpanded: appointmentProvider.expanded[index],
                             ));
                       })
                       .values
@@ -152,9 +152,9 @@ class _TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    transaction.TransactionModel transactionModel =
-        Provider.of<transaction.TransactionModel>(context);
-    return transactionModel.transactions.isEmpty
+    transaction.TransactionProvider transactionProvider =
+        Provider.of<transaction.TransactionProvider>(context);
+    return transactionProvider.transactions.isEmpty
         ? ListTile(
             title: Text(
               'No Transactions Added',
@@ -163,7 +163,7 @@ class _TransactionList extends StatelessWidget {
           )
         : Column(
             children: <Widget>[
-              ...transactionModel.transactions.map<Padding>((transaction) {
+              ...transactionProvider.transactions.map<Padding>((transaction) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 5.0),
                   child: ListTile(
@@ -174,7 +174,7 @@ class _TransactionList extends StatelessWidget {
               }).toList(),
               ListTile(
                 trailing: Text(
-                  'Total ' + transactionModel.totalAmount.toString() + '/-',
+                  'Total ' + transactionProvider.totalAmount.toString() + '/-',
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -194,8 +194,8 @@ class _AddTransactionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    transaction.TransactionModel transactionModel =
-        Provider.of<transaction.TransactionModel>(context);
+    transaction.TransactionProvider transactionProvider =
+        Provider.of<transaction.TransactionProvider>(context);
     return OutlineButton(
       borderSide: BorderSide(color: theme.primaryColor),
       child: Text(
@@ -216,8 +216,8 @@ class _AddTransactionButton extends StatelessWidget {
                 },
               );
               if (transaction != null) {
-                if (await transactionModel.postTransaction(transaction)) {
-                  transactionModel.add(transaction);
+                if (await transactionProvider.postTransaction(transaction)) {
+                  transactionProvider.add(transaction);
                 }
               }
             },

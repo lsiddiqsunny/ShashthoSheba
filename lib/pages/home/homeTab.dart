@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/todaysAppointmentProvider.dart';
 import './appointmentList.dart';
-import './appointmentModel.dart';
 
 class HomeTab extends StatelessWidget {
   @override
@@ -22,7 +22,7 @@ class HomeTab extends StatelessWidget {
             ),
           ),
           ChangeNotifierProvider(
-            create: (context) => AppointmentModel(),
+            create: (context) => AppointmentProvider(),
             child: Builder(
               builder: (context) {
                 return AppointmentList();

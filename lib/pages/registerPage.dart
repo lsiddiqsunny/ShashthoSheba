@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../models/patient.dart';
-import '../api.dart' as api;
+import '../networking/api.dart' as api;
 
 class RegisterPage extends StatefulWidget {
   static const routeName = '/register';
@@ -28,12 +28,12 @@ class _RegisterPageState extends State<RegisterPage> {
       sex: _sex,
       password: _pass.text,
     );
-    int statusCode = await api.patientRegister(patient);
-    if (statusCode == 200) {
-      print('success');
+    try {
+      await api.patientRegister(patient);
+      print('Successfully Registered');
       Navigator.pop(context);
-    } else {
-      print(statusCode);
+    } catch (e) {
+      print(e.toString());
     }
   }
 

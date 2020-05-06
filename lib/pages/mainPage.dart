@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import './home/homeTab.dart';
 import './appointments/appointmentsTab.dart';
 import './search/searchDoctorTab.dart';
-import '../api.dart' as api;
+import '../networking/api.dart' as api;
 import '../models/patient.dart';
 import './incomingCall.dart';
 
@@ -33,12 +31,11 @@ class _TabbedPagesState extends State<MainPage>
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   void _sendToken() async {
-    http.Response response = await api.patientDetails();
-    final data = jsonDecode(response.body);
-    Patient patient = Patient.fromJson(data);
-    int statusCode = await api.sendToken(patient.id, await _firebaseMessaging.getToken());
-    if(statusCode != 200) {
-      print(statusCode);
+    try {
+      Patient patient = Patient.fromJson(await api.patientDetails());
+      await api.sendToken(patient.id, await _firebaseMessaging.getToken());
+    } catch (e) {
+      print(e.toString());
     }
   }
 
@@ -53,8 +50,8 @@ class _TabbedPagesState extends State<MainPage>
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print('message');
-        print(message);
-        Navigator.pushNamed(context, IncomingCall.routeName);
+        print(message['data']['token']);
+        Navigator.pushNamed(context, IncomingCall.routeName, arguments: message['data']['token']);
       },
       onLaunch: (Map<String, dynamic> message) async {
         print('launch');
@@ -119,12 +116,12 @@ class _TabbedPagesState extends State<MainPage>
               title: Text('Log Out'),
               onTap: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                int statusCode = await api.patientLogOut();
-                if (statusCode == 200) {
+                try {
+                  await api.patientLogOut();
                   prefs.remove('jwt');
                   Navigator.popUntil(context, ModalRoute.withName('/'));
-                } else {
-                  print(statusCode);
+                } catch (e) {
+                  print(e.toString());
                 }
               },
             ),

@@ -1,23 +1,22 @@
-import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
-import 'dart:convert';
 import 'dart:collection';
 
-import '../../models/schedule.dart';
-import '../../api.dart' as api;
+import '../models/schedule.dart';
+import '../networking/api.dart' as api;
 
 enum Status { loading, completed, error }
 
-class ScheduleModel extends ChangeNotifier {
+class ScheduleProvider extends ChangeNotifier {
   List<Schedule> _schedules = [];
   Status _status = Status.loading;
   String _mobileNo;
 
-  ScheduleModel(this._mobileNo) {
+  ScheduleProvider(this._mobileNo) {
     // _fetchSchedules(mobileNo);
   }
 
-  UnmodifiableListView<Schedule> get schedules => UnmodifiableListView(_schedules);
+  UnmodifiableListView<Schedule> get schedules =>
+      UnmodifiableListView(_schedules);
 
   Status get status => _status;
 
@@ -32,8 +31,8 @@ class ScheduleModel extends ChangeNotifier {
 
   DateTime initialDate() {
     DateTime date = DateTime.now();
-    while(!toShow(date.weekday)) {
-      date = date.add(Duration(days:1));
+    while (!toShow(date.weekday)) {
+      date = date.add(Duration(days: 1));
     }
     return date;
   }
@@ -52,7 +51,7 @@ class ScheduleModel extends ChangeNotifier {
   }
 
   void fetchSchedules() async {
-    if(_status != Status.loading) {
+    if (_status != Status.loading) {
       _status = Status.loading;
       notifyListeners();
     }
@@ -64,18 +63,13 @@ class ScheduleModel extends ChangeNotifier {
 }
 
 Future<List<Schedule>> _getList(String mobileNo) async {
-  http.Response response = await api.fetchSchedules({'mobile_no': mobileNo});
-  if (response.statusCode == 200) {
-    return compute(_parseSchedule, response.body);
-  } else {
-    print(response.statusCode);
+  try {
+    final data = await api.fetchSchedules(mobileNo);
+    return data.map<Schedule>((json) {
+      return Schedule.fromJson(json);
+    }).toList();
+  } catch (e) {
+    print(e.toString());
     return [];
   }
-}
-
-List<Schedule> _parseSchedule(String responseBody) {
-  final data = jsonDecode(responseBody);
-  return data.map<Schedule>((json) {
-    return Schedule.fromJson(json);
-  }).toList();
 }

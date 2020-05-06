@@ -3,17 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import '../../widgets/loading.dart';
-import './doctorModel.dart';
-import './scheduleModel.dart' as schedule;
+import '../../providers/doctorProvider.dart';
+import '../../providers/scheduleProvider.dart' as schedule;
 
 class DoctorList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    DoctorModel doctorModel = Provider.of<DoctorModel>(context);
-    return doctorModel.status == Status.loading
+    DoctorProvider doctorProvider = Provider.of<DoctorProvider>(context);
+    return doctorProvider.status == Status.loading
         ? Loading()
-        : doctorModel.doctors.isEmpty
+        : doctorProvider.doctors.isEmpty
             ? ListTile(
                 title: Text(
                   'No Doctors Found',
@@ -24,14 +24,14 @@ class DoctorList extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: ExpansionPanelList(
                     expansionCallback: (index, isExpanded) {
-                      doctorModel.expand(index);
+                      doctorProvider.expand(index);
                       if (!isExpanded &&
-                          doctorModel.scheduleModels[index].status ==
+                          doctorProvider.scheduleProviders[index].status ==
                               schedule.Status.loading) {
-                        doctorModel.scheduleModels[index].fetchSchedules();
+                        doctorProvider.scheduleProviders[index].fetchSchedules();
                       }
                     },
-                    children: doctorModel.doctors
+                    children: doctorProvider.doctors
                         .asMap()
                         .map<int, ExpansionPanel>((index, doctor) {
                           return MapEntry(
@@ -41,23 +41,23 @@ class DoctorList extends StatelessWidget {
                                 return ListTile(
                                   leading: CircleAvatar(),
                                   title: Text(
-                                    '${doctorModel.doctors[index].name}',
+                                    '${doctorProvider.doctors[index].name}',
                                     style: TextStyle(fontSize: 20),
                                   ),
                                   subtitle: Text(
-                                    '${doctorModel.doctors[index].designation}, ' +
-                                        '${doctorModel.doctors[index].institution}\n' +
-                                        '${doctorModel.doctors[index].specialization.join(',')}',
+                                    '${doctorProvider.doctors[index].designation}, ' +
+                                        '${doctorProvider.doctors[index].institution}\n' +
+                                        '${doctorProvider.doctors[index].specialization.join(',')}',
                                   ),
                                   isThreeLine: true,
                                 );
                               },
                               body: ChangeNotifierProvider.value(
-                                value: doctorModel.scheduleModels[index],
+                                value: doctorProvider.scheduleProviders[index],
                                 child: Builder(
                                   builder: (context) {
-                                    schedule.ScheduleModel scheduleModel =
-                                        Provider.of<schedule.ScheduleModel>(
+                                    schedule.ScheduleProvider scheduleProvider =
+                                        Provider.of<schedule.ScheduleProvider>(
                                             context);
                                     return Column(
                                       children: <Widget>[
@@ -82,10 +82,10 @@ class DoctorList extends StatelessWidget {
                                                 color: theme.primaryColor),
                                           ),
                                         ),
-                                        scheduleModel.status ==
+                                        scheduleProvider.status ==
                                                 schedule.Status.loading
                                             ? Loading()
-                                            : scheduleModel.schedules.isEmpty
+                                            : scheduleProvider.schedules.isEmpty
                                                 ? ListTile(
                                                     title: Text(
                                                       'No Schedule Found',
@@ -95,7 +95,7 @@ class DoctorList extends StatelessWidget {
                                                   )
                                                 : Column(
                                                     children: <Widget>[
-                                                      ...scheduleModel.schedules
+                                                      ...scheduleProvider.schedules
                                                           .map<ListTile>(
                                                               (value) {
                                                         return ListTile(
@@ -128,7 +128,7 @@ class DoctorList extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              isExpanded: doctorModel.expanded[index],
+                              isExpanded: doctorProvider.expanded[index],
                             ),
                           );
                         })
@@ -148,9 +148,9 @@ class _AddAppointment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    schedule.ScheduleModel scheduleModel =
-        Provider.of<schedule.ScheduleModel>(context, listen: false);
-    DoctorModel doctorModel = Provider.of<DoctorModel>(context, listen: false);
+    schedule.ScheduleProvider scheduleProvider =
+        Provider.of<schedule.ScheduleProvider>(context, listen: false);
+    DoctorProvider doctorProvider = Provider.of<DoctorProvider>(context, listen: false);
     return ButtonBar(
       children: <Widget>[
         OutlineButton.icon(
@@ -164,16 +164,16 @@ class _AddAppointment extends StatelessWidget {
             DateTime date = await showDatePicker(
                 context: context,
                 firstDate: DateTime.now(),
-                initialDate: scheduleModel.initialDate(),
+                initialDate: scheduleProvider.initialDate(),
                 lastDate: DateTime.now().add(Duration(days: 30)),
                 selectableDayPredicate: (date) {
-                  return scheduleModel.toShow(date.weekday);
+                  return scheduleProvider.toShow(date.weekday);
                 });
             if (date != null) {
               DateTime time = await showDialog(
                 context: context,
                 builder: (context) {
-                  return _SelectTime(date.weekday, scheduleModel);
+                  return _SelectTime(date.weekday, scheduleProvider);
                 },
               );
               if (time != null) {
@@ -183,12 +183,12 @@ class _AddAppointment extends StatelessWidget {
                     DateFormat("yyyy-MM-dd").format(date).toString() +
                         ' ' +
                         DateFormat.Hms().format(time));
-                int statusCode =
-                    await doctorModel.createAppointment(doctorIndex, dateTime);
-                if (statusCode == 200) {
-                  print('success');
+                bool success =
+                    await doctorProvider.createAppointment(doctorIndex, dateTime);
+                if (success) {
+                  print('Successfully Created Appointment');
                 } else {
-                  print(statusCode);
+                  print('Appointment Creation Failed');
                 }
               }
             }
@@ -201,9 +201,9 @@ class _AddAppointment extends StatelessWidget {
 
 class _SelectTime extends StatefulWidget {
   final int weekDay;
-  final schedule.ScheduleModel scheduleModel;
+  final schedule.ScheduleProvider scheduleProvider;
 
-  _SelectTime(this.weekDay, this.scheduleModel);
+  _SelectTime(this.weekDay, this.scheduleProvider);
   @override
   _SelectTimeState createState() => _SelectTimeState();
 }
@@ -217,7 +217,7 @@ class _SelectTimeState extends State<_SelectTime> {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     List<Map<String, DateTime>> times =
-        widget.scheduleModel.times(widget.weekDay);
+        widget.scheduleProvider.times(widget.weekDay);
     return AlertDialog(
       title: Text('Select Time'),
       content: Column(

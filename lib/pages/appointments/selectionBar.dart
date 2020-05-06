@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './appointmentModel.dart';
+import '../../providers/appointmentProvider.dart';
 
 class SelectionBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    AppointmentModel appointmentModel = Provider.of<AppointmentModel>(context);
+    AppointmentProvider appointmentProvider = Provider.of<AppointmentProvider>(context);
     return ButtonBar(
       alignment: MainAxisAlignment.center,
       children: <Widget>[
         AnimatedCrossFade(
           firstChild: OutlineButton.icon(
             onPressed: () {
-              appointmentModel.selected = Selected.previous;
+              appointmentProvider.selected = Selected.previous;
             },
             icon: Icon(Icons.history),
             label: Text('Previous'),
@@ -25,7 +25,7 @@ class SelectionBar extends StatelessWidget {
             label: Text('Previous'),
             color: theme.primaryColor,
           ),
-          crossFadeState: appointmentModel.selected == Selected.previous
+          crossFadeState: appointmentProvider.selected == Selected.previous
               ? CrossFadeState.showSecond
               : CrossFadeState.showFirst,
           duration: Duration(milliseconds: 200),
@@ -33,7 +33,7 @@ class SelectionBar extends StatelessWidget {
         AnimatedCrossFade(
           firstChild: OutlineButton.icon(
             onPressed: () {
-              appointmentModel.selected = Selected.upcoming;
+              appointmentProvider.selected = Selected.upcoming;
             },
             icon: Icon(Icons.trending_up),
             label: Text('Upcoming'),
@@ -44,7 +44,7 @@ class SelectionBar extends StatelessWidget {
             label: Text('Upcoming'),
             color: theme.primaryColor,
           ),
-          crossFadeState: appointmentModel.selected == Selected.upcoming
+          crossFadeState: appointmentProvider.selected == Selected.upcoming
               ? CrossFadeState.showSecond
               : CrossFadeState.showFirst,
           duration: Duration(milliseconds: 200),

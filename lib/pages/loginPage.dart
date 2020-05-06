@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 import './mainPage.dart';
 import './registerPage.dart';
-import '../api.dart' as api;
+import '../networking/api.dart' as api;
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/';
@@ -31,14 +30,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void loginAction(BuildContext context) async {
-    http.Response response = await api
-        .patientLogin({'mobile_no': _mobileNo.text, 'password': _pass.text});
-    if (response.statusCode == 200) {
+    try {
+      var data = await api
+          .patientLogin({'mobile_no': _mobileNo.text, 'password': _pass.text});
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('jwt', response.body);
+      prefs.setString('jwt', data['token']);
       Navigator.pushNamed(context, MainPage.routeName);
-    } else {
-      print(response.statusCode);
+    } catch (e) {
+      print(e.toString());
     }
   }
 

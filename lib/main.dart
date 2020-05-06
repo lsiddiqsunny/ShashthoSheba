@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: LoginPage.routeName,
+      initialRoute: IncomingCall.routeName,
       theme: ThemeData(
         textTheme: TextTheme(
           headline: TextStyle(fontSize: 28, color: Colors.blue),

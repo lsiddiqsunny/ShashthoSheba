@@ -3,19 +3,19 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import '../../widgets/loading.dart';
-import './appointmentModel.dart';
+import '../../providers/appointmentProvider.dart';
 
 class AppointmentsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    AppointmentModel appointmentModel = Provider.of<AppointmentModel>(context);
-    return appointmentModel.status == Status.loading
+    AppointmentProvider appointmentProvider = Provider.of<AppointmentProvider>(context);
+    return appointmentProvider.status == Status.loading
         ? Loading()
-        : appointmentModel.appointments.isEmpty
+        : appointmentProvider.appointments.isEmpty
             ? ListTile(
                 title: Text(
-                  appointmentModel.selected == Selected.previous
+                  appointmentProvider.selected == Selected.previous
                       ? 'No Appoinments Yet'
                       : 'No upcoming Appointments',
                   textAlign: TextAlign.center,
@@ -23,7 +23,7 @@ class AppointmentsList extends StatelessWidget {
               )
             : Expanded(
                 child: ListView.builder(
-                  itemCount: appointmentModel.appointments.length,
+                  itemCount: appointmentProvider.appointments.length,
                   itemBuilder: (context, index) {
                     return ListTile(
                       leading: Text(
@@ -35,18 +35,18 @@ class AppointmentsList extends StatelessWidget {
                         ),
                       ),
                       title: RichText(
-                        textAlign: appointmentModel.selected == Selected.previous ? TextAlign.center : TextAlign.left,
+                        textAlign: appointmentProvider.selected == Selected.previous ? TextAlign.center : TextAlign.left,
                         text: TextSpan(
                           children: <TextSpan>[
                             TextSpan(
                               text:
-                                  appointmentModel.selected == Selected.previous
+                                  appointmentProvider.selected == Selected.previous
                                       ? DateFormat.yMMMMd('en_US')
                                           .add_jm()
-                                          .format(appointmentModel
+                                          .format(appointmentProvider
                                               .appointments[index].dateTime)
                                       : DateFormat("EEEE, MMMM d, yyyy \nh:mm a")
-                                          .format(appointmentModel
+                                          .format(appointmentProvider
                                               .appointments[index].dateTime),
                               style: TextStyle(
                                 fontSize: 20,
@@ -56,7 +56,7 @@ class AppointmentsList extends StatelessWidget {
                             ),
                             TextSpan(
                               text: '\nwith ' +
-                                  appointmentModel
+                                  appointmentProvider
                                       .appointments[index].doctorName,
                               style: TextStyle(
                                 fontSize: 16,
@@ -67,7 +67,7 @@ class AppointmentsList extends StatelessWidget {
                           ],
                         ),
                       ),
-                      trailing: appointmentModel.selected == Selected.previous
+                      trailing: appointmentProvider.selected == Selected.previous
                           ? IconButton(
                               icon: Icon(Icons.image),
                               color: theme.primaryColor,

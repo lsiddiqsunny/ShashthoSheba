@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../models/doctor.dart';
-// import './videoChat.dart';
+import './videoChat.dart';
 
 class IncomingCall extends StatelessWidget {
   static String routeName = '/incomingCall';
@@ -16,12 +16,12 @@ class IncomingCall extends StatelessWidget {
     print(statuses[Permission.camera]);
     print(statuses[Permission.microphone]);
     print(statuses[Permission.mediaLibrary]);
-    // await Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => VideoChat(path: "value from doctor notification"),
-    //   ),
-    // );
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoChat(path: "tameem"),
+      ),
+    );
   }
 
   void _rejectCall() {

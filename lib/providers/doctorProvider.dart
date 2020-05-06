@@ -1,25 +1,23 @@
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:stream_transform/stream_transform.dart';
-import 'dart:convert';
 import 'dart:collection';
 import 'dart:async';
 
-import '../../models/doctor.dart';
-import '../../api.dart' as api;
-import './scheduleModel.dart';
+import '../models/doctor.dart';
+import '../networking/api.dart' as api;
+import './scheduleProvider.dart';
 
 enum Status { loading, completed, error }
 enum Filter { name, hospital, speciality }
 
-class DoctorModel extends ChangeNotifier {
+class DoctorProvider extends ChangeNotifier {
   List<Doctor> _doctors = [];
   List<bool> _expanded = [];
-  List<ScheduleModel> _scheduleModels = [];
+  List<ScheduleProvider> _scheduleProviders = [];
 
   Status _status = Status.loading;
-  final int _limit;
+  final int _perPage;
   Filter _filter = Filter.name;
 
   TextEditingController searchController = TextEditingController();
@@ -32,7 +30,7 @@ class DoctorModel extends ChangeNotifier {
     super.dispose();
   }
 
-  DoctorModel(this._limit) {
+  DoctorProvider(this._perPage) {
     //this ensures that fetchDoctors is called only when the user has stopped typing
     streamController.stream
         .debounce(Duration(milliseconds: 400))
@@ -50,7 +48,8 @@ class DoctorModel extends ChangeNotifier {
 
   UnmodifiableListView<bool> get expanded => UnmodifiableListView(_expanded);
 
-  UnmodifiableListView<ScheduleModel> get scheduleModels => UnmodifiableListView(_scheduleModels);
+  UnmodifiableListView<ScheduleProvider> get scheduleProviders =>
+      UnmodifiableListView(_scheduleProviders);
 
   Status get status => _status;
 
@@ -76,48 +75,46 @@ class DoctorModel extends ChangeNotifier {
       notifyListeners();
     }
     List<Doctor> newList =
-        await _getList(_limit, page, filter: filter, value: value);
+        await _getList(_perPage, page, filter: filter, value: value);
     _status = Status.completed;
     _doctors = newList;
     _expanded = List.generate(_doctors.length, (index) => false);
-    _scheduleModels = List.generate(
+    _scheduleProviders = List.generate(
       _doctors.length,
-      (index) => ScheduleModel(_doctors[index].mobileNo),
+      (index) => ScheduleProvider(_doctors[index].mobileNo),
     );
     notifyListeners();
   }
 
-  Future<int> createAppointment(int index, DateTime appointmentTime) async {
-    return await api.createAppointment({
-      'doc_mobile_no': _doctors[index].mobileNo,
-      'appointment_date_time': appointmentTime.toString(),
-    });
+  Future<bool> createAppointment(int index, DateTime appointmentTime) async {
+    try {
+      await api.createAppointment(_doctors[index].mobileNo, appointmentTime);
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 }
 
-Future<List<Doctor>> _getList(int limit, int page,
+Future<List<Doctor>> _getList(int perPage, int page,
     {Filter filter, String value}) async {
-  http.Response response;
-  if (filter == null) {
-    response = await api.fetchDoctors(limit, page);
-  } else if (filter == Filter.name) {
-    response = await api.fetchDoctorsByName(limit, page, value);
-  } else if (filter == Filter.hospital) {
-    response = await api.fetchDoctorsByHospital(limit, page, value);
-  } else {
-    response = await api.fetchDoctorsBySpeciality(limit, page, value);
-  }
-  if (response.statusCode == 200) {
-    return compute(_parseData, response.body);
-  } else {
-    print(response.statusCode);
+  try {
+    dynamic data;
+    if (filter == null) {
+      data = await api.fetchDoctors(perPage, page);
+    } else if (filter == Filter.name) {
+      data = await api.fetchDoctorsByName(perPage, page, value);
+    } else if (filter == Filter.hospital) {
+      data = await api.fetchDoctorsByHospital(perPage, page, value);
+    } else {
+      data = await api.fetchDoctorsBySpeciality(perPage, page, value);
+    }
+    return data['docs'].map<Doctor>((json) {
+      return Doctor.fromJson(json);
+    }).toList();
+  } catch (e) {
+    print(e.toString());
     return [];
   }
-}
-
-List<Doctor> _parseData(String responseBody) {
-  final data = jsonDecode(responseBody);
-  return data['docs'].map<Doctor>((json) {
-    return Doctor.fromJson(json);
-  }).toList();
 }
