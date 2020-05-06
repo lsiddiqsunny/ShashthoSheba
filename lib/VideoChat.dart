@@ -24,7 +24,7 @@ class _VideoChatState extends State<VideoChat> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: InAppWebViewPage(path:path));
+    return MaterialApp(home: InAppWebViewPage(path: path));
   }
 }
 
@@ -32,7 +32,7 @@ class InAppWebViewPage extends StatefulWidget {
   final path;
   InAppWebViewPage({this.path});
   @override
-  _InAppWebViewPageState createState() => _InAppWebViewPageState(path:path);
+  _InAppWebViewPageState createState() => _InAppWebViewPageState(path: path);
 }
 
 class _InAppWebViewPageState extends State<InAppWebViewPage> {
@@ -49,10 +49,10 @@ class _InAppWebViewPageState extends State<InAppWebViewPage> {
           Expanded(
             child: Container(
               child: InAppWebView(
-                  initialUrl: "https://appr.tc/r/"+path,
+                  initialUrl: "https://appr.tc/r/" + path,
                   initialHeaders: {},
                   initialOptions: InAppWebViewWidgetOptions(
-                    inAppWebViewOptions: InAppWebViewOptions(
+                    crossPlatform: InAppWebViewOptions(
                       mediaPlaybackRequiresUserGesture: false,
                       debuggingEnabled: true,
                     ),
@@ -64,10 +64,11 @@ class _InAppWebViewPageState extends State<InAppWebViewPage> {
                       (InAppWebViewController controller, String url) {},
                   onLoadStop:
                       (InAppWebViewController controller, String url) {},
-                  onPermissionRequest: (InAppWebViewController controller,
-                      String origin, List<String> resources) async {
-                    //print(origin);
-                    //print(resources);
+                  androidOnPermissionRequest:
+                      (InAppWebViewController controller, String origin,
+                          List<String> resources) async {
+                    print(origin);
+                    print(resources);
                     return PermissionRequestResponse(
                         resources: resources,
                         action: PermissionRequestResponseAction.GRANT);
