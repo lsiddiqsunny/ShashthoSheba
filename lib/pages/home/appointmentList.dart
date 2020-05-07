@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../models/transaction.dart';
 import '../../models/appointment.dart';
 import '../../widgets/loading.dart';
+import '../../widgets/dialogs.dart';
 import '../../providers/transactionProvider.dart' as transaction;
 import '../../providers/todaysAppointmentProvider.dart';
 import './addTransactionForm.dart';
@@ -13,7 +14,8 @@ class AppointmentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    AppointmentProvider appointmentProvider = Provider.of<AppointmentProvider>(context);
+    AppointmentProvider appointmentProvider =
+        Provider.of<AppointmentProvider>(context);
     return appointmentProvider.status == Status.loading
         ? Loading()
         : appointmentProvider.appointments.isEmpty
@@ -29,7 +31,8 @@ class AppointmentList extends StatelessWidget {
                   expansionCallback: (index, isExpanded) {
                     appointmentProvider.expand(index);
                     if (!isExpanded &&
-                        appointmentProvider.transactionProviders[index].status ==
+                        appointmentProvider
+                                .transactionProviders[index].status ==
                             transaction.Status.loading) {
                       appointmentProvider.transactionProviders[index]
                           .fetchTransactions();
@@ -76,8 +79,8 @@ class AppointmentList extends StatelessWidget {
                                 );
                               },
                               body: ChangeNotifierProvider.value(
-                                value:
-                                    appointmentProvider.transactionProviders[index],
+                                value: appointmentProvider
+                                    .transactionProviders[index],
                                 child: Builder(
                                   builder: (context) {
                                     transaction.TransactionProvider
@@ -202,25 +205,44 @@ class _AddTransactionButton extends StatelessWidget {
         'Add Payment',
         style: theme.textTheme.button.copyWith(fontWeight: FontWeight.bold),
       ),
-      onPressed: appointment.status || DateTime.now().isAfter(appointment.dateTime)
-          ? null
-          : () async {
-              Transaction transaction = await showDialog<Transaction>(
-                context: context,
-                barrierDismissible: true,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text('New Transaction'),
-                    content: AddTransactionForm(appointment.id),
+      onPressed:
+          appointment.status || DateTime.now().isAfter(appointment.dateTime)
+              ? null
+              : () async {
+                  Transaction transaction = await showDialog<Transaction>(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('New Transaction'),
+                        content: AddTransactionForm(appointment.id),
+                      );
+                    },
                   );
+                  if (transaction != null) {
+                    if (await transactionProvider.addTransaction(transaction)) {
+                      print('Transaction Added Successfully');
+                      await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return SuccessDialog(
+                            contentText: 'Transaction Added Successfully',
+                          );
+                        },
+                      );
+                    } else {
+                      print('Failed to Add Transaction');
+                      await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return FailureDialog(
+                            contentText: 'Failed to Add Transaction',
+                          );
+                        },
+                      );
+                    }
+                  }
                 },
-              );
-              if (transaction != null) {
-                if (await transactionProvider.postTransaction(transaction)) {
-                  transactionProvider.add(transaction);
-                }
-              }
-            },
     );
   }
 }

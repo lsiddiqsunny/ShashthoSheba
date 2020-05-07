@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import '../../widgets/loading.dart';
+import '../../widgets/dialogs.dart';
 import '../../providers/appointmentProvider.dart';
 
 class AppointmentsList extends StatelessWidget {
@@ -87,12 +88,32 @@ class AppointmentsList extends StatelessWidget {
                               onPressed: () async {
                                 bool cancel =
                                     await _confirmationDialog(context);
-                                if (cancel &&
-                                    await appointmentProvider.cancelAppointment(
-                                        appointmentProvider
-                                            .appointments[index])) {
-                                  //Implement UI notification
-                                  print('Appointment Canceled Successfully');
+                                if (cancel) {
+                                  if (await appointmentProvider
+                                      .cancelAppointment(appointmentProvider
+                                          .appointments[index])) {
+                                    print('Appointment Canceled Successfully');
+                                    await showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return SuccessDialog(
+                                          contentText:
+                                              'Appointment Canceled Successfully',
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    print('Appointment Cancelation Failed');
+                                    await showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return FailureDialog(
+                                          contentText:
+                                              'Appointment Cancelation Failed',
+                                        );
+                                      },
+                                    );
+                                  }
                                 }
                               },
                             ),
@@ -108,24 +129,9 @@ Future<bool> _confirmationDialog(BuildContext context) async {
     context: context,
     barrierDismissible: false,
     builder: (context) {
-      return AlertDialog(
-        title: Text('Are You Sure?'),
-        content:
-            Text('If you press accept then your appointment will be canceled'),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () {
-              Navigator.pop<bool>(context, false);
-            },
-            child: Text('Cancel'),
-          ),
-          FlatButton(
-            onPressed: () {
-              Navigator.pop<bool>(context, true);
-            },
-            child: Text('Accept'),
-          ),
-        ],
+      return ConfimationDialog(
+        contentText:
+            'If you press accept then your appointment will be canceled',
       );
     },
   );

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import '../../widgets/loading.dart';
+import '../../widgets/dialogs.dart';
 import '../../providers/doctorProvider.dart';
 import '../../providers/scheduleProvider.dart' as schedule;
 
@@ -28,7 +29,8 @@ class DoctorList extends StatelessWidget {
                       if (!isExpanded &&
                           doctorProvider.scheduleProviders[index].status ==
                               schedule.Status.loading) {
-                        doctorProvider.scheduleProviders[index].fetchSchedules();
+                        doctorProvider.scheduleProviders[index]
+                            .fetchSchedules();
                       }
                     },
                     children: doctorProvider.doctors
@@ -95,7 +97,8 @@ class DoctorList extends StatelessWidget {
                                                   )
                                                 : Column(
                                                     children: <Widget>[
-                                                      ...scheduleProvider.schedules
+                                                      ...scheduleProvider
+                                                          .schedules
                                                           .map<ListTile>(
                                                               (value) {
                                                         return ListTile(
@@ -150,7 +153,8 @@ class _AddAppointment extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     schedule.ScheduleProvider scheduleProvider =
         Provider.of<schedule.ScheduleProvider>(context, listen: false);
-    DoctorProvider doctorProvider = Provider.of<DoctorProvider>(context, listen: false);
+    DoctorProvider doctorProvider =
+        Provider.of<DoctorProvider>(context, listen: false);
     return ButtonBar(
       children: <Widget>[
         OutlineButton.icon(
@@ -183,12 +187,28 @@ class _AddAppointment extends StatelessWidget {
                     DateFormat("yyyy-MM-dd").format(date).toString() +
                         ' ' +
                         DateFormat.Hms().format(time));
-                bool success =
-                    await doctorProvider.createAppointment(doctorIndex, dateTime);
+                bool success = await doctorProvider.createAppointment(
+                    doctorIndex, dateTime);
                 if (success) {
                   print('Successfully Created Appointment');
+                  await showDialog(
+                    context: context,
+                    builder: (context) {
+                      return SuccessDialog(
+                        contentText: 'Appointment Created Successfully',
+                      );
+                    },
+                  );
                 } else {
                   print('Appointment Creation Failed');
+                  await showDialog(
+                    context: context,
+                    builder: (context) {
+                      return FailureDialog(
+                        contentText: 'Appointment Creation Failed',
+                      );
+                    },
+                  );
                 }
               }
             }

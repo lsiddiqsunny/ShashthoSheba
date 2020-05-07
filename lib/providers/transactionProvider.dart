@@ -28,9 +28,16 @@ class TransactionProvider extends ChangeNotifier {
     return total;
   }
 
-  void add(Transaction transaction) {
-    _transactions.add(transaction);
-    notifyListeners();
+  Future<bool> addTransaction(Transaction transaction) async {
+    try {
+      await api.addTransaction(transaction);
+      _transactions.add(transaction);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 
   void fetchTransactions() async {
@@ -38,17 +45,6 @@ class TransactionProvider extends ChangeNotifier {
     _status = Status.completed;
     _transactions = newList;
     notifyListeners();
-  }
-
-  Future<bool> postTransaction(Transaction transaction) async {
-    try {
-      await api.addTransaction(transaction);
-      print('Transaction Added Successfully');
-      return true;
-    } catch (e) {
-      print(e.toString());
-      return false;
-    }
   }
 }
 
