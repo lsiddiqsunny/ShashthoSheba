@@ -63,7 +63,7 @@ class _TabbedPagesState extends State<TabbedPages>
 
     //print(bearer_token);
     final http.Response response = await http.get(
-      'http://192.168.0.104:3000/doctor/get/schedule',
+      'http://192.168.0.101:3000/doctor/get/schedule',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': bearer_token,

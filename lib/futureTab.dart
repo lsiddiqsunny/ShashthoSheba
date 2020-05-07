@@ -21,7 +21,7 @@ class FutureTab extends StatelessWidget {
 
     //print(bearer_token);
     final http.Response response = await http.post(
-      'http://192.168.0.104:3000/doctor/get/transaction',
+      'http://192.168.0.101:3000/doctor/get/transaction',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization' : bearer_token,

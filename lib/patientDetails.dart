@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-
+import 'package:Doctor/capturePicture.dart';
+import 'package:camera/camera.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -65,14 +66,12 @@ class PatientDetails extends StatelessWidget {
 
                         String token = await _getPatinetToken();
                         String value = randomAlphaNumeric(10);
-                        await _pingFirebase(token,value);
+                        await _pingFirebase(token, value);
                         //push video page with given channel name
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => VideoChat(
-                              path: value
-                            ),
+                            builder: (context) => VideoChat(path: value),
                           ),
                         );
                       },
@@ -126,6 +125,43 @@ class PatientDetails extends StatelessWidget {
                 ),
                 margin: EdgeInsets.only(left: 5, right: 5),
               ),
+            SizedBox(
+              height: 10,
+            ),
+            Card(
+              color: Colors.transparent,
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    RaisedButton(
+                      color: Colors.blue,
+                      padding: EdgeInsets.only(right: 5),
+                      child: Text('Add prescription'),
+                      onPressed: () async {
+                        WidgetsFlutterBinding.ensureInitialized();
+
+                        // Obtain a list of the available cameras on the device.
+                        final cameras = await availableCameras();
+
+                        // Get a specific camera from the list of available cameras.
+                        final firstCamera = cameras.first;
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TakePictureScreen(
+                              // Pass the appropriate camera to the TakePictureScreen widget.
+                              camera: firstCamera,
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
+              ),
+              margin: EdgeInsets.only(left: 5, right: 5),
+            ),
           ],
         ),
       ),
@@ -139,7 +175,7 @@ class PatientDetails extends StatelessWidget {
 
     print(patient.phone_number);
     final http.Response response = await http.post(
-      'http://192.168.0.104:3000/patient/get/token',
+      'http://192.168.0.101:3000/patient/get/token',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': bearer_token,
@@ -160,7 +196,7 @@ class PatientDetails extends StatelessWidget {
 
     //print(bearer_token);
     final http.Response response = await http.post(
-      'http://192.168.0.104:3000/doctor/update/appointment',
+      'http://192.168.0.101:3000/doctor/update/appointment',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': bearer_token,
@@ -179,7 +215,7 @@ class PatientDetails extends StatelessWidget {
     }
   }
 
-  void _pingFirebase(String token,String value) async {
+  void _pingFirebase(String token, String value) async {
     //print(bearer_token);
     var serverToken =
         'AAAAMysQL1A:APA91bE3hyrg1EXgypw03ZL_A42m9ofiJzFdrhWNBXNrVxZX1GjMLyu650Cs-Gf5ek7uGlgNlHDY3Pc3SHHB7ske96wnxKi0dzI6LOadhSUAtdZ15vW8sHXuuBMA6XUpU4RKHvr6DjHQ';
@@ -190,9 +226,12 @@ class PatientDetails extends StatelessWidget {
         'Authorization': 'key=$serverToken',
       },
       body: jsonEncode({
-        'notification': {'body': 'You are have a call', 'title': 'Call from doctor'},
+        'notification': {
+          'body': 'You are have a call',
+          'title': 'Call from doctor'
+        },
         'priority': 'high',
-        'data': {'click_action': 'FLUTTER_NOTIFICATION_CLICK','token': value},
+        'data': {'click_action': 'FLUTTER_NOTIFICATION_CLICK', 'token': value},
         'to': token,
       }),
     );
@@ -201,9 +240,9 @@ class PatientDetails extends StatelessWidget {
 
   Future<void> _handleCameraAndMic() async {
     Map<Permission, PermissionStatus> statuses = await [
-	        Permission.camera,
-	        Permission.microphone,
-	        Permission.mediaLibrary,
+      Permission.camera,
+      Permission.microphone,
+      Permission.mediaLibrary,
     ].request();
     print(statuses[Permission.camera]);
     print(statuses[Permission.microphone]);
