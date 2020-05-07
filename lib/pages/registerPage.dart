@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../widgets/dialogs.dart';
 import '../models/patient.dart';
 import '../networking/api.dart' as api;
 
@@ -31,9 +32,25 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       await api.patientRegister(patient);
       print('Successfully Registered');
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return SuccessDialog(
+            contentText: 'Seccessfully Registered',
+          );
+        },
+      );
       Navigator.pop(context);
     } catch (e) {
       print(e.toString());
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return FailureDialog(
+            contentText: 'Registration Unsuccessful',
+          );
+        },
+      );
     }
   }
 
