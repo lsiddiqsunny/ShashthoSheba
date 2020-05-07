@@ -65,16 +65,6 @@ class AppointmentList extends StatelessWidget {
                                         color: theme.primaryColor,
                                       ),
                                     ),
-                                    trailing: OutlineButton(
-                                      borderSide:
-                                          BorderSide(color: theme.primaryColor),
-                                      child: Text(
-                                        'Join',
-                                        style: theme.textTheme.button.copyWith(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      onPressed: () {},
-                                    ),
                                   ),
                                 );
                               },
