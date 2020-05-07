@@ -53,7 +53,7 @@ class AppointmentsList extends StatelessWidget {
                                       .format(appointmentProvider
                                           .appointments[index].dateTime),
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 18,
                                 color: theme.primaryColor,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -63,7 +63,7 @@ class AppointmentsList extends StatelessWidget {
                                   appointmentProvider
                                       .appointments[index].doctorName,
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: theme.primaryColor,
                                 fontWeight: FontWeight.bold,
                               ),

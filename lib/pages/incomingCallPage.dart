@@ -105,7 +105,10 @@ class _IncomingCallState extends State<IncomingCall> {
                     ),
                     child: FittedBox(
                       child: IconButton(
-                        icon: Icon(Icons.clear, color: Colors.white),
+                        icon: Icon(
+                          Icons.clear,
+                          color: Colors.white,
+                        ),
                         onPressed: () => _rejectCall(context),
                       ),
                     ),
