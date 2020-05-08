@@ -30,11 +30,7 @@ class AppointmentsList extends StatelessWidget {
                     return ListTile(
                       leading: Text(
                         (index + 1).toString() + '.',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: theme.primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: theme.textTheme.subtitle1,
                       ),
                       title: RichText(
                         textAlign:
@@ -52,24 +48,16 @@ class AppointmentsList extends StatelessWidget {
                                   : DateFormat("EEEE,\nMMMM d, yyyy \nh:mm a")
                                       .format(appointmentProvider
                                           .appointments[index].dateTime),
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: theme.primaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: theme.textTheme.headline6,
                             ),
                             TextSpan(
                               text: '\nwith ' +
                                   appointmentProvider
                                       .appointments[index].doctorName,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: theme.primaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: theme.textTheme.caption,
                             ),
                           ],
-                          style: theme.textTheme.body1,
+                          style: theme.textTheme.caption,
                         ),
                       ),
                       trailing: appointmentProvider.selected ==

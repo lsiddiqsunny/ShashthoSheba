@@ -51,7 +51,7 @@ class AppointmentProvider extends ChangeNotifier {
     try {
       var response = await get(getImageURL(index));
       var documentDirectory = await getApplicationDocumentsDirectory();
-      File file = new File(join(documentDirectory.path, 'imagetest.png'));
+      File file = File(join(documentDirectory.path, 'imagetest.png'));
       file.writeAsBytesSync(response.bodyBytes);
       return true;
     } catch (e) {

@@ -22,7 +22,7 @@ class AppointmentsTab extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Show Appointments',
-                style: theme.textTheme.title,
+                style: theme.textTheme.headline6,
               ),
             ),
           ),

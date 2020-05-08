@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.center,
                       child: Text(
                         'Login',
-                        style: Theme.of(context).textTheme.headline,
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                     ),
                     SizedBox(
@@ -72,7 +72,6 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _mobileNo,
                       decoration: InputDecoration(
                         labelText: 'Mobile No.',
-                        hasFloatingPlaceholder: true,
                       ),
                     ),
                     SizedBox(
@@ -83,7 +82,6 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'Password',
-                        hasFloatingPlaceholder: true,
                       ),
                     ),
                     SizedBox(
@@ -101,7 +99,12 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    Row(
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
                           'Don\'t have an account?',

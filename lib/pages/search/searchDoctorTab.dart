@@ -25,7 +25,7 @@ class SearchDoctorTab extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Search By',
-                    style: theme.textTheme.title,
+                    style: theme.textTheme.headline6,
                   ),
                 ),
               ),

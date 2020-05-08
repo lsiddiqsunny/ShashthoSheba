@@ -18,11 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Solway',
         textTheme: TextTheme(
-          headline: TextStyle(fontSize: 24, color: Colors.blue),
-          title: TextStyle(fontSize: 20, color: Colors.blue),
-          body1: TextStyle(fontSize: 12),
-          body2: TextStyle(fontSize: 12),
-          button: TextStyle(fontSize: 12, color:Colors.blue),
+          headline5: TextStyle(color: Colors.blue),
+          headline6: TextStyle(color: Colors.blue),
+          subtitle1: TextStyle(color: Colors.blue),
+          caption: TextStyle(color: Colors.blue),
+          button: TextStyle(color:Colors.blue),
         ),
       ),
       routes: {

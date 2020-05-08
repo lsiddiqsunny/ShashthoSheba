@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+import '../widgets/loading.dart';
+import '../networking/api.dart' as api;
+import '../models/patient.dart';
 import './home/homeTab.dart';
 import './appointments/appointmentsTab.dart';
 import './search/searchDoctorTab.dart';
-import '../networking/api.dart' as api;
-import '../models/patient.dart';
 import './incomingCallPage.dart';
 
 class MainPage extends StatefulWidget {
@@ -18,6 +19,7 @@ class MainPage extends StatefulWidget {
 
 class _TabbedPagesState extends State<MainPage>
     with SingleTickerProviderStateMixin {
+  Patient patient;
   final List<Tab> myTabs = <Tab>[
     Tab(
       text: 'Home',
@@ -32,7 +34,8 @@ class _TabbedPagesState extends State<MainPage>
 
   void _sendToken() async {
     try {
-      Patient patient = Patient.fromJson(await api.patientDetails());
+      patient = Patient.fromJson(await api.patientDetails());
+      setState(() {});
       await api.sendToken(patient.id, await _firebaseMessaging.getToken());
     } catch (e) {
       print(e.toString());
@@ -98,8 +101,10 @@ class _TabbedPagesState extends State<MainPage>
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    'Guest',
+                  patient == null
+                  ? Loading()
+                  :Text(
+                    patient.name,
                     style: TextStyle(
                       color: Colors.white,
                     ),

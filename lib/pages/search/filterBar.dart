@@ -12,17 +12,27 @@ class FilterBar extends StatelessWidget {
       alignment: MainAxisAlignment.center,
       children: <Widget>[
         AnimatedCrossFade(
-          firstChild: OutlineButton.icon(
+          firstChild: OutlineButton(
             onPressed: () {
               doctorProvider.filter = Filter.name;
             },
-            icon: Icon(Icons.person_outline),
-            label: Text('Doctor'),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.person_outline),
+                Text('Doctor'),
+              ],
+            ),
           ),
-          secondChild: RaisedButton.icon(
+          secondChild: RaisedButton(
             onPressed: () {},
-            icon: Icon(Icons.person_outline),
-            label: Text('Doctor'),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.person_outline),
+                Text('Doctor'),
+              ],
+            ),
             color: theme.primaryColor,
           ),
           crossFadeState: doctorProvider.filter == Filter.name
@@ -31,17 +41,27 @@ class FilterBar extends StatelessWidget {
           duration: Duration(milliseconds: 200),
         ),
         AnimatedCrossFade(
-          firstChild: OutlineButton.icon(
+          firstChild: OutlineButton(
             onPressed: () {
               doctorProvider.filter = Filter.hospital;
             },
-            icon: Icon(Icons.local_hospital),
-            label: Text('Hospital'),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.local_hospital),
+                Text('Hospital'),
+              ],
+            ),
           ),
-          secondChild: RaisedButton.icon(
+          secondChild: RaisedButton(
             onPressed: () {},
-            icon: Icon(Icons.local_hospital),
-            label: Text('Hospital'),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.local_hospital),
+                Text('Hospital'),
+              ],
+            ),
             color: theme.primaryColor,
           ),
           crossFadeState: doctorProvider.filter == Filter.hospital
@@ -50,17 +70,27 @@ class FilterBar extends StatelessWidget {
           duration: Duration(milliseconds: 200),
         ),
         AnimatedCrossFade(
-          firstChild: OutlineButton.icon(
+          firstChild: OutlineButton(
             onPressed: () {
               doctorProvider.filter = Filter.speciality;
             },
-            icon: Icon(Icons.healing),
-            label: Text('Speciality'),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.healing),
+                Text('Speciality'),
+              ],
+            ),
           ),
-          secondChild: RaisedButton.icon(
+          secondChild: RaisedButton(
             onPressed: () {},
-            icon: Icon(Icons.healing),
-            label: Text('Speciality'),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.healing),
+                Text('Speciality'),
+              ],
+            ),
             color: theme.primaryColor,
           ),
           crossFadeState: doctorProvider.filter == Filter.speciality

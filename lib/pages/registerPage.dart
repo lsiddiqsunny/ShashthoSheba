@@ -84,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         alignment: Alignment.center,
                         child: Text(
                           'Register',
-                          style: Theme.of(context).textTheme.headline,
+                          style: Theme.of(context).textTheme.headline5,
                         ),
                       ),
                       SizedBox(
@@ -94,7 +94,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _name,
                         decoration: InputDecoration(
                           labelText: 'Name',
-                          hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -138,7 +137,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _mobileNo,
                         decoration: InputDecoration(
                           labelText: 'Mobile No.',
-                          hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -155,7 +153,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _dob,
                         decoration: InputDecoration(
                           labelText: 'Date of Birth',
-                          hasFloatingPlaceholder: true,
                           suffixIcon: Icon(Icons.date_range),
                         ),
                         validator: (value) {
@@ -193,7 +190,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -209,7 +205,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Confirm Password',
-                          hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
                           if (value != _pass.text) {

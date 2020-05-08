@@ -35,14 +35,12 @@ class _AddTransactionFormState extends State<AddTransactionForm> {
               controller: _transactionIdController,
               decoration: InputDecoration(
                 labelText: 'Transaction ID',
-                hasFloatingPlaceholder: true,
               ),
             ),
             TextFormField(
               controller: _transactionAmountController,
               decoration: InputDecoration(
                 labelText: 'Amount',
-                hasFloatingPlaceholder: true,
               ),
             ),
             Padding(

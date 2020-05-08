@@ -18,7 +18,7 @@ class HomeTab extends StatelessWidget {
             ),
             child: Text(
               'Appointments Today:',
-              style: theme.textTheme.title,
+              style: theme.textTheme.headline6,
             ),
           ),
           ChangeNotifierProvider(

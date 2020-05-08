@@ -44,7 +44,7 @@ class DoctorList extends StatelessWidget {
                                   leading: CircleAvatar(),
                                   title: Text(
                                     '${doctorProvider.doctors[index].name}',
-                                    style: TextStyle(fontSize: 20),
+                                    style: theme.textTheme.headline6,
                                   ),
                                   subtitle: Text(
                                     '${doctorProvider.doctors[index].designation}, ' +
@@ -117,10 +117,15 @@ class DoctorList extends StatelessWidget {
                                                                         .end),
                                                             textAlign: TextAlign
                                                                 .center,
+                                                            style: theme
+                                                                .textTheme
+                                                                .bodyText2,
                                                           ),
-                                                          trailing: Text(value
-                                                              .fee
-                                                              .toString()),
+                                                          trailing: Text(
+                                                            value.fee
+                                                                    .toString() +
+                                                                '/-',
+                                                          ),
                                                         );
                                                       }).toList(),
                                                       _AddAppointment(index),

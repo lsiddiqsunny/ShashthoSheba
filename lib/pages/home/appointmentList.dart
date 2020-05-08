@@ -52,16 +52,13 @@ class AppointmentList extends StatelessWidget {
                                     title: Text(
                                       DateFormat.jm()
                                           .format(appointment.dateTime),
-                                      style: TextStyle(
-                                        fontSize: 24,
+                                      style: theme.textTheme.headline5.copyWith(
                                         fontWeight: FontWeight.bold,
-                                        color: theme.primaryColor,
                                       ),
                                     ),
                                     subtitle: Text(
                                       'with ${appointment.doctorName}',
-                                      style: TextStyle(
-                                        fontSize: 18,
+                                      style: theme.textTheme.bodyText1.copyWith(
                                         color: theme.primaryColor,
                                       ),
                                     ),
@@ -83,11 +80,7 @@ class AppointmentList extends StatelessWidget {
                                         ListTile(
                                           title: Text(
                                             'Payment Status',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: theme.primaryColor,
-                                            ),
+                                            style: theme.textTheme.headline6,
                                           ),
                                           subtitle: Text(
                                             appointment.status
@@ -96,8 +89,8 @@ class AppointmentList extends StatelessWidget {
                                                         .transactions.isEmpty
                                                     ? 'Not Provided'
                                                     : 'Awaiting Approval',
-                                            style: TextStyle(
-                                              fontSize: 18,
+                                            style: theme.textTheme.bodyText1
+                                                .copyWith(
                                               color: theme.primaryColor,
                                             ),
                                           ),
@@ -107,19 +100,11 @@ class AppointmentList extends StatelessWidget {
                                         ListTile(
                                           title: Text(
                                             'Transaction ID',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: theme.primaryColor,
-                                            ),
+                                            style: theme.textTheme.headline6,
                                           ),
                                           trailing: Text(
                                             'Amount',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: theme.primaryColor,
-                                            ),
+                                            style: theme.textTheme.headline6,
                                           ),
                                         ),
                                         transactionProvider.status ==
@@ -156,22 +141,33 @@ class _TransactionList extends StatelessWidget {
           )
         : Column(
             children: <Widget>[
-              ...transactionProvider.transactions.map<Padding>((transaction) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: ListTile(
-                    leading: Text(transaction.transactionId),
-                    trailing: Text(transaction.amount.toString() + '/-'),
-                  ),
-                );
-              }).toList(),
+              ...transactionProvider.transactions
+                  .asMap()
+                  .map<int, Padding>(
+                    (index, transaction) {
+                      return MapEntry(
+                        index,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: ListTile(
+                            leading: Text(
+                              (index + 1).toString() +
+                                  '. ' +
+                                  transaction.transactionId,
+                            ),
+                            trailing:
+                                Text(transaction.amount.toString() + '/-'),
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                  .values
+                  .toList(),
               ListTile(
                 trailing: Text(
                   'Total ' + transactionProvider.totalAmount.toString() + '/-',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: theme.primaryColor),
+                  style: theme.textTheme.headline6,
                 ),
               ),
             ],
@@ -195,44 +191,43 @@ class _AddTransactionButton extends StatelessWidget {
         'Add Payment',
         style: theme.textTheme.button.copyWith(fontWeight: FontWeight.bold),
       ),
-      onPressed:
-          appointment.status || DateTime.now().isAfter(appointment.dateTime)
-              ? null
-              : () async {
-                  Transaction transaction = await showDialog<Transaction>(
+      onPressed: appointment.status
+          ? null
+          : () async {
+              Transaction transaction = await showDialog<Transaction>(
+                context: context,
+                barrierDismissible: true,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('New Transaction'),
+                    content: AddTransactionForm(appointment.id),
+                  );
+                },
+              );
+              if (transaction != null) {
+                if (await transactionProvider.addTransaction(transaction)) {
+                  print('Transaction Added Successfully');
+                  await showDialog(
                     context: context,
-                    barrierDismissible: true,
                     builder: (context) {
-                      return AlertDialog(
-                        title: Text('New Transaction'),
-                        content: AddTransactionForm(appointment.id),
+                      return SuccessDialog(
+                        contentText: 'Transaction Added Successfully',
                       );
                     },
                   );
-                  if (transaction != null) {
-                    if (await transactionProvider.addTransaction(transaction)) {
-                      print('Transaction Added Successfully');
-                      await showDialog(
-                        context: context,
-                        builder: (context) {
-                          return SuccessDialog(
-                            contentText: 'Transaction Added Successfully',
-                          );
-                        },
+                } else {
+                  print('Failed to Add Transaction');
+                  await showDialog(
+                    context: context,
+                    builder: (context) {
+                      return FailureDialog(
+                        contentText: 'Failed to Add Transaction',
                       );
-                    } else {
-                      print('Failed to Add Transaction');
-                      await showDialog(
-                        context: context,
-                        builder: (context) {
-                          return FailureDialog(
-                            contentText: 'Failed to Add Transaction',
-                          );
-                        },
-                      );
-                    }
-                  }
-                },
+                    },
+                  );
+                }
+              }
+            },
     );
   }
 }

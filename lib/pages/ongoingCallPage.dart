@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
+import './mainPage.dart';
+
 class OngoingCall extends StatefulWidget {
   static final routeName = '/ongoingCall';
   @override
@@ -14,10 +16,20 @@ class _OngoingCallState extends State<OngoingCall> {
   @override
   Widget build(BuildContext context) {
     final path = ModalRoute.of(context).settings.arguments;
+    // final path = '371052594';
     return Scaffold(
       appBar: AppBar(
         title: Text("ShasthoSheba"),
         centerTitle: true,
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
+            },
+            icon: Icon(Icons.cancel),
+          ),
+        ],
       ),
       body: Container(
         child: Column(
