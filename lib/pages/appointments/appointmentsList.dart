@@ -77,7 +77,12 @@ class AppointmentsList extends StatelessWidget {
                           ? IconButton(
                               icon: Icon(Icons.image),
                               color: theme.primaryColor,
-                              onPressed: () {},
+                              onPressed: appointmentProvider
+                                          .appointments[index].imageURL ==
+                                      null
+                                  ? () {}
+                                  : () => _showImageDialog(
+                                      context, appointmentProvider, index),
                             )
                           : OutlineButton(
                               child: Text(
@@ -132,6 +137,61 @@ Future<bool> _confirmationDialog(BuildContext context) async {
       return ConfimationDialog(
         contentText:
             'If you press accept then your appointment will be canceled',
+      );
+    },
+  );
+}
+
+void _showImageDialog(BuildContext context,
+    AppointmentProvider appointmentProvider, int index) async {
+  ThemeData theme = Theme.of(context);
+  await showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        content: Image.network(
+          appointmentProvider.getImageURL(index),
+          loadingBuilder: (BuildContext context, Widget child,
+              ImageChunkEvent loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes
+                    : null,
+              ),
+            );
+          },
+        ),
+        actions: <Widget>[
+          FlatButton.icon(
+            icon: Icon(
+              Icons.file_download,
+              color: theme.primaryColor,
+            ),
+            label: Text('Download', style: theme.textTheme.button),
+            onPressed: () {},
+            // onPressed: () async {
+            //   if (await appointmentProvider.saveImage(index)) {
+            //     await showDialog(
+            //       context: context,
+            //       builder: (context) {
+            //         return SuccessDialog(
+            //             contentText: 'Image Saved Successfully');
+            //       },
+            //     );
+            //   } else {
+            //     await showDialog(
+            //       context: context,
+            //       builder: (context) {
+            //         return FailureDialog(
+            //             contentText: 'Image Could Not Be Saved');
+            //       },
+            //     );
+            //   }
+          ),
+        ],
       );
     },
   );

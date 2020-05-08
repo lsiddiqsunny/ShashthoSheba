@@ -6,8 +6,8 @@ import '../models/patient.dart';
 import '../models/transaction.dart';
 import './customException.dart';
 
-final _baseUrl = 'http://192.168.0.105';
-// final _baseUrl = 'http://f0a5b64d.ngrok.io';
+final baseUrl = 'http://192.168.0.105';
+// final baseUrl = 'http://bb13db26.ngrok.io';
 
 dynamic patientRegister(Patient patient) async {
   return await _post('/patient/post/register', false, patient);
@@ -122,7 +122,7 @@ dynamic _get(String url, bool authorization) async {
     });
   }
   return _response(await http.get(
-    _baseUrl + url,
+    baseUrl + url,
     headers: headers,
   ));
 }
@@ -138,7 +138,7 @@ dynamic _post(String url, bool authorization, var object) async {
     });
   }
   return _response(await http.post(
-    _baseUrl + url,
+    baseUrl + url,
     headers: headers,
     body: jsonEncode(object),
   ));

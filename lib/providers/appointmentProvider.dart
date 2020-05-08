@@ -1,5 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'dart:collection';
+import 'dart:io';
+import 'package:http/http.dart' show get;
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../models/appointment.dart';
 import '../networking/api.dart' as api;
@@ -39,13 +43,30 @@ class AppointmentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String getImageURL(int index) {
+    return api.baseUrl + _appointments[index].imageURL;
+  }
+
+  Future<bool> saveImage(int index) async {
+    try {
+      var response = await get(getImageURL(index));
+      var documentDirectory = await getApplicationDocumentsDirectory();
+      File file = new File(join(documentDirectory.path, 'imagetest.png'));
+      file.writeAsBytesSync(response.bodyBytes);
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
   Future<bool> cancelAppointment(Appointment appointment) async {
     try {
       await api.cancelAppointment(appointment.id);
       _appointments.remove(appointment);
       notifyListeners();
       return true;
-    } catch(e) {
+    } catch (e) {
       print(e.toString());
       return false;
     }
