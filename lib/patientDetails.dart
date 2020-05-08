@@ -146,12 +146,15 @@ class PatientDetails extends StatelessWidget {
 
                         // Get a specific camera from the list of available cameras.
                         final firstCamera = cameras.first;
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => TakePictureScreen(
                               // Pass the appropriate camera to the TakePictureScreen widget.
                               camera: firstCamera,
+                              doctor:prefs.getString('mobile_no'),
+                              patient:patient,
                             ),
                           ),
                         );
@@ -175,7 +178,7 @@ class PatientDetails extends StatelessWidget {
 
     print(patient.phone_number);
     final http.Response response = await http.post(
-      'http://192.168.0.101:3000/patient/get/token',
+      'http://192.168.0.103:3000/patient/get/token',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': bearer_token,
@@ -196,7 +199,7 @@ class PatientDetails extends StatelessWidget {
 
     //print(bearer_token);
     final http.Response response = await http.post(
-      'http://192.168.0.101:3000/doctor/update/appointment',
+      'http://192.168.0.103:3000/doctor/update/appointment',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': bearer_token,

@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
 
     //print(bearer_token);
     final http.Response response = await http.get(
-      'http://192.168.0.101:3000/doctor/get/appointment',
+      'http://192.168.0.103:3000/doctor/get/appointment',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization' : bearer_token,
@@ -73,7 +73,7 @@ Future<List> getFutureAppointemnt() async {
 
     //print(bearer_token);
     final http.Response response = await http.get(
-      'http://192.168.0.101:3000/doctor/get/futureAppointment',
+      'http://192.168.0.103:3000/doctor/get/futureAppointment',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization' : bearer_token,
@@ -89,7 +89,7 @@ Future<List> getFutureAppointemnt() async {
 
   void loginAction(BuildContext context) async {
     final http.Response response = await http.post(
-      'http://192.168.0.101:3000/doctor/post/login',
+      'http://192.168.0.103:3000/doctor/post/login',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -128,6 +128,7 @@ Future<List> getFutureAppointemnt() async {
         ),
       );
     } else {
+      print(response.statusCode);
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text("Invalid cardinals!"),
       ));

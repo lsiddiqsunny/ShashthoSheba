@@ -79,7 +79,7 @@ String getDayString(int num) {
     bearer_token += prefs.getString('jwt');
 
     final http.Response response = await http.post(
-      'http://192.168.0.101:3000/doctor/edit/schedule',
+      'http://192.168.0.103:3000/doctor/edit/schedule',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': bearer_token,
