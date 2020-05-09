@@ -13,20 +13,18 @@ import 'package:http/http.dart' as http;
 class TabbedPages extends StatefulWidget {
   static const routeName = '/tabbedpages';
   final Doctor doctor;
-  final entries;
-  final entriesf;
-  TabbedPages({this.doctor, this.entries, this.entriesf});
+
+  TabbedPages({this.doctor});
   @override
   _TabbedPagesState createState() => _TabbedPagesState(
-      doctor: this.doctor, entries: this.entries, entriesf: this.entriesf);
+      doctor: this.doctor);
 }
 
 class _TabbedPagesState extends State<TabbedPages>
     with SingleTickerProviderStateMixin {
   final Doctor doctor;
-  final entries;
-  final entriesf;
-  _TabbedPagesState({this.doctor, this.entries, this.entriesf});
+
+  _TabbedPagesState({this.doctor});
   final List<Tab> myTabs = <Tab>[
     Tab(
       text: 'Today\'s Appointment',
@@ -39,11 +37,11 @@ class _TabbedPagesState extends State<TabbedPages>
   ];
 
   TabController _tabController;
-
+  
   @override
-  void initState() {
+  void initState()  {
     super.initState();
-    //print(entries);
+
     _tabController = TabController(
       vsync: this,
       length: myTabs.length,
@@ -149,8 +147,8 @@ class _TabbedPagesState extends State<TabbedPages>
       body: TabBarView(
         controller: _tabController,
         children: [
-          HomeTab(doctor: doctor, data: entries),
-          FutureTab(doctor: doctor, data: entriesf),
+          HomeTab(doctor: doctor, ),
+          FutureTab(doctor: doctor,),
         ],
       ),
     );

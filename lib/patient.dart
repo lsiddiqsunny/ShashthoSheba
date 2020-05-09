@@ -1,6 +1,6 @@
 class Patient {
   String pname;
-  bool payment;
+  int payment;
   String serial;
   String phone_number;
   String dateTime;

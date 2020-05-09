@@ -50,9 +50,9 @@ class PatientDetails extends StatelessWidget {
                     ),
                     Text('Name: ${patient.pname}'),
                     Text('Date: ${patient.dateTime}'),
-                    if (patient.payment)
+                    if (patient.payment==1)
                       Text('Payment: Done')
-                    else
+                    else if (patient.payment==0)
                       Text('Payment: Pending'),
                     SizedBox(
                       height: 20,
@@ -105,7 +105,7 @@ class PatientDetails extends StatelessWidget {
             ),
             if (patient.transaction != null &&
                 patient.transaction.isNotEmpty &&
-                !patient.payment)
+                patient.payment==0)
               Card(
                 color: Colors.transparent,
                 child: Container(
@@ -178,7 +178,7 @@ class PatientDetails extends StatelessWidget {
 
     print(patient.phone_number);
     final http.Response response = await http.post(
-      'http://192.168.0.103:3000/patient/get/token',
+      'http://192.168.0.103:3000/doctor/get/token',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': bearer_token,
@@ -219,7 +219,7 @@ class PatientDetails extends StatelessWidget {
   }
 
   void _pingFirebase(String token, String value) async {
-    //print(bearer_token);
+    
     var serverToken =
         'AAAAMysQL1A:APA91bE3hyrg1EXgypw03ZL_A42m9ofiJzFdrhWNBXNrVxZX1GjMLyu650Cs-Gf5ek7uGlgNlHDY3Pc3SHHB7ske96wnxKi0dzI6LOadhSUAtdZ15vW8sHXuuBMA6XUpU4RKHvr6DjHQ';
     final http.Response response = await http.post(
@@ -238,7 +238,8 @@ class PatientDetails extends StatelessWidget {
         'to': token,
       }),
     );
-    print(response.body);
+    print(token);
+    print(response.statusCode);
   }
 
   Future<void> _handleCameraAndMic() async {

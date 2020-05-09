@@ -35,57 +35,15 @@ class _LoginPageState extends State<LoginPage> {
           desig: prefs.getString('designation'),
           reg_num: prefs.getString('reg_number'),
           referrer: prefs.getString('referrer'));
-          final entries= await getAppointemnt();
-          final entriesf=await getFutureAppointemnt ();
       await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TabbedPages(doctor: d,entries: entries,entriesf:entriesf),
+          builder: (context) => TabbedPages(doctor: d),
         ),
       );
     }
   }
 
-  Future<List> getAppointemnt() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String bearer_token = "Bearer ";
-    bearer_token+= prefs.getString('jwt');
-
-    //print(bearer_token);
-    final http.Response response = await http.get(
-      'http://192.168.0.103:3000/doctor/get/appointment',
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization' : bearer_token,
-      },
-    );
-    print(response.statusCode );
-    if (response.statusCode == 200) {
-        var parsed = jsonDecode(response.body);
-        return parsed;
-    }
-    return null;
-  }
-Future<List> getFutureAppointemnt() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String bearer_token = "Bearer ";
-    bearer_token+= prefs.getString('jwt');
-
-    //print(bearer_token);
-    final http.Response response = await http.get(
-      'http://192.168.0.103:3000/doctor/get/futureAppointment',
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization' : bearer_token,
-      },
-    );
-    print(response.statusCode );
-    if (response.statusCode == 200) {
-        var parsed = jsonDecode(response.body);
-        return parsed;
-    }
-    return null;
-  }
 
   void loginAction(BuildContext context) async {
     final http.Response response = await http.post(
@@ -118,13 +76,12 @@ Future<List> getFutureAppointemnt() async {
       await prefs.setString('reg_number', doctor['reg_number']);
       await prefs.setString('referrer', doctor['referrer']);
 
-      final entries=await getAppointemnt ();
-      final entriesf=await getFutureAppointemnt ();
+
       //await Navigator.pushNamed(context, TabbedPages.routeName);
       await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TabbedPages(doctor: d,entries: entries,entriesf: entriesf)
+          builder: (context) => TabbedPages(doctor: d)
         ),
       );
     } else {

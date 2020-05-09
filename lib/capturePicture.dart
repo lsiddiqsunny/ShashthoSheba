@@ -1,5 +1,4 @@
 // A screen that allows users to take a picture using a given camera.
-import 'dart:convert';
 import 'dart:io';
 import 'package:Doctor/patient.dart';
 import 'package:intl/intl.dart';
@@ -132,6 +131,7 @@ class DisplayPictureScreen extends StatelessWidget {
   const DisplayPictureScreen(
       {Key key, this.imagePath, this.patient, this.photo_name})
       : super(key: key);
+  static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +139,7 @@ class DisplayPictureScreen extends StatelessWidget {
         appBar: AppBar(title: Text(photo_name)),
         // The image is stored as a file on the device. Use the `Image.file`
         // constructor with the given path to display the image.
+        key: _scaffoldKey,
         body: ListView(shrinkWrap: true, children: <Widget>[
           Card(
             color: Colors.transparent,
@@ -193,9 +194,14 @@ class DisplayPictureScreen extends StatelessWidget {
     var response = await request.send();
     print(response.statusCode);
     if (response.statusCode == 200) {
-      print('uploaded');
-      Navigator.pop(context);
-    } else {}
+      await _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Uploaded!'),
+      ));
+    } else {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text("Uploade failed!"),
+      ));
+    }
 /*
     var image_file  = base64Encode(File(imagePath).readAsBytesSync());
     //print(image_file);
