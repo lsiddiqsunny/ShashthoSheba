@@ -32,34 +32,32 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void loginAction(BuildContext context) async {
-    ThemeData theme = Theme.of(context);
     bool success = await showDialog<bool>(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          api.patientLogin({
-            'mobile_no': _mobileNo.text,
-            'password': _pass.text
-          }).then((data) {
-            jwt = data['token'];
-            Navigator.pop<bool>(context, true);
-          }, onError: (e) {
-            print(e.toString());
-            Navigator.pop<bool>(context, false);
-          });
-          return AlertDialog(
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: CircularProgressIndicator(),
-                ),
-                Text('Logging in'),
-              ],
-            ),
-          );
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        api.patientLogin(
+            {'mobile_no': _mobileNo.text, 'password': _pass.text}).then((data) {
+          jwt = data['token'];
+          Navigator.pop<bool>(context, true);
+        }, onError: (e) {
+          print(e.toString());
+          Navigator.pop<bool>(context, false);
         });
+        return AlertDialog(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: CircularProgressIndicator(),
+              ),
+              Text('Logging in'),
+            ],
+          ),
+        );
+      },
+    );
     if (success) {
       try {
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -70,12 +68,13 @@ class _LoginPageState extends State<LoginPage> {
       }
     } else {
       showDialog(
-          context: context,
-          builder: (context) {
-            return FailureDialog(
-              contentText: 'Login Failed',
-            );
-          });
+        context: context,
+        builder: (context) {
+          return FailureDialog(
+            contentText: 'Login Failed',
+          );
+        },
+      );
     }
   }
 

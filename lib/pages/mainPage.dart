@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../widgets/loading.dart';
+import '../widgets/dialogs.dart';
 import '../networking/api.dart' as api;
 import '../models/patient.dart';
 import './home/homeTab.dart';
@@ -41,6 +42,52 @@ class _TabbedPagesState extends State<MainPage>
       print(e.toString());
     }
   }
+  
+  void _logOut(BuildContext context) async {
+    bool success = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        api.patientLogOut().then((data) {
+          Navigator.pop<bool>(context, true);
+        }, onError: (e) {
+          print(e.toString());
+          Navigator.pop<bool>(context, false);
+        });
+        return AlertDialog(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: CircularProgressIndicator(),
+              ),
+              Text('Logging out'),
+            ],
+          ),
+        );
+      },
+    );
+    if (success) {
+      try {
+        SharedPreferences prefs =
+            await SharedPreferences.getInstance();
+        prefs.remove('jwt');
+        Navigator.popUntil(context, ModalRoute.withName('/'));
+      } catch (e) {
+        print(e.toString());
+      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return FailureDialog(
+            contentText: 'Logout Failed',
+          );
+        },
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -54,7 +101,8 @@ class _TabbedPagesState extends State<MainPage>
       onMessage: (Map<String, dynamic> message) async {
         print('message');
         print(message['data']['token']);
-        Navigator.pushNamed(context, IncomingCall.routeName, arguments: message['data']['token']);
+        Navigator.pushNamed(context, IncomingCall.routeName,
+            arguments: message['data']['token']);
       },
       onLaunch: (Map<String, dynamic> message) async {
         print('launch');
@@ -102,13 +150,13 @@ class _TabbedPagesState extends State<MainPage>
                     height: 10,
                   ),
                   patient == null
-                  ? Loading()
-                  :Text(
-                    patient.name,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+                      ? Loading()
+                      : Text(
+                          patient.name,
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                 ],
               ),
             ),
@@ -119,16 +167,7 @@ class _TabbedPagesState extends State<MainPage>
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Log Out'),
-              onTap: () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                try {
-                  await api.patientLogOut();
-                  prefs.remove('jwt');
-                  Navigator.popUntil(context, ModalRoute.withName('/'));
-                } catch (e) {
-                  print(e.toString());
-                }
-              },
+              onTap: () => _logOut(context),
             ),
           ],
         ),
