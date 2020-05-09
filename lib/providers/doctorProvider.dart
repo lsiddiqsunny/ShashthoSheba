@@ -86,13 +86,22 @@ class DoctorProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> createAppointment(int index, DateTime appointmentTime) async {
+  Future<int> createAppointment(int index, DateTime appointmentTime) async {
+    String scheduleId =
+        _scheduleProviders[index].schedules.firstWhere((element) {
+      if (element.weekDay == appointmentTime.weekday &&
+          element.start.hour == appointmentTime.hour) {
+        return true;
+      }
+      return false;
+    }).id;
     try {
-      await api.createAppointment(_doctors[index].mobileNo, appointmentTime);
-      return true;
+      var data = await api.createAppointment(
+          scheduleId, _doctors[index].mobileNo, appointmentTime);
+      return data['serial_no'];
     } catch (e) {
       print(e.toString());
-      return false;
+      return 0;
     }
   }
 }

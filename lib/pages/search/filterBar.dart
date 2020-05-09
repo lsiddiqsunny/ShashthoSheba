@@ -16,6 +16,7 @@ class FilterBar extends StatelessWidget {
             onPressed: () {
               doctorProvider.filter = Filter.name;
             },
+            padding: EdgeInsets.all(4),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -26,6 +27,7 @@ class FilterBar extends StatelessWidget {
           ),
           secondChild: RaisedButton(
             onPressed: () {},
+            padding: EdgeInsets.all(4),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -45,6 +47,7 @@ class FilterBar extends StatelessWidget {
             onPressed: () {
               doctorProvider.filter = Filter.hospital;
             },
+            padding: EdgeInsets.all(4),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -55,6 +58,7 @@ class FilterBar extends StatelessWidget {
           ),
           secondChild: RaisedButton(
             onPressed: () {},
+            padding: EdgeInsets.all(4),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -74,6 +78,7 @@ class FilterBar extends StatelessWidget {
             onPressed: () {
               doctorProvider.filter = Filter.speciality;
             },
+            padding: EdgeInsets.all(4),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -84,6 +89,7 @@ class FilterBar extends StatelessWidget {
           ),
           secondChild: RaisedButton(
             onPressed: () {},
+            padding: EdgeInsets.all(4),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' show get;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../models/appointment.dart';
 import '../networking/api.dart' as api;
@@ -50,8 +51,21 @@ class AppointmentProvider extends ChangeNotifier {
   Future<bool> saveImage(int index) async {
     try {
       var response = await get(getImageURL(index));
-      var documentDirectory = await getApplicationDocumentsDirectory();
-      File file = File(join(documentDirectory.path, 'imagetest.png'));
+      var storageDirectory = Platform.isAndroid
+          ? await getExternalStorageDirectory()
+          : await getLibraryDirectory();
+      if(Platform.isAndroid) {
+        for(var i=0; i<4; i++) {
+          storageDirectory = storageDirectory.parent;
+        }
+      }
+      var status = await Permission.storage.request();
+      print(status);
+      var imgName = _appointments[index].imageURL.split('/').last;
+      print(imgName);
+      storageDirectory = Directory(storageDirectory.path + '/prescriptions');
+      storageDirectory = await storageDirectory.create(recursive: true);
+      File file = File(join(storageDirectory.path, imgName));
       file.writeAsBytesSync(response.bodyBytes);
       return true;
     } catch (e) {

@@ -1,4 +1,5 @@
 class Schedule {
+  final String id;
   final int weekDay;
   final DateTime start;
   final DateTime end;
@@ -13,7 +14,7 @@ class Schedule {
     7:'Sunday'
   };
 
-  Schedule({this.weekDay, this.start, this.end, this.fee});
+  Schedule({this.id, this.weekDay, this.start, this.end, this.fee});
 
   static double _parseDouble(dynamic value) {
     if (value is int) {
@@ -25,7 +26,8 @@ class Schedule {
   String get day => _map[weekDay];
 
   Schedule.fromJson(Map<String, dynamic> json)
-      : weekDay = json['day'],
+      : id = json['_id'],
+        weekDay = json['day'],
         start = DateTime.parse(json['time_start']),
         fee = _parseDouble(json['fee']),
         end = DateTime.parse(json['time_end']);

@@ -192,15 +192,15 @@ class _AddAppointment extends StatelessWidget {
                     DateFormat("yyyy-MM-dd").format(date).toString() +
                         ' ' +
                         DateFormat.Hms().format(time));
-                bool success = await doctorProvider.createAppointment(
+                int serialNo = await doctorProvider.createAppointment(
                     doctorIndex, dateTime);
-                if (success) {
+                if (serialNo > 0) {
                   print('Successfully Created Appointment');
                   await showDialog(
                     context: context,
                     builder: (context) {
                       return SuccessDialog(
-                        contentText: 'Appointment Created Successfully',
+                        contentText: 'Appointment Created Successfully. Your Serial is $serialNo',
                       );
                     },
                   );

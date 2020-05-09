@@ -4,7 +4,8 @@ class Appointment {
   final String patientMobileNo;
   final String doctorName;
   final DateTime dateTime;
-  final bool status;
+  final int status;
+  final int serialNo;
   final String imageURL;
 
   Appointment(
@@ -14,6 +15,7 @@ class Appointment {
       this.doctorName,
       this.dateTime,
       this.status,
+      this.serialNo,
       this.imageURL});
 
   Appointment.fromJson(Map<String, dynamic> json)
@@ -22,6 +24,7 @@ class Appointment {
         patientMobileNo = json['patient_mobile_no'],
         doctorName = json['doc_name'],
         status = json['status'],
+        serialNo = json['serial_no'],
         dateTime = DateTime.parse(json['appointment_date_time']),
         imageURL = json['prescription_img'];
 }

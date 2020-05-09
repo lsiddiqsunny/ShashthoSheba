@@ -51,7 +51,11 @@ class AppointmentsList extends StatelessWidget {
                               style: theme.textTheme.headline6,
                             ),
                             TextSpan(
-                              text: '\nwith ' +
+                              text: '\nSerial: ' +
+                                  appointmentProvider
+                                      .appointments[index].serialNo
+                                      .toString() +
+                                  '\nwith ' +
                                   appointmentProvider
                                       .appointments[index].doctorName,
                               style: theme.textTheme.caption,
@@ -159,25 +163,25 @@ void _showImageDialog(BuildContext context,
               color: theme.primaryColor,
             ),
             label: Text('Download', style: theme.textTheme.button),
-            onPressed: () {},
-            // onPressed: () async {
-            //   if (await appointmentProvider.saveImage(index)) {
-            //     await showDialog(
-            //       context: context,
-            //       builder: (context) {
-            //         return SuccessDialog(
-            //             contentText: 'Image Saved Successfully');
-            //       },
-            //     );
-            //   } else {
-            //     await showDialog(
-            //       context: context,
-            //       builder: (context) {
-            //         return FailureDialog(
-            //             contentText: 'Image Could Not Be Saved');
-            //       },
-            //     );
-            //   }
+            onPressed: () async {
+              if (await appointmentProvider.saveImage(index)) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return SuccessDialog(
+                        contentText: 'Image Saved Successfully');
+                  },
+                );
+              } else {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return FailureDialog(
+                        contentText: 'Image Could Not Be Saved');
+                  },
+                );
+              }
+            },
           ),
         ],
       );

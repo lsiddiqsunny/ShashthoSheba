@@ -6,8 +6,8 @@ import '../models/patient.dart';
 import '../models/transaction.dart';
 import './customException.dart';
 
-// final baseUrl = 'http://192.168.0.105';
-final baseUrl = 'http://d6977b08.ngrok.io';
+final baseUrl = 'http://192.168.0.105';
+// final baseUrl = 'http://c6a8eb34.ngrok.io';
 
 dynamic patientRegister(Patient patient) async {
   return await _post('/patient/post/register', false, patient);
@@ -44,8 +44,9 @@ dynamic fetchUpcomingAppointments() async {
   return await _get('/patient/get/future/appointment/', true);
 }
 
-dynamic createAppointment(String mobileNo, DateTime dateTime) async {
+dynamic createAppointment(String scheduleId, String mobileNo, DateTime dateTime) async {
   return await _post('/patient/post/appointment', true, {
+    'schedule_id': scheduleId,
     'doc_mobile_no': mobileNo,
     'appointment_date_time': dateTime.toString(),
   });

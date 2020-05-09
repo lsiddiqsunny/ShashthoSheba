@@ -57,7 +57,8 @@ class AppointmentList extends StatelessWidget {
                                       ),
                                     ),
                                     subtitle: Text(
-                                      'with ${appointment.doctorName}',
+                                      'with ${appointment.doctorName}' +
+                                          '\nSerial: ${appointment.serialNo}',
                                       style: theme.textTheme.bodyText1.copyWith(
                                         color: theme.primaryColor,
                                       ),
@@ -83,7 +84,7 @@ class AppointmentList extends StatelessWidget {
                                             style: theme.textTheme.headline6,
                                           ),
                                           subtitle: Text(
-                                            appointment.status
+                                            appointment.status > 0
                                                 ? 'Done'
                                                 : transactionProvider
                                                         .transactions.isEmpty
@@ -191,7 +192,7 @@ class _AddTransactionButton extends StatelessWidget {
         'Add Payment',
         style: theme.textTheme.button.copyWith(fontWeight: FontWeight.bold),
       ),
-      onPressed: appointment.status
+      onPressed: appointment.status > 0
           ? null
           : () async {
               Transaction transaction = await showDialog<Transaction>(
