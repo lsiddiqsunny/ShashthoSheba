@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../networking/api.dart' as api;
+import '../widgets/dialogs.dart';
 import './mainPage.dart';
 import './registerPage.dart';
-import '../networking/api.dart' as api;
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/';
@@ -15,6 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _mobileNo = TextEditingController();
   final _pass = TextEditingController();
+  String jwt;
 
   @override
   void initState() {
@@ -30,14 +32,50 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void loginAction(BuildContext context) async {
-    try {
-      var data = await api
-          .patientLogin({'mobile_no': _mobileNo.text, 'password': _pass.text});
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('jwt', data['token']);
-      Navigator.pushNamed(context, MainPage.routeName);
-    } catch (e) {
-      print(e.toString());
+    ThemeData theme = Theme.of(context);
+    bool success = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          api.patientLogin({
+            'mobile_no': _mobileNo.text,
+            'password': _pass.text
+          }).then((data) {
+            jwt = data['token'];
+            Navigator.pop<bool>(context, true);
+          }, onError: (e) {
+            print(e.toString());
+            Navigator.pop<bool>(context, false);
+          });
+          return AlertDialog(
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: CircularProgressIndicator(),
+                ),
+                Text('Logging in'),
+              ],
+            ),
+          );
+        });
+    if (success) {
+      try {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('jwt', jwt);
+        Navigator.pushNamed(context, MainPage.routeName);
+      } catch (e) {
+        print(e.toString());
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return FailureDialog(
+              contentText: 'Login Failed',
+            );
+          });
     }
   }
 
