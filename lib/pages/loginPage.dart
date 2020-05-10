@@ -37,25 +37,17 @@ class _LoginPageState extends State<LoginPage> {
       barrierDismissible: false,
       builder: (context) {
         api.patientLogin(
-            {'mobile_no': _mobileNo.text, 'password': _pass.text}).then((data) {
-          jwt = data['token'];
-          Navigator.pop<bool>(context, true);
-        }, onError: (e) {
-          print(e.toString());
-          Navigator.pop<bool>(context, false);
-        });
-        return AlertDialog(
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: CircularProgressIndicator(),
-              ),
-              Text('Logging in'),
-            ],
-          ),
+            {'mobile_no': _mobileNo.text, 'password': _pass.text}).then(
+          (data) {
+            jwt = data['token'];
+            Navigator.pop<bool>(context, true);
+          },
+          onError: (e) {
+            print(e.toString());
+            Navigator.pop<bool>(context, false);
+          },
         );
+        return LoadingDialog(message: 'Logging In');
       },
     );
     if (success) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class SuccessDialog extends StatelessWidget {
   final contentText;
@@ -53,8 +54,7 @@ class ConfimationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('Are You Sure?'),
-      content:
-          Text(this.contentText),
+      content: Text(this.contentText),
       actions: <Widget>[
         FlatButton(
           onPressed: () {
@@ -69,6 +69,26 @@ class ConfimationDialog extends StatelessWidget {
           child: Text('Accept'),
         ),
       ],
+    );
+  }
+}
+
+class LoadingDialog extends StatelessWidget {
+  final message;
+  LoadingDialog({this.message});
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: CircularProgressIndicator(),
+          ),
+          Text(message),
+        ],
+      ),
     );
   }
 }

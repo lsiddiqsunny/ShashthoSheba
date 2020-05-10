@@ -86,9 +86,22 @@ class AppointmentsList extends StatelessWidget {
                                 bool cancel =
                                     await _confirmationDialog(context);
                                 if (cancel) {
-                                  if (await appointmentProvider
-                                      .cancelAppointment(appointmentProvider
-                                          .appointments[index])) {
+                                  bool success = await showDialog<bool>(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      appointmentProvider
+                                          .cancelAppointment(appointmentProvider
+                                              .appointments[index])
+                                          .then(
+                                            (result) => Navigator.pop<bool>(
+                                                context, result),
+                                          );
+                                      return LoadingDialog(
+                                          message: 'Please Wait');
+                                    },
+                                  );
+                                  if (success) {
                                     print('Appointment Canceled Successfully');
                                     await showDialog(
                                       context: context,
@@ -164,7 +177,17 @@ void _showImageDialog(BuildContext context,
             ),
             label: Text('Download', style: theme.textTheme.button),
             onPressed: () async {
-              if (await appointmentProvider.saveImage(index)) {
+              bool success = await showDialog<bool>(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  appointmentProvider.saveImage(index).then(
+                        (result) => Navigator.pop<bool>(context, result),
+                      );
+                  return LoadingDialog(message: 'Please Wait');
+                },
+              );
+              if (success) {
                 await showDialog(
                   context: context,
                   builder: (context) {

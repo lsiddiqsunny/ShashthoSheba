@@ -42,7 +42,7 @@ class _TabbedPagesState extends State<MainPage>
       print(e.toString());
     }
   }
-  
+
   void _logOut(BuildContext context) async {
     bool success = await showDialog<bool>(
       context: context,
@@ -54,24 +54,12 @@ class _TabbedPagesState extends State<MainPage>
           print(e.toString());
           Navigator.pop<bool>(context, false);
         });
-        return AlertDialog(
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: CircularProgressIndicator(),
-              ),
-              Text('Logging out'),
-            ],
-          ),
-        );
+        return LoadingDialog(message: 'Logging Out');
       },
     );
     if (success) {
       try {
-        SharedPreferences prefs =
-            await SharedPreferences.getInstance();
+        SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.remove('jwt');
         Navigator.popUntil(context, ModalRoute.withName('/'));
       } catch (e) {
@@ -101,8 +89,10 @@ class _TabbedPagesState extends State<MainPage>
       onMessage: (Map<String, dynamic> message) async {
         print('message');
         print(message['data']['token']);
-        Navigator.pushNamed(context, IncomingCall.routeName,
-            arguments: message['data']['token']);
+        Navigator.pushNamed(context, IncomingCall.routeName, arguments: {
+          'token': message['data']['token'],
+          'doctor_name': message['data']['doctor_name'],
+        });
       },
       onLaunch: (Map<String, dynamic> message) async {
         print('launch');

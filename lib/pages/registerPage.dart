@@ -29,25 +29,40 @@ class _RegisterPageState extends State<RegisterPage> {
       sex: _sex,
       password: _pass.text,
     );
-    try {
-      await api.patientRegister(patient);
-      print('Successfully Registered');
-      await showDialog(
-        context: context,
-        builder: (context) {
-          return SuccessDialog(
-            contentText: 'Seccessfully Registered',
-          );
-        },
-      );
-      Navigator.pop(context);
-    } catch (e) {
-      print(e.toString());
-      await showDialog(
+    bool success = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        api.patientRegister(patient).then((data) {
+          Navigator.pop<bool>(context, true);
+        }, onError: (e) {
+          print(e.toString());
+          Navigator.pop<bool>(context, false);
+        });
+        return LoadingDialog(message: 'Please Wait');
+      },
+    );
+    if (success) {
+      try {
+        print('Successfully Registered');
+        await showDialog(
+          context: context,
+          builder: (context) {
+            return SuccessDialog(
+              contentText: 'Seccessfully Registered',
+            );
+          },
+        );
+        Navigator.pop(context);
+      } catch (e) {
+        print(e.toString());
+      }
+    } else {
+      showDialog(
         context: context,
         builder: (context) {
           return FailureDialog(
-            contentText: 'Registration Unsuccessful',
+            contentText: 'Registration Failed',
           );
         },
       );

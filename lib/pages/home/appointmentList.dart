@@ -206,7 +206,17 @@ class _AddTransactionButton extends StatelessWidget {
                 },
               );
               if (transaction != null) {
-                if (await transactionProvider.addTransaction(transaction)) {
+                bool success = await showDialog<bool>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    transactionProvider.addTransaction(transaction).then(
+                          (result) => Navigator.pop<bool>(context, result),
+                        );
+                    return LoadingDialog(message: 'Please Wait');
+                  },
+                );
+                if (success) {
                   print('Transaction Added Successfully');
                   await showDialog(
                     context: context,

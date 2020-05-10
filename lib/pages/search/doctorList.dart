@@ -47,7 +47,6 @@ class DoctorList extends StatelessWidget {
                                     style: theme.textTheme.headline6,
                                   ),
                                   subtitle: Text(
-                                    '${doctorProvider.doctors[index].designation}, ' +
                                         '${doctorProvider.doctors[index].institution}\n' +
                                         '${doctorProvider.doctors[index].specialization.join(',')}',
                                   ),
@@ -192,8 +191,16 @@ class _AddAppointment extends StatelessWidget {
                     DateFormat("yyyy-MM-dd").format(date).toString() +
                         ' ' +
                         DateFormat.Hms().format(time));
-                int serialNo = await doctorProvider.createAppointment(
-                    doctorIndex, dateTime);
+                int serialNo = await showDialog<int>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    doctorProvider.createAppointment(doctorIndex, dateTime).then(
+                          (result) => Navigator.pop<int>(context, result),
+                        );
+                    return LoadingDialog(message: 'Please Wait');
+                  },
+                );
                 if (serialNo > 0) {
                   print('Successfully Created Appointment');
                   await showDialog(

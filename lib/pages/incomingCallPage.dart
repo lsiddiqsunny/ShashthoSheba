@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../models/doctor.dart';
 import './ongoingCallPage.dart';
 
 class IncomingCall extends StatefulWidget {
@@ -26,8 +25,10 @@ class _IncomingCallState extends State<IncomingCall> {
     print(statuses[Permission.camera]);
     print(statuses[Permission.microphone]);
     print(statuses[Permission.mediaLibrary]);
+    Map<String, dynamic> data = ModalRoute.of(context).settings.arguments;
+    String token = data['token'];
     Navigator.pushNamed(context, OngoingCall.routeName,
-        arguments: ModalRoute.of(context).settings.arguments);
+        arguments: token);
   }
 
   void _rejectCall(BuildContext context) {
@@ -37,8 +38,8 @@ class _IncomingCallState extends State<IncomingCall> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    // Doctor doctor = ModalRoute.of(context).settings.arguments;
-    Doctor doctor = Doctor(name: 'Dr.Shafiul Islam');
+    Map<String, dynamic> data = ModalRoute.of(context).settings.arguments;
+    String doctorName = data['doctor_name'];
     return Scaffold(
       body: Container(
         child: Column(
@@ -54,7 +55,7 @@ class _IncomingCallState extends State<IncomingCall> {
               height: 50,
             ),
             Text(
-              doctor.name,
+              doctorName,
               style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
