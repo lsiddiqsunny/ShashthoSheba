@@ -83,8 +83,8 @@ class AppointmentsList extends StatelessWidget {
                               ),
                               borderSide: BorderSide(color: theme.primaryColor),
                               onPressed: () async {
-                                bool cancel =
-                                    await _confirmationDialog(context);
+                                bool cancel = await confirmationDialog(context,
+                                    'If you press accept then your appointment will be canceled');
                                 if (cancel) {
                                   bool success = await showDialog<bool>(
                                     context: context,
@@ -103,26 +103,12 @@ class AppointmentsList extends StatelessWidget {
                                   );
                                   if (success) {
                                     print('Appointment Canceled Successfully');
-                                    await showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return SuccessDialog(
-                                          contentText:
-                                              'Appointment Canceled Successfully',
-                                        );
-                                      },
-                                    );
+                                    await successDialog(context,
+                                        'Appointment Canceled Successfully');
                                   } else {
                                     print('Appointment Cancelation Failed');
-                                    await showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return FailureDialog(
-                                          contentText:
-                                              'Appointment Cancelation Failed',
-                                        );
-                                      },
-                                    );
+                                    await failureDialog(context,
+                                        'Appointment Cancelation Failed');
                                   }
                                 }
                               },
@@ -132,19 +118,6 @@ class AppointmentsList extends StatelessWidget {
                 ),
               );
   }
-}
-
-Future<bool> _confirmationDialog(BuildContext context) async {
-  return await showDialog<bool>(
-    context: context,
-    barrierDismissible: false,
-    builder: (context) {
-      return ConfirmationDialog(
-        contentText:
-            'If you press accept then your appointment will be canceled',
-      );
-    },
-  );
 }
 
 void _showImageDialog(BuildContext context,
@@ -175,7 +148,7 @@ void _showImageDialog(BuildContext context,
               Icons.file_download,
               color: theme.primaryColor,
             ),
-            label: Text('Download', style: theme.textTheme.button),
+            label: Text('Save', style: theme.textTheme.button),
             onPressed: () async {
               bool success = await showDialog<bool>(
                 context: context,
@@ -184,25 +157,13 @@ void _showImageDialog(BuildContext context,
                   appointmentProvider.saveImage(index).then(
                         (result) => Navigator.pop<bool>(context, result),
                       );
-                  return LoadingDialog(message: 'Please Wait');
+                  return LoadingDialog(message: 'Saving');
                 },
               );
               if (success) {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return SuccessDialog(
-                        contentText: 'Image Saved Successfully');
-                  },
-                );
+                await successDialog(context, 'Image Saved Successfully');
               } else {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return FailureDialog(
-                        contentText: 'Image Could Not Be Saved');
-                  },
-                );
+                await failureDialog(context, 'Image Could Not Be Saved');
               }
             },
           ),

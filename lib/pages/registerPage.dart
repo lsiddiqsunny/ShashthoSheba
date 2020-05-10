@@ -43,29 +43,11 @@ class _RegisterPageState extends State<RegisterPage> {
       },
     );
     if (success) {
-      try {
-        print('Successfully Registered');
-        await showDialog(
-          context: context,
-          builder: (context) {
-            return SuccessDialog(
-              contentText: 'Seccessfully Registered',
-            );
-          },
-        );
-        Navigator.pop(context);
-      } catch (e) {
-        print(e.toString());
-      }
+      print('Successfully Registered');
+      await successDialog(context, 'Successfully Registered');
+      Navigator.pop(context);
     } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return FailureDialog(
-            contentText: 'Registration Failed',
-          );
-        },
-      );
+      await failureDialog(context, 'Registration Failed');
     }
   }
 

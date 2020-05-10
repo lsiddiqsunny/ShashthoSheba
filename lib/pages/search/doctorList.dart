@@ -47,7 +47,7 @@ class DoctorList extends StatelessWidget {
                                     style: theme.textTheme.headline6,
                                   ),
                                   subtitle: Text(
-                                        '${doctorProvider.doctors[index].institution}\n' +
+                                    '${doctorProvider.doctors[index].institution}\n' +
                                         '${doctorProvider.doctors[index].specialization.join(',')}',
                                   ),
                                   isThreeLine: true,
@@ -195,7 +195,9 @@ class _AddAppointment extends StatelessWidget {
                   context: context,
                   barrierDismissible: false,
                   builder: (context) {
-                    doctorProvider.createAppointment(doctorIndex, dateTime).then(
+                    doctorProvider
+                        .createAppointment(doctorIndex, dateTime)
+                        .then(
                           (result) => Navigator.pop<int>(context, result),
                         );
                     return LoadingDialog(message: 'Please Wait');
@@ -203,24 +205,11 @@ class _AddAppointment extends StatelessWidget {
                 );
                 if (serialNo > 0) {
                   print('Successfully Created Appointment');
-                  await showDialog(
-                    context: context,
-                    builder: (context) {
-                      return SuccessDialog(
-                        contentText: 'Appointment Created Successfully. Your Serial is $serialNo',
-                      );
-                    },
-                  );
+                  await successDialog(context,
+                      'Appointment Created Successfully. Your Serial is $serialNo');
                 } else {
                   print('Appointment Creation Failed');
-                  await showDialog(
-                    context: context,
-                    builder: (context) {
-                      return FailureDialog(
-                        contentText: 'Appointment Creation Failed',
-                      );
-                    },
-                  );
+                  await failureDialog(context, 'Appointment Creation Failed');
                 }
               }
             }

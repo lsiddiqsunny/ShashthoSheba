@@ -66,14 +66,7 @@ class _TabbedPagesState extends State<MainPage>
         print(e.toString());
       }
     } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return FailureDialog(
-            contentText: 'Logout Failed',
-          );
-        },
-      );
+      await failureDialog(context, 'Logout Failed');
     }
   }
 

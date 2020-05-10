@@ -59,14 +59,7 @@ class _LoginPageState extends State<LoginPage> {
         print(e.toString());
       }
     } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return FailureDialog(
-            contentText: 'Login Failed',
-          );
-        },
-      );
+      await failureDialog(context, 'Login Failed');
     }
   }
 

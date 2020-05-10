@@ -218,24 +218,11 @@ class _AddTransactionButton extends StatelessWidget {
                 );
                 if (success) {
                   print('Transaction Added Successfully');
-                  await showDialog(
-                    context: context,
-                    builder: (context) {
-                      return SuccessDialog(
-                        contentText: 'Transaction Added Successfully',
-                      );
-                    },
-                  );
+                  await successDialog(
+                      context, 'Transaction Added Successfully');
                 } else {
                   print('Failed to Add Transaction');
-                  await showDialog(
-                    context: context,
-                    builder: (context) {
-                      return FailureDialog(
-                        contentText: 'Failed to Add Transaction',
-                      );
-                    },
-                  );
+                  await failureDialog(context, 'Failed to Add Transaction');
                 }
               }
             },
