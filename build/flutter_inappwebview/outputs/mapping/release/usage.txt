@@ -1,0 +1,114 @@
+com.pichillilorenzo.flutter_inappwebview.BuildConfig
+com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ChromeCustomTabsActivity:
+    protected static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ChromeCustomTabsOptions:
+    static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.CustomTabActivityHelper:
+    59:64:public androidx.browser.customtabs.CustomTabsSession getSession()
+    72:73:public void setConnectionCallback(com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.CustomTabActivityHelper$ConnectionCallback)
+    94:99:public boolean mayLaunchUrl(android.net.Uri,android.os.Bundle,java.util.List)
+com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.CustomTabsHelper:
+    private static final java.lang.String TAG
+    static final java.lang.String STABLE_PACKAGE
+    static final java.lang.String BETA_PACKAGE
+    static final java.lang.String DEV_PACKAGE
+    static final java.lang.String LOCAL_PACKAGE
+    private static final java.lang.String EXTRA_CUSTOM_TABS_KEEP_ALIVE
+    private static final java.lang.String ACTION_CUSTOM_TABS_CONNECTION
+    31:31:private CustomTabsHelper()
+    34:37:public static void addKeepAliveExtra(android.content.Context,android.content.Intent)
+    126:126:public static java.lang.String[] getPackages()
+com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.KeepAliveService
+com.pichillilorenzo.flutter_inappwebview.ContentBlocker.ContentBlockerActionType:
+    15:15:public boolean equalsValue(java.lang.String)
+com.pichillilorenzo.flutter_inappwebview.ContentBlocker.ContentBlockerHandler:
+    protected static final java.lang.String LOG_TAG
+    31:37:public ContentBlockerHandler(java.util.List)
+    44:45:public void setRuleList(java.util.List)
+com.pichillilorenzo.flutter_inappwebview.ContentBlocker.ContentBlockerTriggerResourceType:
+    21:21:public boolean equalsValue(java.lang.String)
+com.pichillilorenzo.flutter_inappwebview.CredentialDatabase.CredentialContract
+com.pichillilorenzo.flutter_inappwebview.CredentialDatabase.CredentialContract$FeedEntry
+com.pichillilorenzo.flutter_inappwebview.CredentialDatabase.CredentialDao:
+    98:101:public long delete(com.pichillilorenzo.flutter_inappwebview.CredentialDatabase.Credential)
+com.pichillilorenzo.flutter_inappwebview.CredentialDatabase.CredentialDatabase:
+    static final java.lang.String LOG_TAG
+    public static final int DATABASE_VERSION
+    public static final java.lang.String DATABASE_NAME
+com.pichillilorenzo.flutter_inappwebview.CredentialDatabase.CredentialDatabaseHelper:
+    private static final java.lang.String SQL_CREATE_PROTECTION_SPACE_TABLE
+    private static final java.lang.String SQL_CREATE_CREDENTIAL_TABLE
+    private static final java.lang.String SQL_DELETE_PROTECTION_SPACE_TABLE
+    private static final java.lang.String SQL_DELETE_CREDENTIAL_TABLE
+com.pichillilorenzo.flutter_inappwebview.CredentialDatabase.ProtectionSpaceContract
+com.pichillilorenzo.flutter_inappwebview.CredentialDatabase.ProtectionSpaceContract$FeedEntry
+com.pichillilorenzo.flutter_inappwebview.CredentialDatabaseHandler:
+    static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.FlutterWebView:
+    static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.InAppBrowser:
+    protected static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.InAppBrowserActivity:
+    static final java.lang.String LOG_TAG
+    342:343:public void goBackButtonClicked(android.view.MenuItem)
+    346:347:public void goForwardButtonClicked(android.view.MenuItem)
+    350:354:public void shareButtonClicked(android.view.MenuItem)
+    357:358:public void reloadButtonClicked(android.view.MenuItem)
+    361:362:public void closeButtonClicked(android.view.MenuItem)
+com.pichillilorenzo.flutter_inappwebview.InAppBrowserOptions:
+    public static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.InAppWebView.DisplayListenerProxy:
+    private static final java.lang.String TAG
+com.pichillilorenzo.flutter_inappwebview.InAppWebView.InAppWebView:
+    static final java.lang.String LOG_TAG
+    static final java.lang.String consoleLogJS
+    static final java.lang.String printJS
+    static final java.lang.String platformReadyJS
+    static final java.lang.String variableForOnLoadResourceJS
+    static final java.lang.String enableVariableForOnLoadResourceJS
+    static final java.lang.String resourceObserverJS
+    static final java.lang.String variableForShouldInterceptAjaxRequestJS
+    static final java.lang.String enableVariableForShouldInterceptAjaxRequestJS
+    static final java.lang.String interceptAjaxRequestsJS
+    static final java.lang.String variableForShouldInterceptFetchRequestsJS
+    static final java.lang.String enableVariableForShouldInterceptFetchRequestsJS
+    static final java.lang.String interceptFetchRequestsJS
+com.pichillilorenzo.flutter_inappwebview.InAppWebView.InAppWebViewChromeClient:
+    protected static final java.lang.String LOG_TAG
+    private android.webkit.ValueCallback mUploadMessage
+    private static final int FILECHOOSER_RESULTCODE
+    543:549:public void openFileChooser(android.webkit.ValueCallback)
+    553:560:public void openFileChooser(android.webkit.ValueCallback,java.lang.String)
+    564:570:public void openFileChooser(android.webkit.ValueCallback,java.lang.String,java.lang.String)
+com.pichillilorenzo.flutter_inappwebview.InAppWebView.InAppWebViewClient:
+    protected static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.InAppWebView.InAppWebViewOptions:
+    public static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.InAppWebView.InputAwareWebView:
+    private static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.InAppWebView.PreferredContentModeOptionType:
+    15:15:public boolean equalsValue(int)
+com.pichillilorenzo.flutter_inappwebview.InAppWebView.ThreadedInputConnectionProxyAdapterView:
+    39:39:boolean isTriggerDelayed()
+com.pichillilorenzo.flutter_inappwebview.InAppWebViewFlutterPlugin:
+    protected static final java.lang.String LOG_TAG
+    29:29:public InAppWebViewFlutterPlugin()
+    32:36:public static void registerWith(io.flutter.plugin.common.PluginRegistry$Registrar)
+com.pichillilorenzo.flutter_inappwebview.InAppWebViewStatic:
+    protected static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.JavaScriptBridgeInterface:
+    private static final java.lang.String LOG_TAG
+    public static final java.lang.String name
+    public static final java.lang.String promisePolyfillJS
+    public static final java.lang.String flutterInAppBroserJSClass
+com.pichillilorenzo.flutter_inappwebview.MyCookieManager:
+    static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.MyWebStorage:
+    static final java.lang.String LOG_TAG
+com.pichillilorenzo.flutter_inappwebview.RequestPermissionHandler
+com.pichillilorenzo.flutter_inappwebview.Shared:
+    10:10:public Shared()
+com.pichillilorenzo.flutter_inappwebview.Util:
+    static final java.lang.String LOG_TAG
+    public static final java.lang.String ANDROID_ASSET_URL
+    37:37:private Util()

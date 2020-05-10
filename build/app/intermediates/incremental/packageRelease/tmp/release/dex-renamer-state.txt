@@ -1,0 +1,4 @@
+#Sun May 10 12:30:35 BDT 2020
+base.0=D\:\\Doctor_app_frontend\\build\\app\\intermediates\\transforms\\r8\\release\\0
+renamed.0=classes.dex
+path.0=classes.dex

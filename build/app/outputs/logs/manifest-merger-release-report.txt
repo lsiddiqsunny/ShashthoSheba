@@ -1,0 +1,264 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:1:1-44:12
+MERGED from [:shared_preferences] D:\Doctor_app_frontend\build\shared_preferences\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences_web] D:\Doctor_app_frontend\build\shared_preferences_web\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:2:1-18:12
+MERGED from [:path_provider] D:\Doctor_app_frontend\build\path_provider\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:path_provider_macos] D:\Doctor_app_frontend\build\path_provider_macos\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher] D:\Doctor_app_frontend\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:2:1-14:12
+MERGED from [:url_launcher_macos] D:\Doctor_app_frontend\build\url_launcher_macos\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:permission_handler] D:\Doctor_app_frontend\build\permission_handler\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:camera] D:\Doctor_app_frontend\build\camera\intermediates\library_manifest\release\AndroidManifest.xml:2:1-10:12
+MERGED from [:shared_preferences_macos] D:\Doctor_app_frontend\build\shared_preferences_macos\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher_web] D:\Doctor_app_frontend\build\url_launcher_web\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.webkit:webkit:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\webkit-1.0.0.aar\28013d7db446c08cf81262917cda8929\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.browser:browser:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\browser-1.0.0.aar\978afb4670106ffb63ef7ad6cb5bc38c\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\appcompat-1.0.0.aar\51d2b7c9c13d904e6b7f26b69c59a054\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\fragment-1.1.0.aar\7d4e399ea5ba1df6535b42ffc902d607\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\vectordrawable-animated-1.0.0.aar\486fb8f623e744a7bf9b4baa90d9446e\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\legacy-support-core-ui-1.0.0.aar\2014cf0f95f5c9775aa53892a3063175\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\legacy-support-core-utils-1.0.0.aar\5d0a3ff2dcf3dda86a7ab95cb50696df\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\vectordrawable-1.0.0.aar\3f40e0e03d20f2897e675a5aac36f418\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\viewpager-1.0.0.aar\2fa9ee29fa115dda317a337258ec05ed\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\loader-1.0.0.aar\2fa1c98717456cdf02057961f2af8858\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\activity-1.0.0.aar\8736bce32f4a6463c2b9ef78c6e99d5b\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-1.0.0.aar\2a0d9a6b4905f51889bf818d55fce091\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\drawerlayout-1.0.0.aar\f2fc1fcb8dd292d55bc4630dc64a28e3\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-1.0.0.aar\7766532aed631b5d55a65f17e32897d3\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\customview-1.0.0.aar\9ca152c68e1516e8a5e45fae24af9a76\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-1.0.0.aar\b62b5b31fec476dab0f6f0894a52f767\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-1.0.0.aar\c95f3b081f1a5dc83132b6d9457f219b\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\core-1.1.0.aar\40408abd27c4bd38c0c727fd3c4e34c3\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.2.0.aar\9df3bb7687095f7e1a712000f9f3d400\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\savedstate-1.0.0.aar\5ab196779e97c7b047f6650487c9496f\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-2.0.0.aar\8ad936b659effc89e4517bcb8d2230d8\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-core-2.0.0.aar\7b72aa7ff72e1d6690d38404ec243d01\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\interpolator-1.0.0.aar\22cd0e5835a9554d2f19d4e557a57b1e\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\cursoradapter-1.0.0.aar\b555e9a9cfcf1eaf0ee06d06931c451e\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.1.0.aar\5a8648ac9445987271b369535cd07f5e\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\core-runtime-2.0.0.aar\9268ba99bcf9815a33f321ae98e4b949\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\documentfile-1.0.0.aar\fa389dd0e5640f42427cde3ad39d68b4\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-1.0.0.aar\c7135389b1fb456addb0aee296d58118\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\print-1.0.0.aar\dcbbf7f1b325699cb207d67ad01c81d8\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-viewmodel-2.1.0.aar\8607e12bd0c21806e0ecff5222c20d8f\AndroidManifest.xml:17:1-22:12
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:1:1-44:12
+	package
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:2:5-33
+		INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:1:1-44:12
+		INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:1:1-44:12
+		INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:8:5-66
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:8:22-64
+uses-permission#android.permission.CAMERA
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:9:5-65
+MERGED from [:camera] D:\Doctor_app_frontend\build\camera\intermediates\library_manifest\release\AndroidManifest.xml:7:5-65
+MERGED from [:camera] D:\Doctor_app_frontend\build\camera\intermediates\library_manifest\release\AndroidManifest.xml:7:5-65
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:9:22-62
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:10:5-71
+MERGED from [:camera] D:\Doctor_app_frontend\build\camera\intermediates\library_manifest\release\AndroidManifest.xml:8:5-71
+MERGED from [:camera] D:\Doctor_app_frontend\build\camera\intermediates\library_manifest\release\AndroidManifest.xml:8:5-71
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:10:22-68
+uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:11:5-80
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:11:22-77
+uses-permission#android.permission.VIDEO_CAPTURE
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:12:5-72
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:12:22-69
+uses-permission#android.permission.AUDIO_CAPTURE
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:13:5-72
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:13:22-69
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:14:5-81
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:14:22-78
+application
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:20:5-43:19
+MERGED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:7:5-16:19
+MERGED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:7:5-16:19
+MERGED from [:url_launcher] D:\Doctor_app_frontend\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:7:5-12:19
+MERGED from [:url_launcher] D:\Doctor_app_frontend\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:7:5-12:19
+MERGED from [androidx.core:core:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\core-1.1.0.aar\40408abd27c4bd38c0c727fd3c4e34c3\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\core-1.1.0.aar\40408abd27c4bd38c0c727fd3c4e34c3\AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.1.0.aar\5a8648ac9445987271b369535cd07f5e\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.1.0.aar\5a8648ac9445987271b369535cd07f5e\AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\core-1.1.0.aar\40408abd27c4bd38c0c727fd3c4e34c3\AndroidManifest.xml:24:18-86
+	android:label
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:22:9-31
+	android:icon
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:23:9-43
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:21:9-57
+activity#com.example.Doctor.MainActivity
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:24:9-42:20
+	android:launchMode
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:26:13-43
+	android:hardwareAccelerated
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:29:13-47
+	android:windowSoftInputMode
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:30:13-55
+	android:configChanges
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:28:13-137
+	android:theme
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:27:13-47
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:25:13-41
+meta-data#io.flutter.app.android.SplashScreenUntilFirstFrame
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:35:13-37:40
+	android:value
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:37:17-37
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:36:17-82
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:38:13-41:29
+action#android.intent.action.MAIN
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:39:17-68
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:39:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:40:17-76
+	android:name
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml:40:27-74
+uses-sdk
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+MERGED from [:shared_preferences] D:\Doctor_app_frontend\build\shared_preferences\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] D:\Doctor_app_frontend\build\shared_preferences\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_web] D:\Doctor_app_frontend\build\shared_preferences_web\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_web] D:\Doctor_app_frontend\build\shared_preferences_web\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] D:\Doctor_app_frontend\build\path_provider\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] D:\Doctor_app_frontend\build\path_provider\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_macos] D:\Doctor_app_frontend\build\path_provider_macos\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_macos] D:\Doctor_app_frontend\build\path_provider_macos\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher] D:\Doctor_app_frontend\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher] D:\Doctor_app_frontend\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_macos] D:\Doctor_app_frontend\build\url_launcher_macos\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_macos] D:\Doctor_app_frontend\build\url_launcher_macos\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] D:\Doctor_app_frontend\build\permission_handler\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] D:\Doctor_app_frontend\build\permission_handler\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:camera] D:\Doctor_app_frontend\build\camera\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:camera] D:\Doctor_app_frontend\build\camera\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_macos] D:\Doctor_app_frontend\build\shared_preferences_macos\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_macos] D:\Doctor_app_frontend\build\shared_preferences_macos\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_web] D:\Doctor_app_frontend\build\url_launcher_web\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_web] D:\Doctor_app_frontend\build\url_launcher_web\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.webkit:webkit:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\webkit-1.0.0.aar\28013d7db446c08cf81262917cda8929\AndroidManifest.xml:20:5-44
+MERGED from [androidx.webkit:webkit:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\webkit-1.0.0.aar\28013d7db446c08cf81262917cda8929\AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\browser-1.0.0.aar\978afb4670106ffb63ef7ad6cb5bc38c\AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\browser-1.0.0.aar\978afb4670106ffb63ef7ad6cb5bc38c\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\appcompat-1.0.0.aar\51d2b7c9c13d904e6b7f26b69c59a054\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\appcompat-1.0.0.aar\51d2b7c9c13d904e6b7f26b69c59a054\AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\fragment-1.1.0.aar\7d4e399ea5ba1df6535b42ffc902d607\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\fragment-1.1.0.aar\7d4e399ea5ba1df6535b42ffc902d607\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\vectordrawable-animated-1.0.0.aar\486fb8f623e744a7bf9b4baa90d9446e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\vectordrawable-animated-1.0.0.aar\486fb8f623e744a7bf9b4baa90d9446e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\legacy-support-core-ui-1.0.0.aar\2014cf0f95f5c9775aa53892a3063175\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\legacy-support-core-ui-1.0.0.aar\2014cf0f95f5c9775aa53892a3063175\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\legacy-support-core-utils-1.0.0.aar\5d0a3ff2dcf3dda86a7ab95cb50696df\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\legacy-support-core-utils-1.0.0.aar\5d0a3ff2dcf3dda86a7ab95cb50696df\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\vectordrawable-1.0.0.aar\3f40e0e03d20f2897e675a5aac36f418\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\vectordrawable-1.0.0.aar\3f40e0e03d20f2897e675a5aac36f418\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\viewpager-1.0.0.aar\2fa9ee29fa115dda317a337258ec05ed\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\viewpager-1.0.0.aar\2fa9ee29fa115dda317a337258ec05ed\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\loader-1.0.0.aar\2fa1c98717456cdf02057961f2af8858\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\loader-1.0.0.aar\2fa1c98717456cdf02057961f2af8858\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\activity-1.0.0.aar\8736bce32f4a6463c2b9ef78c6e99d5b\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\activity-1.0.0.aar\8736bce32f4a6463c2b9ef78c6e99d5b\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-1.0.0.aar\2a0d9a6b4905f51889bf818d55fce091\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-1.0.0.aar\2a0d9a6b4905f51889bf818d55fce091\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\drawerlayout-1.0.0.aar\f2fc1fcb8dd292d55bc4630dc64a28e3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\drawerlayout-1.0.0.aar\f2fc1fcb8dd292d55bc4630dc64a28e3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-1.0.0.aar\7766532aed631b5d55a65f17e32897d3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-1.0.0.aar\7766532aed631b5d55a65f17e32897d3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\customview-1.0.0.aar\9ca152c68e1516e8a5e45fae24af9a76\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\customview-1.0.0.aar\9ca152c68e1516e8a5e45fae24af9a76\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-1.0.0.aar\b62b5b31fec476dab0f6f0894a52f767\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-1.0.0.aar\b62b5b31fec476dab0f6f0894a52f767\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-1.0.0.aar\c95f3b081f1a5dc83132b6d9457f219b\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-1.0.0.aar\c95f3b081f1a5dc83132b6d9457f219b\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\core-1.1.0.aar\40408abd27c4bd38c0c727fd3c4e34c3\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\core-1.1.0.aar\40408abd27c4bd38c0c727fd3c4e34c3\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.2.0.aar\9df3bb7687095f7e1a712000f9f3d400\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.2.0.aar\9df3bb7687095f7e1a712000f9f3d400\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\savedstate-1.0.0.aar\5ab196779e97c7b047f6650487c9496f\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\savedstate-1.0.0.aar\5ab196779e97c7b047f6650487c9496f\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-2.0.0.aar\8ad936b659effc89e4517bcb8d2230d8\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-2.0.0.aar\8ad936b659effc89e4517bcb8d2230d8\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-core-2.0.0.aar\7b72aa7ff72e1d6690d38404ec243d01\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-core-2.0.0.aar\7b72aa7ff72e1d6690d38404ec243d01\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\interpolator-1.0.0.aar\22cd0e5835a9554d2f19d4e557a57b1e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\interpolator-1.0.0.aar\22cd0e5835a9554d2f19d4e557a57b1e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\cursoradapter-1.0.0.aar\b555e9a9cfcf1eaf0ee06d06931c451e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\cursoradapter-1.0.0.aar\b555e9a9cfcf1eaf0ee06d06931c451e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.1.0.aar\5a8648ac9445987271b369535cd07f5e\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.1.0.aar\5a8648ac9445987271b369535cd07f5e\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\core-runtime-2.0.0.aar\9268ba99bcf9815a33f321ae98e4b949\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\core-runtime-2.0.0.aar\9268ba99bcf9815a33f321ae98e4b949\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\documentfile-1.0.0.aar\fa389dd0e5640f42427cde3ad39d68b4\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\documentfile-1.0.0.aar\fa389dd0e5640f42427cde3ad39d68b4\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-1.0.0.aar\c7135389b1fb456addb0aee296d58118\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-1.0.0.aar\c7135389b1fb456addb0aee296d58118\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\print-1.0.0.aar\dcbbf7f1b325699cb207d67ad01c81d8\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\print-1.0.0.aar\dcbbf7f1b325699cb207d67ad01c81d8\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-viewmodel-2.1.0.aar\8607e12bd0c21806e0ecff5222c20d8f\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\test\.gradle\caches\transforms-1\files-1.1\lifecycle-viewmodel-2.1.0.aar\8607e12bd0c21806e0ecff5222c20d8f\AndroidManifest.xml:20:5-44
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Doctor_app_frontend\android\app\src\main\AndroidManifest.xml
+activity#com.pichillilorenzo.flutter_inappwebview.InAppBrowserActivity
+ADDED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:8:9-11:47
+	android:configChanges
+		ADDED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:10:13-59
+	android:theme
+		ADDED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:11:13-44
+	android:name
+		ADDED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:9:13-89
+activity#com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ChromeCustomTabsActivity
+ADDED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:12:9-15:55
+	android:configChanges
+		ADDED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:14:13-59
+	android:theme
+		ADDED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:15:13-52
+	android:name
+		ADDED from [:flutter_inappwebview] D:\Doctor_app_frontend\build\flutter_inappwebview\intermediates\library_manifest\release\AndroidManifest.xml:13:13-110
+activity#io.flutter.plugins.urllauncher.WebViewActivity
+ADDED from [:url_launcher] D:\Doctor_app_frontend\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:8:9-11:74
+	android:exported
+		ADDED from [:url_launcher] D:\Doctor_app_frontend\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:10:13-37
+	android:theme
+		ADDED from [:url_launcher] D:\Doctor_app_frontend\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:11:13-71
+	android:name
+		ADDED from [:url_launcher] D:\Doctor_app_frontend\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:9:13-74

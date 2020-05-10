@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\Doctor_app_frontend\\build\\url_launcher\\intermediates\\res\\merged\\release\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\test\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.1.0.aar\\40408abd27c4bd38c0c727fd3c4e34c3\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "D:\\Doctor_app_frontend\\build\\url_launcher\\intermediates\\res\\merged\\release\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\test\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.1.0.aar\\40408abd27c4bd38c0c727fd3c4e34c3\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "D:\\Doctor_app_frontend\\build\\url_launcher\\intermediates\\res\\merged\\release\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\test\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.1.0.aar\\40408abd27c4bd38c0c727fd3c4e34c3\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "D:\\Doctor_app_frontend\\build\\url_launcher\\intermediates\\res\\merged\\release\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\test\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.1.0.aar\\40408abd27c4bd38c0c727fd3c4e34c3\\res\\drawable\\notification_bg_low.xml"
+    }
+]

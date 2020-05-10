@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:2:1-9:12
+INJECTED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:2:1-9:12
+INJECTED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:2:1-9:12
+	package
+		ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:3:5-55
+		INJECTED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml
+		INJECTED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:2:11-69
+application
+ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:4:5-7:19
+activity#com.pichillilorenzo.flutter_inappwebview.InAppBrowserActivity
+ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:5:9-186
+	android:configChanges
+		ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:5:128-174
+	android:theme
+		ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:5:19-50
+	android:name
+		ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:5:51-127
+activity#com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ChromeCustomTabsActivity
+ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:6:9-215
+	android:configChanges
+		ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:6:157-203
+	android:theme
+		ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:6:19-58
+	android:name
+		ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml:6:59-156
+uses-sdk
+INJECTED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml
+INJECTED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml
+		ADDED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml
+		INJECTED from C:\src\flutter\.pub-cache\git\flutter_inappwebview-9c7ac0da8f01ceb40430da58397bdb31968ca5b1\android\src\main\AndroidManifest.xml
