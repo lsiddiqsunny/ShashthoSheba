@@ -4,6 +4,7 @@ import 'package:Doctor/capturePicture.dart';
 import 'package:camera/camera.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:Doctor/prevAppoinmentList.dart';
 
 import './patient.dart';
 
@@ -50,9 +51,9 @@ class PatientDetails extends StatelessWidget {
                     ),
                     Text('Name: ${patient.pname}'),
                     Text('Date: ${patient.dateTime}'),
-                    if (patient.payment==1)
+                    if (patient.payment == 1)
                       Text('Payment: Done')
-                    else if (patient.payment==0)
+                    else if (patient.payment == 0)
                       Text('Payment: Pending'),
                     SizedBox(
                       height: 20,
@@ -85,27 +86,31 @@ class PatientDetails extends StatelessWidget {
               height: 20,
             ),
             ...patient.transaction.map((entry) {
-              return Card(
-                  color: Colors.lightGreen,
-                  child: ListTile(
-                    contentPadding: EdgeInsets.only(left: 8, right: 8),
-                    title: Text(''),
-                    subtitle: Text('Transaction Id: ' +
-                        entry['transaction_id'].toString()),
-                    isThreeLine: true,
-                    trailing: Text(
-                      'Amount:\n' + entry['amount'].toString(),
-                      textAlign: TextAlign.center,
+              return ListView(shrinkWrap: true, children: <Widget>[
+                Card(
+                    child: ListTile(
+                      contentPadding: EdgeInsets.only(left: 8, right: 8),
+                      title: Text(''),
+                      subtitle: Text('Transaction Id: ' +
+                          entry['transaction_id'].toString()),
+                      isThreeLine: true,
+                      trailing: Text(
+                        'Amount:\n' + entry['amount'].toString(),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                  margin: EdgeInsets.only(left: 5, right: 5));
+                    margin: EdgeInsets.only(left: 5, right: 5)),
+                SizedBox(
+                  height: 10,
+                ),
+              ]);
             }).toList(),
             SizedBox(
               height: 10,
             ),
             if (patient.transaction != null &&
                 patient.transaction.isNotEmpty &&
-                patient.payment==0)
+                patient.payment == 0)
               Card(
                 color: Colors.transparent,
                 child: Container(
@@ -137,7 +142,7 @@ class PatientDetails extends StatelessWidget {
                     RaisedButton(
                       color: Colors.blue,
                       padding: EdgeInsets.only(right: 5),
-                      child: Text('Add prescription'),
+                      child: Text(' Add prescription '),
                       onPressed: () async {
                         WidgetsFlutterBinding.ensureInitialized();
 
@@ -146,16 +151,50 @@ class PatientDetails extends StatelessWidget {
 
                         // Get a specific camera from the list of available cameras.
                         final firstCamera = cameras.first;
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => TakePictureScreen(
                               // Pass the appropriate camera to the TakePictureScreen widget.
                               camera: firstCamera,
-                              doctor:prefs.getString('mobile_no'),
-                              patient:patient,
+                              doctor: prefs.getString('mobile_no'),
+                              patient: patient,
                             ),
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
+              ),
+              margin: EdgeInsets.only(left: 5, right: 5),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Card(
+              color: Colors.transparent,
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    RaisedButton(
+                      color: Colors.blue,
+                      padding: EdgeInsets.only(right: 5),
+                      child: Text(' Previous prescription '),
+                      onPressed: () async {
+                        List prescription = await _getList();
+                        if (prescription != null) {
+                          print(prescription[0]);
+                        }
+                        //push video page with given channel name
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PrevAppoinmentList(
+                                prevAppointments: prescription),
                           ),
                         );
                       },
@@ -169,6 +208,28 @@ class PatientDetails extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<List> _getList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String bearer_token = "Bearer ";
+    bearer_token += prefs.getString('jwt');
+
+    //print(patient.phone_number);
+    final http.Response response = await http.post(
+      'http://192.168.0.103:3000/doctor/get/prevPrescription',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': bearer_token,
+      },
+      body: jsonEncode({'patient_mobile_no': patient.phone_number}),
+    );
+    // print(response.statusCode.toString() );
+    if (response.statusCode == 200) {
+      var parsed = jsonDecode(response.body);
+      return parsed;
+    }
+    return null;
   }
 
   Future<String> _getPatinetToken() async {
@@ -219,7 +280,7 @@ class PatientDetails extends StatelessWidget {
   }
 
   void _pingFirebase(String token, String value) async {
-    
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     var serverToken =
         'AAAAMysQL1A:APA91bE3hyrg1EXgypw03ZL_A42m9ofiJzFdrhWNBXNrVxZX1GjMLyu650Cs-Gf5ek7uGlgNlHDY3Pc3SHHB7ske96wnxKi0dzI6LOadhSUAtdZ15vW8sHXuuBMA6XUpU4RKHvr6DjHQ';
     final http.Response response = await http.post(
@@ -234,7 +295,7 @@ class PatientDetails extends StatelessWidget {
           'title': 'Call from doctor'
         },
         'priority': 'high',
-        'data': {'click_action': 'FLUTTER_NOTIFICATION_CLICK', 'token': value},
+        'data': {'click_action': 'FLUTTER_NOTIFICATION_CLICK', 'token': value, 'doctor_name': prefs.getString('name')},
         'to': token,
       }),
     );

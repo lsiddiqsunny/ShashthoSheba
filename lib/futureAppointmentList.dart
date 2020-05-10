@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:Doctor/futureAppoinmentProvider.dart';
-import 'package:Doctor/patient.dart';
-import 'package:Doctor/patientDetails.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -40,40 +39,41 @@ class FutureAppointmentList extends StatelessWidget {
     return Card(
       child: ListTile(
         contentPadding: EdgeInsets.only(left: 8, right: 8),
-        onTap: () async {
-          //print(data[0]["appointment_detail"][]);
-          var transaction =
-              await getTransaction(entry["appointment_detail"]['_id']);
+        // onTap: () async {
+        //   //print(data[0]["appointment_detail"][]);
+        //   var transaction =
+        //       await getTransaction(entry["appointment_detail"]['_id']);
 
-          //print(transaction[0]);
-          DateTime dateTime = DateTime.parse(
-              entry["appointment_detail"]["appointment_date_time"]);
+        //   //print(transaction[0]);
+        //   DateTime dateTime = DateTime.parse(
+        //       entry["appointment_detail"]["appointment_date_time"]);
 
-          print(entry["appointment_detail"]['mobile_no']);
-          final p = Patient(
-              pname: entry["patient_detail"]['name'],
-              payment: entry["appointment_detail"]['status'],
-              phone_number: entry["patient_detail"]['mobile_no'],
-              serial: entry["appointment_detail"]['_id'],
-              dateTime: DateFormat("dd/MM/yyyy — HH:mm").format(dateTime),
-              transaction: transaction);
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PatientDetails(patient: p),
-            ),
-          );
-        },
+        //   print(entry["appointment_detail"]['mobile_no']);
+        //   final p = Patient(
+        //       pname: entry["patient_detail"]['name'],
+        //       payment: entry["appointment_detail"]['status'],
+        //       phone_number: entry["patient_detail"]['mobile_no'],
+        //       serial: entry["appointment_detail"]['_id'],
+        //       dateTime: DateFormat("dd/MM/yyyy — HH:mm").format(dateTime),
+        //       transaction: transaction);
+        //   await Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => PatientDetails(patient: p),
+        //     ),
+        //   );
+        // },
         //title: Text('Serial No:' + entry['serial'].toString()),
-        subtitle: Text('Patient Name: ' +
-            entry["patient_detail"]['name'] +
-            '\n' +
-            DateFormat.jm().format(DateTime.parse(
-              entry["appointment_detail"]["appointment_date_time"]))),
+        title: Text(
+            entry["patient_detail"]['name'] 
+            
+            ),
+        subtitle: Text(DateFormat.jm().format(DateTime.parse(
+                entry["appointment_detail"]["appointment_date_time"]))),
         isThreeLine: true,
         trailing: Text(
           'Payment:\n' +
-              (entry["appointment_detail"]['status']==1 ? 'Done' : 'Pending'),
+              (entry["appointment_detail"]['status'] == 1 ? 'Done' : 'Pending'),
           textAlign: TextAlign.center,
         ),
       ),
@@ -89,7 +89,7 @@ class FutureAppointmentList extends StatelessWidget {
         : appointmentProvider.appointments.isEmpty
             ? ListTile(
                 title: Text(
-                  'No Appointments Today',
+                  'No Appointments In Future',
                   textAlign: TextAlign.center,
                 ),
               )

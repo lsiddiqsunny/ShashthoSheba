@@ -67,8 +67,8 @@ class _addSchedulePageState extends State<addSchedulePage> {
       body: jsonEncode({
         'time_start': '2020-04-28 '+startHour+':'+startTime+':00',
         'time_end': '2020-04-28 '+endHour+':'+endTime+':00',
-        'day': getDay(selectedDay),
-        'fee': double.parse(_fee.text)
+        'day': getDay(selectedDay).toString(),
+        'fee': int.parse(_fee.text)
       }),
       // body: jsonEncode({'name': _name.text, 'password': _pass.text, "email": _email.text, "institution": _institution.text,"designation": _designation.text,"mobile_no": _mobileNo.text, "reg_number" : _reg_number.text}),
     );
@@ -370,7 +370,9 @@ class _addSchedulePageState extends State<addSchedulePage> {
                             ),
                             TextFormField(
                               controller: _fee,
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
+                                hintText: '1000',
                                 labelText: 'Fee',
                                 hasFloatingPlaceholder: true,
                               ),
@@ -387,6 +389,7 @@ class _addSchedulePageState extends State<addSchedulePage> {
                             Align(
                               alignment: Alignment.centerRight,
                               child: RaisedButton(
+                                color: Colors.blue,
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
                                     submitAction(context);

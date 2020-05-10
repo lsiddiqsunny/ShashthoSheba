@@ -77,7 +77,7 @@ String getDayString(int num) {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String bearer_token = "Bearer ";
     bearer_token += prefs.getString('jwt');
-
+    //print(schedule['_id']+schedule['doc_mobile_no']+getDay(selectedDay).toString());
     final http.Response response = await http.post(
       'http://192.168.0.103:3000/doctor/edit/schedule',
       headers: <String, String>{
@@ -90,11 +90,11 @@ String getDayString(int num) {
         'time_start': '2020-04-28 '+startHour+':'+startTime+':00',
         'time_end': '2020-04-28 '+endHour+':'+endTime+':00',
         'day': getDay(selectedDay),
-        'fee': double.parse(_fee.text)
+        'fee': int.parse(_fee.text)
       }),
       // body: jsonEncode({'name': _name.text, 'password': _pass.text, "email": _email.text, "institution": _institution.text,"designation": _designation.text,"mobile_no": _mobileNo.text, "reg_number" : _reg_number.text}),
     );
-    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text("Schedule successful!"),
@@ -123,6 +123,7 @@ String getDayString(int num) {
 
     endHour = DateFormat("HH").format(DateTime.parse(schedule["time_end"]));
     endTime = DateFormat("mm").format(DateTime.parse(schedule["time_end"]));
+    _fee.text = schedule["fee"].toString();
   }
   
   Widget daySelector() {
@@ -405,12 +406,16 @@ String getDayString(int num) {
                             ),
                             TextFormField(
                               controller: _fee,
+                              keyboardType: TextInputType.number,
+                              //initialValue: '1000',
+                             //initialValue: schedule['fee'].toString()==null?'1000':schedule['fee'].toString(),
                               decoration: InputDecoration(
                                 labelText: 'Fee',
-                                hasFloatingPlaceholder: true,
+                                hintText: schedule["fee"].toString()
                               ),
                               validator: (value) {
                                 if (value.isEmpty) {
+                                  //value =  schedule['fee'].toString();
                                   return 'Please enter fee';
                                 }
                                 return null;

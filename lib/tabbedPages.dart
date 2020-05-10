@@ -31,7 +31,7 @@ class _TabbedPagesState extends State<TabbedPages>
       icon: Icon(Icons.work),
     ),
     Tab(
-      text: 'Tomorrow\'s Appointment',
+      text: 'Future Appointment',
       icon: Icon(Icons.access_alarm),
     ),
   ];
@@ -119,7 +119,7 @@ class _TabbedPagesState extends State<TabbedPages>
                   Navigator.pushNamed(context, ReferPage.routeName);
                 }),
             ListTile(
-                leading: Icon(Icons.settings),
+                leading: Icon(Icons.timer),
                 title: Text('Schedule'),
                 onTap: () async {
                   var schedule = await getSchedule();

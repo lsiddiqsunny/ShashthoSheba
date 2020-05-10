@@ -65,15 +65,16 @@ class AppointmentList extends StatelessWidget {
           );
         },
         //title: Text('Serial No:' + entry['serial'].toString()),
-        subtitle: Text('Patient Name: ' +
-            entry["patient_detail"]['name'] +
-            '\n' +
-            DateFormat.jm().format(DateTime.parse(
-              entry["appointment_detail"]["appointment_date_time"]))),
+        title: Text(
+            entry["patient_detail"]['name'] 
+            
+            ),
+        subtitle: Text(DateFormat.jm().format(DateTime.parse(
+                entry["appointment_detail"]["appointment_date_time"]))),
         isThreeLine: true,
         trailing: Text(
           'Payment:\n' +
-              (entry["appointment_detail"]['status']==1 ? 'Done' : 'Pending'),
+              (entry["appointment_detail"]['status'] == 1 ? 'Done' : entry["appointment_detail"]['status'] == 0 ?'Pending': 'Visited'),
           textAlign: TextAlign.center,
         ),
       ),
@@ -86,7 +87,8 @@ class AppointmentList extends StatelessWidget {
         Provider.of<AppointmentProvider>(context);
     return appointmentProvider.status == Status.loading
         ? Loading()
-        : appointmentProvider.appointments.isEmpty
+        : appointmentProvider.appointments.isEmpty ||
+                appointmentProvider.appointments == null
             ? ListTile(
                 title: Text(
                   'No Appointments Today',

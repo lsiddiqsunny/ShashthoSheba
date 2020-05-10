@@ -31,8 +31,7 @@ class _SchedulePageState extends State<SchedulePage> {
       return "Saturday";
     } else if (num == 7) {
       return "Sunday";
-    }
-    else {
+    } else {
       return "";
     }
   }
@@ -72,35 +71,42 @@ class _SchedulePageState extends State<SchedulePage> {
               height: 20,
             ),
             ...schedule.map((entry) {
-              return Card(
-                  color: Colors.lightGreen,
-                  child: ListTile(
-                    contentPadding: EdgeInsets.only(left: 8, right: 8),
-                    title: Text('Day: ' + getDay(entry["day"])),
-                    subtitle: Text('Start Time: ' +
-                        DateFormat("HH:mm")
-                            .format(DateTime.parse(entry["time_start"])) +
-                        '\n' +
-                        'End Time: ' +
-                        DateFormat("HH:mm")
-                            .format(DateTime.parse(entry["time_end"]))+
-                        '\n' +
-                        'Fee: '+ entry['fee'].toString() ),
-                    isThreeLine: true,
-                    trailing: RaisedButton(
-                      color: Colors.blue,
-                      padding: EdgeInsets.only(right: 5),
-                      child: Text('Edit'),
-                      onPressed: ()  {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => editSchedulePage(schedule:entry)),
-                        );
-                      },
+              return ListView(shrinkWrap: true, children: <Widget>[
+                Card(
+                    //color: Colors.lightGreen,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.only(left: 8, right: 8),
+                      title: Text('Day: ' + getDay(entry["day"])),
+                      subtitle: Text('Start Time: ' +
+                          DateFormat("HH:mm")
+                              .format(DateTime.parse(entry["time_start"])) +
+                          '\n' +
+                          'End Time: ' +
+                          DateFormat("HH:mm")
+                              .format(DateTime.parse(entry["time_end"])) +
+                          '\n' +
+                          'Fee: ' +
+                          entry['fee'].toString()),
+                      isThreeLine: true,
+                      trailing: RaisedButton(
+                        color: Colors.blue,
+                        padding: EdgeInsets.only(right: 5),
+                        child: Text('Edit'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    editSchedulePage(schedule: entry)),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  margin: EdgeInsets.only(left: 5, right: 5));
+                    margin: EdgeInsets.only(left: 5, right: 5)),
+                SizedBox(
+                  height: 10,
+                ),
+              ]);
             }).toList(),
             SizedBox(
               height: 10,
@@ -115,7 +121,7 @@ class _SchedulePageState extends State<SchedulePage> {
                       color: Colors.blue,
                       padding: EdgeInsets.only(right: 5),
                       child: Text('Add new schedule'),
-                      onPressed: ()  {
+                      onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(

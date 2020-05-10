@@ -68,14 +68,20 @@ class _ReferPageState extends State<ReferPage>{
                         height: 25,
                       ),TextFormField(
                         controller: _mobile_no,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: 'Mobile Number',
+                          prefixIcon: Icon(Icons.phone),
+                          labelText: 'Mobile No.',
+                          hintText: '01*********',
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter mobile number';
                           }
+                          if(value.length!=11 && value[0]!='0' && value[1]!='1'){
+                          return 'Enter a valid phone number';
+                        }
                           return null;
                         },
                       ),

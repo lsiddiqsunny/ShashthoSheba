@@ -124,12 +124,17 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                       controller: _mobileNo,
                       decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.phone),
                         labelText: 'Mobile No.',
+                        hintText: '01*********',
                         hasFloatingPlaceholder: true,
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter your mobile No.';
+                        }
+                        if(value.length!=11 && value[0]!='0' && value[1]!='1'){
+                          return 'Enter a valid phone number';
                         }
                         return null;
                       },
@@ -138,9 +143,11 @@ class _LoginPageState extends State<LoginPage> {
                       height: 20,
                     ),
                     TextFormField(
+
                       obscureText: true,
                       controller: _pass,
                       decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.lock),
                         labelText: 'Password',
                       ),
                       validator: (value) {

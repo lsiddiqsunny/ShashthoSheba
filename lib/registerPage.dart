@@ -86,6 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _name,
                         decoration: InputDecoration(
                           labelText: 'Name',
+                          prefixIcon: Icon(Icons.person),
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
@@ -102,11 +103,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _email,
                         decoration: InputDecoration(
                           labelText: 'Email',
+                          prefixIcon: Icon(Icons.email),
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter your email';
+                          }
+                          if (!value.contains('@')) {
+                            return 'Please enter a valid email';
                           }
                           return null;
                         },
@@ -118,12 +123,17 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _mobileNo,
                         decoration: InputDecoration(
                           labelText: 'Mobile No.',
+                          prefixIcon: Icon(Icons.phone),
+                          hintText: '01*********',
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
                             return "Please enter your Mobile Number";
                           }
+                          if(value.length!=11 && value[0]!='0' && value[1]!='1'){
+                          return 'Enter a valid phone number';
+                        }
                           return null;
                         },
                       ),
@@ -134,6 +144,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _institution,
                         decoration: InputDecoration(
                           labelText: 'Institution',
+                          prefixIcon: Icon(Icons.school),
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
@@ -150,6 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _designation,
                         decoration: InputDecoration(
                           labelText: 'Designation',
+                          prefixIcon: Icon(Icons.group),
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
@@ -166,6 +178,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _reg_number,
                         decoration: InputDecoration(
                           labelText: 'Registration Number',
+                          prefixIcon: Icon(Icons.card_membership),
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
@@ -184,6 +197,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Password',
+                          prefixIcon: Icon(Icons.lock),
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
@@ -200,6 +214,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Confirm Password',
+                          prefixIcon: Icon(Icons.lock),
                           hasFloatingPlaceholder: true,
                         ),
                         validator: (value) {
