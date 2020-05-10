@@ -139,7 +139,7 @@ Future<bool> _confirmationDialog(BuildContext context) async {
     context: context,
     barrierDismissible: false,
     builder: (context) {
-      return ConfimationDialog(
+      return ConfirmationDialog(
         contentText:
             'If you press accept then your appointment will be canceled',
       );

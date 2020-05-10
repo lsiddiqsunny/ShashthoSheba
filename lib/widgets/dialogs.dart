@@ -45,10 +45,10 @@ class FailureDialog extends StatelessWidget {
   }
 }
 
-class ConfimationDialog extends StatelessWidget {
+class ConfirmationDialog extends StatelessWidget {
   final contentText;
 
-  ConfimationDialog({this.contentText});
+  ConfirmationDialog({this.contentText});
 
   @override
   Widget build(BuildContext context) {
