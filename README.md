@@ -9,8 +9,8 @@ Patient app code can be found in Patient_app branch : <https://github.com/lsiddi
 Doctor app code can be found in Doctor_app branch : <https://github.com/lsiddiqsunny/Shashtho_Sheba/tree/Doctor_app>
 
 Screenshots:
-![doctor1](Screenshots\doctor1.png)
-![doctor2](Screenshots\doctor2.png)
+![doctor1](Screenshots/doctor1.png)
+![doctor2](Screenshots/doctor2.png)
 
 Backend code can be found here : <https://github.com/return-100/doktor>
 
