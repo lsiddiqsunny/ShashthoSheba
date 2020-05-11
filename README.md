@@ -6,15 +6,27 @@ This project is supervised by [**Dr. A. B. M. Alim Al Islam**](https://cse.buet.
 
 
 
-## Links
+## Patient app
 
 Patient app code can be found in Patient_app branch : <https://github.com/lsiddiqsunny/Shashtho_Sheba/tree/PatientApp>
 
+Screenshots:
+![patient1](Screenshots/patient1.png)
+![patient2](Screenshots/patient2.png)
+
+## Doctor app
 Doctor app code can be found in Doctor_app branch : <https://github.com/lsiddiqsunny/Shashtho_Sheba/tree/Doctor_app>
 
 Screenshots:
 ![doctor1](Screenshots/doctor1.png)
 ![doctor2](Screenshots/doctor2.png)
 
+## Backend
 Backend code can be found here : <https://github.com/return-100/doktor>
 
+## Technology
+  - NodeJS
+  - MongoDB
+  - Flutter
+  - Apprtc
+  
